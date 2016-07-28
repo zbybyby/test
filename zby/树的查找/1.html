@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>树查找</title>
+  <style>
+	.root,.outer,.inner,.inner-in{
+		display:flex;
+		padding:10px;
+		/*margin:*/
+		border:1px solid #000;
+		justify-content: space-between;
+	}
+	.root{
+		width:1300px;
+	}
+  </style>
+ </head>
+ <body>
+	
+	<div class="root" id="super">Super
+		<div class="outer" id="car">Car
+			<div class="inner" id="apple">Apple
+				<div class="inner-in" id="peor">Peor</div>
+				<div class="inner-in" id="plg">Plg</div>
+				<div class="inner-in" id="colo">Colo</div>
+				<div class="inner-in" id="soccer">Soccer</div>
+			</div>
+			<div class="inner" id="phone">Phone</div>
+			<div class="inner" id="">
+				<div class="inner-in" id="book">book</div>
+				<div class="inner-in" id="school">school</div>
+			</div>
+		</div>
+		<div class="outer" id="note">Note
+			<div class="inner" id="human">Human
+				<div class="inner-in" id="code">Code</div>
+				<div class="inner-in" id="operate">Operate</div>
+				<div class="inner-in" id="man">Man</div>
+			</div>
+			<div class="inner" id="program">Program
+				<div class="inner-in" id="bement">Bement</div>
+				<div class="inner-in" id="cat">Cat</div>
+				<div class="inner-in" id="gloss">Gloss</div>
+			</div>
+		</div>
+		<div class="outer" id="fish">Fish
+		</div>
+	</div>
+	<div id="" class="" style="margin-top:20px">
+		<input type="text" />
+		<button id="search">查找</button>
+	</div>
+	<script type="text/javascript">
+	var btn=document.getElementsByTagName("input"),
+	searchElement=btn[0];
+	search1=document.getElementById('search'),
+	treeRoot=document.getElementsByClassName('root')[0],
+	divList=[],
+	timer=null;
+	window.onload=function(){
+		search1.onclick=function(){
+			reset();
+			frontRoot(treeRoot);
+			console.log(divList[4]);
+			var text=searchElement.value;
+			searchElement.vale="";
+			search(divList,0,text);
+		}
+	}
+
+	function search(str,n,text){
+		console.log(text);
+		if(n==str.length){alert('不存在该元素！');}
+		else{
+			if(str[n].id==text.toLowerCase()){
+				console.log("123");
+				str[n].style.backgroundColor="green";
+				str[n-1].style.backgroundColor="";
+				isGoing=false;
+				return true;
+			}
+			str[n].style.backgroundColor="blue";
+			if(n!==0)
+			{str[n-1].style.backgroundColor=""}
+			setTimeout(fn1,500);
+		}
+		function fn1(){
+			search(str,n+1,text);
+		}
+	}
+
+	function frontRoot(root){
+		divList.push(root);
+		var arr=root.childNodes;
+		for(var i=0;i<arr.length;i++)
+		{
+			if(arr[i].nodeType==1)
+			{
+				frontRoot(arr[i]);
+			}
+		}
+	}
+	
+	//颜色变化;
+	function changeColor(){
+		var i=0;
+		divList[i].style.background='blue';
+		timer=setInterval(function(argument){
+			i++;
+			if(i<divList.length){
+				divList[i-1].style.backgroundColor='#fff';
+				divList[i].style.backgroundColor='blue';
+			}
+			else{
+				clearInterval(timer);
+				divList[divList.length-1].style.backgroundColor = '#fff';
+			}
+		},500)
+	}
+	//初始化
+	function reset(){
+		divList=[];
+		clearInterval(timer);
+		var divs=document.getElementsByTagName('div');
+		for(var i=0;i<divs.length;i++)
+		{
+			divs[i].style.backgroundColor='#fff';
+		}
+	}
+	</script>
+ </body>
+</html>

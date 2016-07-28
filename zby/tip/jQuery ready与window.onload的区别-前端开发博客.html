@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://caibaojian.com/jquery-ready.html -->
+<html xmlns:wb="http://open.weibo.com/wb" lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform "> 
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="qc:admins" content="1555627561217211663757">
+<meta name="baidu-site-verification" content="B3DhD4Tq5y">
+<script type="text/javascript" async="" src="./jQuery ready与window.onload的区别-前端开发博客_files/dynamicFloat.js"></script><script type="text/javascript" async="" src="./jQuery ready与window.onload的区别-前端开发博客_files/dcrm"></script><script type="text/javascript" async="" src="./jQuery ready与window.onload的区别-前端开发博客_files/dcrm(1)"></script><script type="text/javascript" async="" src="./jQuery ready与window.onload的区别-前端开发博客_files/dcrm(2)"></script><script>
+if(document.domain!=="caibaojian.com"){window.location.href='http://caibaojian.com'+self.location.pathname;}
+if(top.location!==self.location){top.location.href=self.location.href; }
+</script><!--[if lt IE 9]><script src="http://caibaojian.com/wp-content/themes/blue/js/html5.js"></script><![endif]-->
+<link rel="Bookmark" href="http://caibaojian.com/favicon.ico"><link rel="shortcut icon" href="http://caibaojian.com/favicon.ico">
+<meta name="description" content="">
+<meta name="description" content="最近做一个项目，在上一篇文章里面写了一个插件：jQuery滚动固定插件，刚开始时在本地测试，发现都没问题，后来架设到服务器上，发现浮动的末位置总是不对，总以为是哪些代码冲突或者是插件写得不完善，后来开启了调试。发现那个底部Bottom参数的高度随着刷新浏览器在变化，不可能啊。元素是固定在那里的。没有想到是jQuery的原因。 以浏览器装载文档为例，页面加载完毕后，浏览器会通过Javascript为DOM元素添加事件，在常规的Javasc…">
+<meta name="keywords" content="jQuery">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://caibaojian.com/xmlrpc.php">
+<link rel="canonical" href="./jQuery ready与window.onload的区别-前端开发博客_files/jQuery ready与window.onload的区别-前端开发博客.html">
+
+<title>jQuery ready与window.onload的区别-前端开发博客</title>
+<link rel="alternate" type="application/rss+xml" title="前端开发博客 » Feed" href="http://caibaojian.com/feed">
+<link rel="alternate" type="application/rss+xml" title="前端开发博客 » 评论Feed" href="http://caibaojian.com/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="前端开发博客 » jQuery ready与window.onload的区别评论Feed" href="http://caibaojian.com/jquery-ready.html/feed">
+<link rel="stylesheet" id="blue-css" href="./jQuery ready与window.onload的区别-前端开发博客_files/style.min.css" type="text/css" media="all">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://caibaojian.com/xmlrpc.php?rsd">
+<link rel="prev" title="理解应用photoshop智能对象" href="http://caibaojian.com/ps-smart-object.html">
+<link rel="next" title="wordpress蓝色博客主题：keepblue" href="http://caibaojian.com/keepblue.html">
+<script type="text/javascript" charset="gbk" src="./jQuery ready与window.onload的区别-前端开发博客_files/ui"></script><script charset="UTF-8" src="./jQuery ready与window.onload的区别-前端开发博客_files/bundle.js"></script><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style1_24.css"><script charset="UTF-8" src="./jQuery ready与window.onload的区别-前端开发博客_files/iframeWidget.js"></script></head>
+<body class="single single-post postid-855 single-format-standard group-blog"><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./jQuery ready与window.onload的区别-前端开发博客_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div><iframe id="sina_anywhere_iframe" style="display: none;"></iframe>
+<header id="masthead" class="site-header" itemscope="" itemtype="http://schema.org/WPHeader" style="height: 178px;">
+	<div class="header-content"><div class="container"><div class="logo"><div class="header-text"><div class="name clearfix"><a class="fl" href="http://caibaojian.com/" rel="home" id="name">前端开发博客</a><div class="fl pl10"><wb:follow-button uid="1748018491" type="red_2" width="120" height="26"><iframe src="./jQuery ready与window.onload的区别-前端开发博客_files/followbutton(1).html" width="120" height="26" frameborder="0" scrolling="no" marginheight="0"></iframe></wb:follow-button></div><div class="fl pl10"><a href="http://caibaojian.com/go/github" rel="nofollow" target="_blank"><img src="./jQuery ready与window.onload的区别-前端开发博客_files/github1.png"></a></div></div><div class="description" id="desc">专注于WEB<a href="http://caibaojian.com/">前端开发</a>,分享前端开发教程和前端资讯</div></div></div><div class="user fr"><div class="header-profile"><ul class="user-profile clearfix"><li class="date">今天是 2016 年 05 月 16 日，星期一</li><li class="login clearfix"><a href="http://caibaojian.com/?connect=weibo&action=login&_wpnonce=5fc59b983f&redirect=http%3A%2F%2Fcaibaojian.com%2Fjquery-ready.html" title="使用微博帐号登录" rel="nofollow" data-no-instant=""><img src="./jQuery ready与window.onload的区别-前端开发博客_files/signin.weibo.large.png"></a></li></ul></div></div></div></div>	<div class="navbar navbar-static-top" role="banner">
+	<div class="navbar-bg">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".header-navbar-collapse"><span class="sr-only"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+							</div>
+			<nav id="navbar" class="header-navbar-collapse" role="navigation" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+			<script type="text/javascript">
+//<![CDATA[
+document.write("<div class=\"top-menu fl\"><ul id=\"menu-top\" class=\"menu\"><li id=\"menu-item-4587\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4587\"><a href=\"http://caibaojian.com/\">首页</a></li><li id=\"menu-item-4582\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4582\"><a href=\"http://caibaojian.com/c/feature\">精选推荐</a></li><li id=\"menu-item-4580\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-4580\"><a href=\"http://caibaojian.com/c/front\">前端开发</a><ul class=\"sub-menu\">	<li id=\"menu-item-4581\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4581\"><a href=\"http://caibaojian.com/c/code\">前端开发代码</a></li>	<li id=\"menu-item-4583\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4583\"><a href=\"http://caibaojian.com/c/resource\">前端开发资源</a></li>	<li id=\"menu-item-4585\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4585\"><a href=\"http://caibaojian.com/c/news\">前端开发资讯</a></li>	<li id=\"menu-item-4584\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4584\"><a href=\"http://caibaojian.com/c/javascript-base\">javascript学习</a></li></ul></li><li id=\"menu-item-4586\" class=\"menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4586\"><a href=\"http://caibaojian.com/c/mobile\">移动前端</a></li><li><a href=\"http://caibaojian.com/toutiao\" target=\"_blank\">前端头条</a></li><li id=\"menu-item-4588\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4588\"><a href=\"http://caibaojian.com/author\">前端花名册</a></li></ul></div><div class=\"top-menu fr\"><ul id=\"menu-right\" class=\"menu\"><li class=\"zaoduke\"><a href=\"http://top.caibaojian.com\" target=\"_blank\">码农头条</a></li><li id=\"menu-item-4578\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-4578\"><a href=\"http://caibaojian.com/links\">前端导航</a></li><li id=\"menu-item-4579\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-4579\"><a href=\"http://caibaojian.com/top\">排行榜</a></li><li id=\"menu-item-4577\" class=\"menu-item menu-item-type-post_type menu-item-object-surl menu-item-4577\"><a target=\"_blank\" href=\"http://caibaojian.com/go/weibo\">本站微博</a></li><li class=\"cooperate\" title=\"合作\" rel=\"nofollow\"><a href=\"http://caibaojian.com/cooperate\" target=\"_blank\">合作</a></li></ul></div>");
+//]]>
+</script><div class="top-menu fl"><ul id="menu-top" class="menu"><li id="menu-item-4587" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4587"><a href="http://caibaojian.com/">首页</a></li><li id="menu-item-4582" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4582"><a href="http://caibaojian.com/c/feature">精选推荐</a></li><li id="menu-item-4580" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-4580"><a href="http://caibaojian.com/c/front">前端开发</a><ul class="sub-menu">	<li id="menu-item-4581" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4581"><a href="http://caibaojian.com/c/code">前端开发代码</a></li>	<li id="menu-item-4583" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4583"><a href="http://caibaojian.com/c/resource">前端开发资源</a></li>	<li id="menu-item-4585" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4585"><a href="http://caibaojian.com/c/news">前端开发资讯</a></li>	<li id="menu-item-4584" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4584"><a href="http://caibaojian.com/c/javascript-base">javascript学习</a></li></ul></li><li id="menu-item-4586" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4586"><a href="http://caibaojian.com/c/mobile">移动前端</a></li><li><a href="http://caibaojian.com/toutiao" target="_blank">前端头条</a></li><li id="menu-item-4588" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4588"><a href="http://caibaojian.com/author">前端花名册</a></li></ul></div><div class="top-menu fr"><ul id="menu-right" class="menu"><li class="zaoduke"><a href="http://top.caibaojian.com/" target="_blank">码农头条</a></li><li id="menu-item-4578" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4578"><a href="http://caibaojian.com/links">前端导航</a></li><li id="menu-item-4579" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4579"><a href="http://caibaojian.com/top">排行榜</a></li><li id="menu-item-4577" class="menu-item menu-item-type-post_type menu-item-object-surl menu-item-4577"><a target="_blank" href="http://caibaojian.com/go/weibo">本站微博</a></li><li class="cooperate" title="合作" rel="nofollow"><a href="http://caibaojian.com/cooperate" target="_blank">合作</a></li></ul></div>			</nav><!-- #navbar -->
+		</div>
+	</div>
+	<header class="breadcrumb-bg">
+	<div class="container">
+	<form action="http://so.caibaojian.com/cse/search" role="search" method="get" target="_blank" class="bdcs-search-form fr" id="bdcs-search-form"> 
+		<input type="hidden" name="s" value="3469010351857949875"> <input type="hidden" name="entry" value="1">
+		<input type="text" name="q" class="bdcs-search-form-input" id="bdcs-search-form-input" placeholder="百度自定义搜索" autocomplete="off">
+		<input type="submit" class="bdcs-search-form-submit " id="bdcs-search-form-submit" value="搜索">         
+	</form>
+		
+	<div id="crumbs" class="path breadcrumb"><span xmlns:v="http://rdf.data-vocabulary.org/#">
+        <span typeof="v:Breadcrumb"><a href="http://caibaojian.com/" rel="v:url" property="v:title">首页</a></span> <span class="delimiter">&gt;</span> 
+        
+		<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="http://caibaojian.com/c/front">前端开发</a></span>  <span class="delimiter">&gt;</span>  <span class="current" typeof="v:Breadcrumb">jQuery ready与window.onload的区别</span>        </span></div>	</div>
+	</header><!-- .page-header -->
+	</div>
+</header><!-- #masthead --><div id="main" class="container" role="main" itemscope="" itemprop="mainContentOfPage" itemtype="http://schema.org/Blog">
+	<div class="row">
+	<div class="primary">
+					<div id="content" class="content-area single" data-post-id="855" role="article" itemscope="" itemtype="http://schema.org/Article">
+					<article id="post-855" class="post-855 post type-post status-publish format-standard has-post-thumbnail hentry category-front tag-jquery inner-box">
+				<div class="panel-body">
+					<div class="entry-header page-header">
+						<h1 class="entry-title h3" itemprop="name"><a href="./jQuery ready与window.onload的区别-前端开发博客_files/jQuery ready与window.onload的区别-前端开发博客.html" style="color:#666">jQuery ready与window.onload的区别</a></h1>
+						<div class="entry-meta"><div class="entry-set-font"><span id="set-font-small" class="disabled">A<sup>-</sup></span><span id="set-font-big">A<sup>+</sup></span></div><a href="http://caibaojian.com/author/caibaojian" itemprop="author" rel="author nofollow">前端博客</a><i class="space">•</i><time class="entry-date" title="发布于 2013-10-25 03:49:25 最后编辑于 2013-10-25 03:57:32 " datetime="2013-10-25T03:49:25+00:00" itemprop="datePublished">2013-10-25</time><i class="space">•</i><a href="http://caibaojian.com/c/front" rel="category" itemprop="articleSection">前端开发</a><span itemprop="keywords"><i class="space">•</i><a href="http://caibaojian.com/t/jquery" rel="tag">jQuery</a></span><i class="space">•</i><span data-num-views="true">2760</span>View<a href="http://caibaojian.com/jquery-ready.html#comments" itemprop="discussionUrl" itemscope="" itemtype="http://schema.org/Comment" class="comments-number"><span itemprop="interactionCount">1</span></a></div>					</div>
+					<div class="entry-content" itemprop="articleBody" data-no-instant="">
+<p>最近做一个项目，在上一篇文章里面写了一个插件：<a title="jQuery插件：浮动固定在某个位置" href="http://caibaojian.com/scrollfix">jQuery滚动固定插件</a>，刚开始时在本地测试，发现都没问题，后来架设到服务器上，发现浮动的末位置总是不对，总以为是哪些<span class="wp_keywordlink"><a href="http://caibaojian.com/c/code" title="代码">代码</a></span>冲突或者是插件写得不完善，后来开启了调试。发现那个底部Bottom参数的高度随着刷新浏览器在变化，不可能啊。元素是固定在那里的。没有想到是<span class="wp_keywordlink"><a href="http://caibaojian.com/jquery/" title="jQuery手册">jQuery</a></span>的原因。</p>
+<p>以浏览器装载文档为例，页面加载完毕后，浏览器会通过<span class="wp_keywordlink"><a href="http://caibaojian.com/t/javascript" title="javascript常用代码大全">javascript</a></span>为DOM元素添加事件，在常规的Javascript代码中，通常使用window.onload方法，而在Jquery中，使用的是$(document).ready()方法。由于在$(document).ready()方法内注册的事件，只要DOM就绪就会被执行，因此可能此时元素的关联文件未下载完。例如与图片有关的 <span class="wp_keywordlink"><a href="http://caibaojian.com/t/html" title="html">html</a></span>下载完毕，并且已经解析为DOM树了，但很有可能图片还没有加载完毕，此时图片的高度和宽度不一定有效。要解决这个问题，可以 使用Jquery中另一个关于页面加载的方法---load()方法。Load()方法会在元素的onload事件中绑定一个处理函数。</p>
+<p>如果处理函数绑定 给window对象，则会在所有内容(包括窗口、框架、对象和图像等)加载完毕后触发，如果处理函数绑定在元素上，则会在元素的内容加载完毕后触发。</p>
+<p><strong>下面给出<span class="wp_keywordlink_affiliate"><a href="http://caibaojian.com/t/jquery" title="View all posts in jQuery" target="_blank">jQuery</a></span> ready与window.onload的区别</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top" width="189"></td>
+<td valign="top" width="189">
+<div>window.load</div>
+</td>
+<td valign="top" width="189">
+<div>$(document).ready()</div>
+</td>
+</tr>
+<tr>
+<td valign="top" width="189">
+<div>执行时机</div>
+</td>
+<td valign="top" width="189">
+<div>必须等待网页中所有的内容加载完毕后(包括图片)才能执行</div>
+</td>
+<td valign="top" width="189">
+<div>网页中所有DOM结构绘制完毕后就执行，可以能DOM元素关联的内容并没有加载完</div>
+</td>
+</tr>
+<tr>
+<td valign="top" width="189">
+<div>编写个数</div>
+</td>
+<td valign="top" width="189">
+<div>不能同时编写多个</div>
+<div>以下代码无法正确执行：</div>
+<div>window.onload = function(){</div>
+<div>&nbsp;&nbsp; alert("caibaojian");</div>
+<div>};</div>
+<div>window.onload = function(){</div>
+<div>&nbsp;&nbsp; alert("caibaojian.com");</div>
+<div>};</div>
+<div>结果只输出第二个</div>
+</td>
+<td valign="top" width="189">
+<div>能同时编写多个</div>
+<div>以下代码正确执行：</div>
+<div>$(document).ready(function(){</div>
+<div>&nbsp;&nbsp; alert("Hello Caibaojian");</div>
+<div>});</div>
+<div>$(document).ready(function(){</div>
+<div>&nbsp;&nbsp; alert("Hello caibaojian.com");</div>
+<div>});</div>
+<div>结果两次都输出</div>
+</td>
+</tr>
+<tr>
+<td valign="top" width="189">
+<div>简化写法</div>
+</td>
+<td valign="top" width="189">
+<div>无</div>
+</td>
+<td valign="top" width="189">
+<div>$(function(){</div>
+<div>&nbsp;&nbsp; // do something</div>
+<div>});</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div><strong>Jquery代码如下：</strong></div>
+<pre>$(window).load(<span style="color: #0000ff;">function</span>(){
+<span style="color: #008000;">// 编写代码</span>
+});</pre>
+<div>等价于JavaScript中的以下代码</div>
+<pre>Window.onload = <span style="color: #0000ff;">function</span>(){
+<span style="color: #008000;">// 编写代码</span>
+}</pre>
+											</div>
+					<div class="entry-details" itemprop="copyrightHolder" itemtype="http://schema.org/Organization" itemscope="">
+				原文链接：<a href="./jQuery ready与window.onload的区别-前端开发博客_files/jQuery ready与window.onload的区别-前端开发博客.html" rel="bookmark">jQuery ready与window.onload的区别</a> 版权所有，转载时请注明出处，违者必究。<br>
+注明出处格式：前端开发博客 (<a href="./jQuery ready与window.onload的区别-前端开发博客_files/jQuery ready与window.onload的区别-前端开发博客.html" title="jQuery ready与window.onload的区别">http://caibaojian.com/jquery-ready.html</a>)	</div>				</div>
+				<div class="entry-footer clearfix" role="toolbar"><div class="bd-share"><div class="bdsharebuttonbox bdshare-button-style1-24" data-bd-bind="1463379048068"><a class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a class="bds_more" data-cmd="more"></a></div><script>var share_excerpt = '【jQuery ready与window.onload的区别】最近做一个项目，在上一篇文章里面写了一个插件：jQuery滚动固定插件，刚开始时在本地测试，发现都没问题，后来架设到服务器上，发现浮动的末位置总是不对，总以为是哪些代码冲突或者是插... @前端开';var share_pic = 'http://img.caibaojian.com/uploads/2013/06/jquery2.jpg?imageView2/1/w/220/h/146/q/100';var share_url = 'http://caibaojian.com/jquery-ready.html?fid=0';var wkey = '3586943907';var qkey = '101187318';window._bd_share_main = false;window._bd_share_config = { common : { bdText : share_excerpt,bdDesc : share_excerpt,bdUrl : share_url, bdPic : share_pic, bdSnsKey : {'tsina':wkey, 'tqq':qkey,'qzone':qkey} }, share : [{ 'bdStyle' : 1, 'bdSize' : 24 }] };</script></div><div class="btn-group vote-group" data-votes-up="0" data-votes-down="0" data-vote-id="855" data-vote-type="post" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
+<a href="javascript:;" class="btn btn-default up"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="votes">0</span><div class="hide" itemprop="rating" itemscope="" itemtype="http://data-vocabulary.org/Rating"><span itemprop="average">1</span><span itemprop="votes">0</span><span itemprop="count">1</span></div></a>
+<a href="javascript:;" class="btn btn-default down"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+</div></div><div style="margin:0 -6px;">
+<script type="text/javascript">
+var cpro_id="u2471057";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"700",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="./jQuery ready与window.onload的区别-前端开发博客_files/c.js" type="text/javascript"></script><div id="BAIDU_SSP__wrapper_u2471057_0"><iframe id="iframeu2471057_0" src="./jQuery ready与window.onload的区别-前端开发博客_files/dcrm(4).html" width="700" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div>
+</div>
+				<div class="content-box-inner" id="weiboshow" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+					<script>window.onload = function(){
+					//document.getElementById("weiboshow").innerHTML = '<iframe width="100%" height="200" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=220&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=1&isWeibo=0&isFans=1&uid=1748018491&verifier=5089da68&dpc=1"></iframe>';
+					}</script>
+				</div>
+				
+    <div class="relatedposts"><h3>相关文章</h3><ul class="related_posts inline-ul"> 
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/sliderdown-slideup.html" title="jquery中使用slideDown和slideUp做二级菜单思路解决">jquery中使用slideDown和slideUp做二级菜单思路解决</a><span class="entry-meta"> 5,020Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/timeline-nexus-slider-menu.html" title="免费css3技巧：时间线, Nexus 7, 滑动和菜单.">免费css3技巧：时间线, Nexus 7, 滑动和菜单.</a><span class="entry-meta"> 1,032Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/bootstrap-modal.html" title="Bootstrap Modal遮罩弹出层">Bootstrap Modal遮罩弹出层</a><span class="entry-meta"> 17,511Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/jquery-lt-gt.html" title="jquery大于、小于、等于、不等于等区间代码">jquery大于、小于、等于、不等于等区间代码</a><span class="entry-meta"> 7,298Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/468.html" title="浮动层固定兼容IE6 position:fixed的最佳解决方案">浮动层固定兼容IE6 position:fixed的最佳解决方案</a><span class="entry-meta"> 6,937Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/json-length.html" title="JSON对象长度和遍历方法">JSON对象长度和遍历方法</a><span class="entry-meta"> 8,638Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/add-option-to-select-width-jquery.html" title="jquery为select添加option的代码探讨">jquery为select添加option的代码探讨</a><span class="entry-meta"> 3,167Views</span>
+				</li>
+ 
+         
+        <li class="">
+		<a rel="bookmark" href="http://caibaojian.com/pagex-pagey.html" title="javascript获取页面鼠标光标位置">javascript获取页面鼠标光标位置</a><span class="entry-meta"> 1,273Views</span>
+				</li>
+ 
+        </ul></div>			</article>
+			
+						<div class="comments" id="comments" data-no-instant=""><div class="list-group" id="respond">
+	<h4 class="list-group-item">发表评论 <small id="cancel-comment-reply"><a rel="nofollow" id="cancel-comment-reply-link" href="http://caibaojian.com/jquery-ready.html#respond" style="display:none;">点击这里取消回复。</a></small></h4>
+<p class="list-group-item">请登录后发表评论：<br><a href="http://caibaojian.com/?connect=weibo&action=login&_wpnonce=5fc59b983f&redirect=http%3A%2F%2Fcaibaojian.com%2Fjquery-ready.html%23respond" rel="nofollow"><img src="./jQuery ready与window.onload的区别-前端开发博客_files/signin.weibo.large.png"></a></p>
+</div>
+
+	<div class="list-group commentlist">
+				<h3 class="list-group-item respond-title">1 Responses to “jQuery ready与window.onload的区别”</h3>
+		<ol id="thread-comments">
+			<li class="comment even thread-even depth-1 list-group-item top" id="comment-650" data-comment-id="650">
+	
+	<div class="comment-body" id="div-comment-650">
+
+	<a class="comment-author" href="http://www.shaibaonet.com/" data-instant=""><img src="./jQuery ready与window.onload的区别-前端开发博客_files/grey.png" data-original="http://gravatar.duoshuo.com/avatar/f28cc7e473b370441bcc69f757fc3732?d=identicon&amp;r=G&amp;s=60" class="avatar" width="60" height="60"></a>
+	
+		<cite><a href="http://www.shaibaonet.com/" rel="external nofollow" target="_blank">免费空间</a></cite>		<div class="comment-content"><p>你主题很好看。</p>
+</div>
+		<div class="comment-meta">
+			<time datetime="2013-10-29" title="2013-10-29 04:09">2013-10-29 04:09</time><div class="comment-votes vote-group" data-votes-up="0" data-votes-down="0" data-vote-id="650">
+<a href="javascript:;" class="up"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="votes">0</span></a>
+<a href="javascript:;" class="down"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+</div><a href="http://caibaojian.com/?connect=weibo&action=login&_wpnonce=5fc59b983f&redirect=http%3A%2F%2Fcaibaojian.com%2Fjquery-ready.html%23respond" rel="nofollow"><span class="glyphicon glyphicon-comment"></span>登录回复</a>		</div>
+		</div>
+</li><!-- #comment-## -->
+		</ol>
+	</div>
+	
+</div>
+				<nav class="navigation post-navigation" role="navigation">
+		<div class="screen-reader-text">Post navigation</div>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="http://caibaojian.com/ps-smart-object.html" rel="prev"><span class="meta-nav">←</span>&nbsp;理解应用photoshop智能对象</a></div><div class="nav-next"><a href="http://caibaojian.com/keepblue.html" rel="next">wordpress蓝色博客主题：keepblue&nbsp;<span class="meta-nav">→</span></a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+						 </div><!-- #content -->	</div>
+	<div id="sidebar" class="widget-area" role="complementary" itemscope="" itemtype="http://schema.org/WPSideBar">
+			<aside id="recent-posts-4" class="widget widget_recent_entries">		<h3 class="panel-heading widget-title">最新文章</h3>		<ul>
+					<li>
+				<a href="http://caibaojian.com/learning-vue.html">从零开始学Vue</a>
+							<span class="post-date">2016-05-05</span>
+						</li>
+					<li>
+				<a href="http://caibaojian.com/css-base.html">CSS基础知识</a>
+							<span class="post-date">2016-05-04</span>
+						</li>
+					<li>
+				<a href="http://caibaojian.com/clipboard-js.html">JavaScript实现复制、剪切和粘贴</a>
+							<span class="post-date">2016-05-04</span>
+						</li>
+					<li>
+				<a href="http://caibaojian.com/learning-it.html">计算机从业者的技术成长学习之路</a>
+							<span class="post-date">2016-05-03</span>
+						</li>
+					<li>
+				<a href="http://caibaojian.com/html5-css3-code-creator.html">HTML5和CSS3代码生成器</a>
+							<span class="post-date">2016-05-03</span>
+						</li>
+					<li>
+				<a href="http://caibaojian.com/border-and-background.html">一条边框与background的思考</a>
+							<span class="post-date">2016-04-26</span>
+						</li>
+				</ul>
+		</aside>		<aside class="widget"><div class="random-posts-wrapper popular-posts-wrapper">
+			<h3 class="widget-title">推荐文章</h3>
+				<ul class="list-group"><li><a rel="bookmark" href="http://caibaojian.com/getelementposition.html" title="JavaScript获取窗口位置和元素坐标（兼容版）">JavaScript获取窗口位置和元素坐标（兼容版）</a><span class="entry-meta"> 10-28</span></li><li><a rel="bookmark" href="http://caibaojian.com/276.html" title="读《阿乙：在模仿中对话自我 超越自我》有感">读《阿乙：在模仿中对话自我 超越自我》有感</a><span class="entry-meta"> 03-27</span></li><li><a rel="bookmark" href="http://caibaojian.com/787.html" title="CSS3创建一个滑出滑入的动画">CSS3创建一个滑出滑入的动画</a><span class="entry-meta"> 10-12</span></li><li><a rel="bookmark" href="http://caibaojian.com/js-function-5.html" title="js15-5:javascript继承">js15-5:javascript继承</a><span class="entry-meta"> 05-19</span></li><li><a rel="bookmark" href="http://caibaojian.com/iphone6-media.html" title="iPhone6的CSS3媒体查询">iPhone6的CSS3媒体查询</a><span class="entry-meta"> 11-05</span></li><li><a rel="bookmark" href="http://caibaojian.com/pure-css-parallax-scrolling-websites.html" title="CSS3魔术：纯CSS视差滚动效果">CSS3魔术：纯CSS视差滚动效果</a><span class="entry-meta"> 08-27</span></li></ul></div></aside><!-- cached 2016-05-16 13:57:02 -->
+
+														<aside class="widget">
+					
+        <div class="popular-posts-wrapper">
+			<h3 class="widget-title">热门文章</h3>
+                <ul>
+                                            <li>
+						<a rel="bookmark" href="http://caibaojian.com/use-sass-compass-write-css.html" title="推荐使用Sass和Compass组合写CSS">推荐使用Sass和Compass组合写CSS</a><span class="entry-meta"> 11,010Views</span>
+						</li>
+                                            <li>
+						<a rel="bookmark" href="http://caibaojian.com/css-responsive-menu.html" title="CSS自适应导航菜单">CSS自适应导航菜单</a><span class="entry-meta"> 6,633Views</span>
+						</li>
+                                            <li>
+						<a rel="bookmark" href="http://caibaojian.com/787.html" title="CSS3创建一个滑出滑入的动画">CSS3创建一个滑出滑入的动画</a><span class="entry-meta"> 4,636Views</span>
+						</li>
+                                            <li>
+						<a rel="bookmark" href="http://caibaojian.com/2014-ali-fontend-test.html" title="2014阿里前端线上笔试题答案">2014阿里前端线上笔试题答案</a><span class="entry-meta"> 4,425Views</span>
+						</li>
+                                            <li>
+						<a rel="bookmark" href="http://caibaojian.com/animation.html" title="CSS3动画效果,CSS3动画库推荐">CSS3动画效果,CSS3动画库推荐</a><span class="entry-meta"> 3,745Views</span>
+						</li>
+                                            <li>
+						<a rel="bookmark" href="http://caibaojian.com/jquery-plugin-scrollto.html" title="jquery插件ScrollTo">jquery插件ScrollTo</a><span class="entry-meta"> 3,389Views</span>
+						</li>
+                    
+                </ul>
+				        </div>
+</aside>
+                
+		<aside id="text-3" class="widget widget_text">			<div class="textwidget"><div style="margin:-16px -4px" id="baidu">
+<script type="text/javascript">
+var cpro_id="u1902679";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"336",rsi1:"280",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"",rss2:"#000000",titSU:"0"}
+</script>
+<script src="./jQuery ready与window.onload的区别-前端开发博客_files/c.js" type="text/javascript"></script><div id="BAIDU_SSP__wrapper_u1902679_0"><iframe id="iframeu1902679_0" src="./jQuery ready与window.onload的区别-前端开发博客_files/dcrm(3).html" width="336" height="280" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div>
+</div></div>
+		</aside><aside id="text-15" class="widget widget_text">			<div class="textwidget"><div class="nopadding"><a href="http://caibaojian.com/go/devtoutiao" target="_blank" rel="nofollow"><img src="./jQuery ready与window.onload的区别-前端开发博客_files/weekly11.png" class="avatar" alt="开发者头条"></a></div></div>
+		</aside><aside id="text-12" class="widget widget_text">			<div class="textwidget"><div class="nopadding"><a href="http://caibaojian.com/d/uploads/2015/02/qrcode_for_gh_b996afb36a33_344.jpg" target="_blank" rel="nofollow" title="关注微信,每天一篇前端开发知识"><img src="./jQuery ready与window.onload的区别-前端开发博客_files/weixin-mini1.png" class="avatar"></a></div></div>
+		</aside><aside id="text-16" class="widget widget_text">			<div class="textwidget"><div class="nopadding">
+<script type="text/javascript">
+    /*侧栏360*300*/
+    var cpro_id = "u2030172";
+</script>
+<script src="./jQuery ready与window.onload的区别-前端开发博客_files/c.js" type="text/javascript"></script><div id="BAIDU_SSP__wrapper_u2030172_0" style="width: 360px; height: 300px; display: inline-block;"><iframe id="iframeu2030172_0" src="./jQuery ready与window.onload的区别-前端开发博客_files/dcrm.html" width="360" height="300" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe></div>
+</div></div>
+		</aside></div><!-- #sidebar -->
+	</div>
+ </div><!-- #main -->
+	<div class="container"></div>            <div class="prefooter">
+                <div class="container rec">
+				<div class="primary">
+                <div class="row-6 content-area" role="complementary">
+                    <aside class="widget">
+					
+					<script type="text/javascript">
+//<![CDATA[
+document.write("<h3 class=\"widget-title\">推荐话题</h3><div class=\"inline-ul\"><ul id=\"menu-recc\" class=\"menu\"><li id=\"menu-item-4601\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4601\"><a href=\"http://caibaojian.com/c/front\">前端开发</a></li><li id=\"menu-item-4599\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4599\"><a href=\"http://caibaojian.com/html5/\">HTML5新增标签</a></li><li id=\"menu-item-4600\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4600\"><a href=\"http://caibaojian.com/web-fontend-doc.html\">前端规范文档</a></li><li id=\"menu-item-4602\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4602\"><a href=\"http://caibaojian.com/popular-css-snippets.html\">css常用代码</a></li><li id=\"menu-item-4603\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4603\"><a href=\"http://caibaojian.com/jquery-performance-optimization.html\">jQuery性能优化</a></li><li id=\"menu-item-4604\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4604\"><a href=\"http://caibaojian.com/shoucang\">前端技术收藏</a></li><li id=\"menu-item-4605\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4605\"><a href=\"http://caibaojian.com/bootstrap/\">Bootstrap中文手册</a></li><li id=\"menu-item-4606\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4606\"><a href=\"http://caibaojian.com/fontawesome/\">fontawesome手册</a></li><li id=\"menu-item-4607\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4607\"><a href=\"http://caibaojian.com/web-frame.html\">前端开发框架</a></li><li id=\"menu-item-4608\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4608\"><a href=\"http://caibaojian.com/responsive-tables.html\">响应式表格</a></li><li id=\"menu-item-4609\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4609\"><a href=\"http://caibaojian.com/356.html\">响应式布局</a></li><li id=\"menu-item-4610\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4610\"><a href=\"http://caibaojian.com/flexbox-guide.html\">CSS3弹性盒</a></li><li id=\"menu-item-4611\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4611\"><a href=\"http://caibaojian.com/ratchet.html\">移动前端框架</a></li><li id=\"menu-item-4612\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4612\"><a href=\"http://caibaojian.com/grunt-compass-tutorial-2.html\">Grunt+Compass</a></li><li id=\"menu-item-4613\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4613\"><a href=\"http://caibaojian.com/use-sass-compass-write-css.html\">Sass+Compass</a></li><li id=\"menu-item-4614\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4614\"><a href=\"http://caibaojian.com/357.html\">jQuery插件开发</a></li><li id=\"menu-item-4615\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4615\"><a href=\"http://caibaojian.com/git-create-project-2.html\">Github提交流程</a></li><li id=\"menu-item-4616\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4616\"><a href=\"http://caibaojian.com/swipe.html\">Swipe.js</a></li><li id=\"menu-item-4617\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-4617\"><a href=\"http://caibaojian.com/respondjs.html\">Respond.js</a></li></ul></div>");
+//]]>
+</script><h3 class="widget-title">推荐话题</h3><div class="inline-ul"><ul id="menu-recc" class="menu"><li id="menu-item-4601" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4601"><a href="http://caibaojian.com/c/front">前端开发</a></li><li id="menu-item-4599" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4599"><a href="http://caibaojian.com/html5/">HTML5新增标签</a></li><li id="menu-item-4600" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4600"><a href="http://caibaojian.com/web-fontend-doc.html">前端规范文档</a></li><li id="menu-item-4602" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4602"><a href="http://caibaojian.com/popular-css-snippets.html">css常用代码</a></li><li id="menu-item-4603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4603"><a href="http://caibaojian.com/jquery-performance-optimization.html">jQuery性能优化</a></li><li id="menu-item-4604" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4604"><a href="http://caibaojian.com/shoucang">前端技术收藏</a></li><li id="menu-item-4605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4605"><a href="http://caibaojian.com/bootstrap/">Bootstrap中文手册</a></li><li id="menu-item-4606" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4606"><a href="http://caibaojian.com/fontawesome/">fontawesome手册</a></li><li id="menu-item-4607" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4607"><a href="http://caibaojian.com/web-frame.html">前端开发框架</a></li><li id="menu-item-4608" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4608"><a href="http://caibaojian.com/responsive-tables.html">响应式表格</a></li><li id="menu-item-4609" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4609"><a href="http://caibaojian.com/356.html">响应式布局</a></li><li id="menu-item-4610" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4610"><a href="http://caibaojian.com/flexbox-guide.html">CSS3弹性盒</a></li><li id="menu-item-4611" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4611"><a href="http://caibaojian.com/ratchet.html">移动前端框架</a></li><li id="menu-item-4612" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4612"><a href="http://caibaojian.com/grunt-compass-tutorial-2.html">Grunt+Compass</a></li><li id="menu-item-4613" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4613"><a href="http://caibaojian.com/use-sass-compass-write-css.html">Sass+Compass</a></li><li id="menu-item-4614" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4614"><a href="http://caibaojian.com/357.html">jQuery插件开发</a></li><li id="menu-item-4615" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4615"><a href="http://caibaojian.com/git-create-project-2.html">Github提交流程</a></li><li id="menu-item-4616" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4616"><a href="http://caibaojian.com/swipe.html">Swipe.js</a></li><li id="menu-item-4617" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4617"><a href="http://caibaojian.com/respondjs.html">Respond.js</a></li></ul></div>					</aside>
+                </div><!-- #first .widget-area -->
+				</div>
+                
+
+                
+                <div class="right-area row-3" role="complementary">
+                     <aside class="widget">
+					
+					<script type="text/javascript">
+//<![CDATA[
+document.write("<h3 class=\"widget-title\">原创插件</h3><div class=\"inline-ul\"><ul id=\"menu-plugins\" class=\"menu\"><li id=\"menu-item-2664\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2664\"><a href=\"http://caibaojian.com/scrollhighlight\">jQuery滚动高亮插件</a></li><li id=\"menu-item-2665\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2665\"><a href=\"http://caibaojian.com/tooltip\">jQuery工具提示插件</a></li><li id=\"menu-item-2666\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2666\"><a href=\"http://caibaojian.com/scrollfix\">jQuery滚动固定插件</a></li><li id=\"menu-item-2667\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2667\"><a href=\"http://caibaojian.com/power-slider\">jQuery全能滚动插件</a></li><li id=\"menu-item-2740\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2740\"><a href=\"http://caibaojian.com/scrollforever\">无缝滚动插件</a></li><li id=\"menu-item-2674\" class=\"menu-item menu-item-type-post_type menu-item-object-surl menu-item-2674\"><a href=\"http://caibaojian.com/go/github\">查看我的更多项目</a></li></ul></div>");
+//]]>
+</script><h3 class="widget-title">原创插件</h3><div class="inline-ul"><ul id="menu-plugins" class="menu"><li id="menu-item-2664" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2664"><a href="http://caibaojian.com/scrollhighlight">jQuery滚动高亮插件</a></li><li id="menu-item-2665" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2665"><a href="http://caibaojian.com/tooltip">jQuery工具提示插件</a></li><li id="menu-item-2666" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2666"><a href="http://caibaojian.com/scrollfix">jQuery滚动固定插件</a></li><li id="menu-item-2667" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2667"><a href="http://caibaojian.com/power-slider">jQuery全能滚动插件</a></li><li id="menu-item-2740" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2740"><a href="http://caibaojian.com/scrollforever">无缝滚动插件</a></li><li id="menu-item-2674" class="menu-item menu-item-type-post_type menu-item-object-surl menu-item-2674"><a href="http://caibaojian.com/go/github">查看我的更多项目</a></li></ul></div>					</aside>
+                </div><!-- #second .widget-area -->
+                                       
+                </div>
+			            </div><!-- #prefooter -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="container footer-info">
+			<div class="fr widget">
+				<p>关注我们</p>
+				<ul class="inline-ul">
+				<li><wb:follow-button uid="1748018491" type="red_1" width="67" height="24"><iframe src="./jQuery ready与window.onload的区别-前端开发博客_files/followbutton.html" width="67" height="24" frameborder="0" scrolling="no" marginheight="0"></iframe></wb:follow-button></li>
+				</ul>
+			</div>
+			<script type="text/javascript">
+//<![CDATA[
+document.write("<div class=\"footer-menu inline-ul\"><ul id=\"menu-pages\" class=\"menu\"><li id=\"menu-item-2118\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2118\"><a href=\"http://caibaojian.com/about\">关于我们</a></li><li id=\"menu-item-2357\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2357\"><a href=\"http://caibaojian.com/copyright\">版权声明</a></li><li id=\"menu-item-2895\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2895\"><a href=\"http://caibaojian.com/guestbook\">读者留言</a></li><li id=\"menu-item-2252\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2252\"><a href=\"http://caibaojian.com/c/qianduan\">博客推荐</a></li><li id=\"menu-item-3616\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-3616\"><a href=\"http://caibaojian.com/author\">前端花名册</a></li><li id=\"menu-item-2896\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2896\"><a href=\"http://caibaojian.com/tags\">标签存档</a></li><li id=\"menu-item-2950\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-2950\"><a href=\"http://caibaojian.com/archives\">前端博客存档</a></li><li id=\"menu-item-4344\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-4344\"><a href=\"http://caibaojian.com/links\">前端导航</a></li><li id=\"menu-item-3074\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-3074\"><a target=\"_blank\" href=\"http://caibaojian.com/sitemap.xml\">地图</a></li><li id=\"menu-item-2142\" class=\"menu-item menu-item-type-post_type menu-item-object-surl menu-item-2142\"><a title=\"感谢七牛提供图片存储服务\" target=\"_blank\" href=\"http://caibaojian.com/go/qiniu\">七牛存储</a></li></ul></div>");
+//]]>
+</script><div class="footer-menu inline-ul"><ul id="menu-pages" class="menu"><li id="menu-item-2118" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2118"><a href="http://caibaojian.com/about">关于我们</a></li><li id="menu-item-2357" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2357"><a href="http://caibaojian.com/copyright">版权声明</a></li><li id="menu-item-2895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2895"><a href="http://caibaojian.com/guestbook">读者留言</a></li><li id="menu-item-2252" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2252"><a href="http://caibaojian.com/c/qianduan">博客推荐</a></li><li id="menu-item-3616" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3616"><a href="http://caibaojian.com/author">前端花名册</a></li><li id="menu-item-2896" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2896"><a href="http://caibaojian.com/tags">标签存档</a></li><li id="menu-item-2950" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2950"><a href="http://caibaojian.com/archives">前端博客存档</a></li><li id="menu-item-4344" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4344"><a href="http://caibaojian.com/links">前端导航</a></li><li id="menu-item-3074" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3074"><a target="_blank" href="http://caibaojian.com/sitemap.xml">地图</a></li><li id="menu-item-2142" class="menu-item menu-item-type-post_type menu-item-object-surl menu-item-2142"><a title="感谢七牛提供图片存储服务" target="_blank" href="http://caibaojian.com/go/qiniu">七牛存储</a></li></ul></div>			<div class="site-info">
+			© 2016 <a href="http://caibaojian.com/">前端开发博客</a> -专注<a href="http://caibaojian.com/">前端开发</a>100年 版权所有 粤ICP备14096992号-2 <div style="display:none;"><script type="text/javascript" src="./jQuery ready与window.onload的区别-前端开发博客_files/stats" charset="UTF-8"></script>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F76f7925b251388d7e1685af322d9b447' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./jQuery ready与window.onload的区别-前端开发博客_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=76f7925b251388d7e1685af322d9b447" target="_blank"><img border="0" src="./jQuery ready与window.onload的区别-前端开发博客_files/21.gif" width="20" height="20"></a></div><script type="text/javascript" id="bdshare_js" data="type=slide&amp;mini=1"></script> 			</div><!-- .site-info -->
+		</div>
+	</footer><!-- #colophon -->
+<script>
+var baiduImagePlus = {
+imgContainerId: 'content',
+noLogo:true,
+  unionId:'u2474953',
+  formList:[{formId:10},{formId:3}]
+};
+</script>
+<script src="./jQuery ready与window.onload的区别-前端开发博客_files/i.js"></script>
+<div class="btn-group-vertical floatButton"><button type="button" class="btn btn-default" id="goTop" title="去顶部"><span class="glyphicon glyphicon-arrow-up"></span></button><button type="button" class="btn btn-default" id="refresh" title="刷新"><span class="glyphicon glyphicon-repeat"></span></button><button type="button" class="btn btn-default" id="goComments" title="评论"><span class="glyphicon glyphicon-align-justify"></span></button><button type="button" class="btn btn-default" id="goBottom" title="去底部"><span class="glyphicon glyphicon-arrow-down"></span></button></div><script>var ajaxurl = 'http:\/\/caibaojian.com\/wp-admin\/admin-ajax.php';var isUserLoggedIn = 0;var loginUrl = 'http:\/\/caibaojian.com\/wp-login.php?redirect_to=http%3A%2F%2Fcaibaojian.com%2Fjquery-ready.html';var dmengPath = 'http:\/\/caibaojian.com\/wp-content\/themes\/blue/';var dmengInstant = 0;var dmengTips = {"success":"\u64cd\u4f5c\u6210\u529f","error":"\u64cd\u4f5c\u5931\u8d25","tryagain":"\u8bf7\u91cd\u8bd5"};var dmengCodePrettify = 0;</script><script src="./jQuery ready与window.onload的区别-前端开发博客_files/share.js"></script><script type="text/javascript" src="./jQuery ready与window.onload的区别-前端开发博客_files/jquery.min.js"></script>
+<script type="text/javascript" src="./jQuery ready与window.onload的区别-前端开发博客_files/script.min.js"></script>
+<script type="text/javascript" src="./jQuery ready与window.onload的区别-前端开发博客_files/wb.js"></script>
+<script type="text/javascript">function randomString(len){var len=len||32;var chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";var maxPos=chars.length;var pwd="";for(i=0;i<len;i++){pwd+=chars.charAt(Math.floor(Math.random()*maxPos))}return pwd};$(window).load(function(){if($('#baidu').length>0 && $('#baidu').height()<10){var bottomClassname = randomString();
+var head = document.getElementsByTagName("head")[0];var body = document.getElementsByTagName("body")[0];var div=document.createElement('div'); div.id = div.className = bottomClassname; var bottomStyle='.'+bottomClassname+'{width:100%;height:100%;position:fixed;left:0;top:0;background:#000; background:rgba(0, 0, 0, 0.75);color:#4ED659;text-align:center;z-index: 99999;}.'+bottomClassname+' h2{font-weight: normal;font-size: 23px;padding-top: 20%;line-height: 45px;margin-bottom:0;}.'+bottomClassname+' p{font-size: 14px;line-height: 25px;margin: 0}.'+bottomClassname+' p.p-last{font-size: 19px;padding-top: 5px;}.'+bottomClassname+' p em{font-style: normal;color: #E9F547;padding:0 3px;margin: 0}.'+bottomClassname+' em a{color: #E9F547; text-decoration: underline;}';var bottomStyleEle=document.createElement("style");bottomStyleEle.type="text/css";bottomStyleEle.appendChild(document.createTextNode(bottomStyle));head.appendChild(bottomStyleEle); body.appendChild(div); $('#'+bottomClassname).html('<h2>做站不易，请勿拦截广告!</h2><p>本站没有任何干扰阅读的广告</p><p>请将本站加入<em>广告插件白名单</em>或<em><a href="http://caibaojian.com/?connect=weibo&action=login&_wpnonce=5fc59b983f&redirect=http%3A%2F%2Fcaibaojian.com%2Fjquery-ready.html" rel="nofollow">登录</a></em>使用</p><p class="p-last">谢谢!</p></div>');$('body').css({height:"100%",overflow:"hidden"})}});</script>
+<!--18querys in 0.754 seconds.-->
+
+
+
+<!-- Dynamic page generated in 0.754 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2016-05-16 14:12:01 -->
+
+<!-- Compression = gzip -->
+<!-- super cache --></body></html>

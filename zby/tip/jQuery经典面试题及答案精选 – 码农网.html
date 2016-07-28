@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://www.codeceo.com/article/jquery-interview.html -->
+<html xmlns:wb="http://open.weibo.com/wb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="znBdcsStyle" type="text/css">.bdcs-container .bdcs-main,.bdcs-container .bdcs-main *{box-sizing:content-box;margin:0;padding:0;float:none;clear:none;overflow:hidden;white-space:nowrap;word-wrap:normal;border:0;background:0 0;width:auto;height:auto;max-width:none;min-width:none;max-height:none;min-height:none;border-radius:0;box-shadow:none;transition:none;text-align:left}.bdcs-container .bdcs-clearfix:after{content:'';display:block;clear:both;height:0}.bdcs-container .bdcs-clearfix{zoom:1}.bdcs-container .bdcs-main{overflow:visible}.bdcs-container .bdcs-search{display:block;overflow:visible;position:relative;border-style:solid}.bdcs-container .bdcs-search-form-input-wrap{display:inline-block}.bdcs-container .bdcs-search-form-input{border-width:1px;border-style:solid;display:inline-block;vertical-align:top;text-indent:5px;background-color:#fff;float:left}.bdcs-container .bdcs-search-form-input:focus{border-width:1px;border-style:solid;outline:0}.bdcs-container .bdcs-search-form-submit-wrap{display:inline-block}.bdcs-container .bdcs-search-form-submit{display:inline-block;cursor:pointer;border-width:1px;border-style:solid;vertical-align:top;text-align:center;width:50px;//_overflow:hidden}.bdcs-container .bdcs-search-form-submit-magnifier{width:45px;padding:0;text-indent:-999em;overflow:hidden;background:url(http://znsv.baidu.com/static/customer-search/component/search/magnifier-icon.png) no-repeat center center;_background:url(http://znsv.baidu.com/static/customer-search/component/search/magnifier-icon_ie6.png) no-repeat center center}div#default-searchbox .default-channel-meun{position:relative;width:75px;display:inline-block;vertical-align:middle;cursor:pointer;background:#fff;float:left;overflow:visible}div#default-searchbox .default-channel-current{border:1px solid;position:relative;width:100%;border-right:0}div#default-searchbox .default-channel-current span{margin-left:8px}div#default-searchbox .default-channel-current i{overflow:hidden;width:0;height:0;border-width:6px 6px 0;border-color:#9E9E9E #fff;border-style:solid;display:block;position:absolute;right:10px;top:11px}div.cse-default-channel-container{display:block;position:absolute;z-index:30061000000}div.cse-default-channel-container .default-channel-list{display:none;width:99%;list-style:none;background:#fff;border:1px solid #DDD;border-top:0;margin:0;padding:0}div.cse-default-channel-container .default-channel-list li{background:0 0;line-height:24px;list-style:none;display:block;padding-left:7px;cursor:pointer}div.cse-default-channel-container .default-channel-list li:hover{background:#DDD}.bdcs-container .bdcs-search-form-input-wrap{}.bdcs-container .bdcs-search-form-input-notspan{margin-left:0px;font-family:Arial,SimSun,sans-serif;color:#000000;font-size:14px;}.bdcs-container .bdcs-search-form-input .icon-nofocus{left:;right:;top:;height:;width:;}.bdcs-container .bdcs-search{width:231px;height:28px;overflow:hidden;border-color:#2a7cb9;border-radius:0px;border-width:1px;box-shadow:none;background-color:#2a7cb9;}.bdcs-container .bdcs-search-form-input{border-color:#2a7cb9;margin-right:0px;width:178px;height:26px;line-height:26px;font-family:Arial,SimSun,sans-serif;color:#000000;font-size:14px;border-radius:0px;background-color:#FFFFFF;}.bdcs-container .bdcs-search-form-input:focus{border-color:#f79646;}.bdcs-container .bdcs-search-form-submit-wrap{}.bdcs-container .bdcs-search-form-submit{border-color:#2a7cb9;height:26px;width:50px;background-color:#2a7cb9;color:#ffffff;font-family:Arial,SimSun,sans-serif;font-size:14px;border-radius:0px;}.bdcs-container .bdcs-search-sug-list{width:250px;}.bdcs-container .bdcs-search-sug-list-item{height:28px;line-height:28px;font-family:Arial,SimSun,sans-serif;font-size:14px;}.bdcs-container .bdcs-search-sug-list-item-value{color:#000000;}.bdcs-container .bdcs-clearfix:after{content:'';display:block;clear:both;height:0}.bdcs-container .bdcs-clearfix{zoom:1}.bdcs-container .bdcs-search{overflow:visible;position:relative}.bdcs-container .bdcs-search-sug,.bdcs-container .bdcs-search-sug *{box-sizing:content-box;margin:0;padding:0;float:none;clear:none;overflow:hidden;white-space:nowrap;word-wrap:normal;border:0;background:0 0;width:auto;height:auto;max-width:none;min-width:none;max-height:none;min-height:none;border-radius:0;box-shadow:none;transition:none;text-align:left}.bdcs-container .bdcs-search-sug{display:none;position:absolute;z-index:2147483647}.bdcs-container .bdcs-search-sug-list{list-style:none;border:1px solid #DDD;background-color:#FFF}.bdcs-container .bdcs-search-sug-list{}.bdcs-container .bdcs-search-sug-list-item{display:block;list-style:none;cursor:pointer;padding:0 5px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.bdcs-container .bdcs-search-sug-list-item-current{background-color:#EBEBEB}.bdcs-container .bdcs-search-sug-list-item-author-novel,.bdcs-container .bdcs-search-sug-list-item-author-music,.bdcs-container .bdcs-search-sug-list-item-type-movie{color:#BABABA}.bdcs-container .bdcs-search-sug-list-item-author-novel,.bdcs-container .bdcs-search-sug-list-item-author-music{margin-left:5px}.bdcs-container .bdcs-search-sug-list-item-music{overflow:hidden;*zoom:1}.bdcs-container .bdcs-search-sug-list-item-value-movie{float:left}.bdcs-container .bdcs-search-sug-list-item-type-movie{float:right}.bdcs-container .bdcs-search-sug-skin{display:none;width:85px;height:85px;position:absolute;right:1px;bottom:1px}.bdcs-container .bdcs-search-sug-skin-img{width:85px;height:85px}.bdcs-container .bdcs-search-sug-i{color:#e64fa3;font-weight:700;margin-left:10px;font-family:simsun;font-style:normal}.bdcs-container .bdcs-search-sug-adv{width:105px;position:absolute;right:1px;top:1px;display:none}.bdcs-container .bdcs-search-sug-adv-img{position:absolute;top:0;right:0}.bdcs-container{overflow:visible;}.bdcs-container .bdcs-search-form-submit{*height:28px;*margin-top:1px;}.bdcs-container .bdcs-search-form-submit{line-height:26px;}.bdcs-container .bdcs-search-form-input{margin-right:-1px;}.bdcs-container .bdcs-search-sug-list-item{height:28px;line-height:28px;font-family:Arial,SimSun,sans-serif;font-size:14px;}.bdcs-container .bdcs-search-sug-list-item-value{color:#000000;}#bdcs-rec{display:none;}</style><script src="./jQuery经典面试题及答案精选 – 码农网_files/hm.js"></script><script type="text/javascript" async="" src="./jQuery经典面试题及答案精选 – 码农网_files/js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>jQuery经典面试题及答案精选 – 码农网</title>
+<link rel="stylesheet" id="wp-pagenavi-css" href="./jQuery经典面试题及答案精选 – 码农网_files/pagenavi-css.css" type="text/css" media="all">
+<script type="text/javascript">
+var duoshuoQuery = {"short_name":"codeceo","sso":{"login":"http:\/\/www.codeceo.com\/wp-login.php?action=duoshuo_login","logout":"http:\/\/www.codeceo.com\/wp-login.php?action=logout&_wpnonce=e72789b4cd"},"theme":"default","stylePatch":"wordpress\/"};
+duoshuoQuery.sso.login += '&redirect_to=' + encodeURIComponent(window.location.href);
+duoshuoQuery.sso.logout += '&redirect_to=' + encodeURIComponent(window.location.href);
+</script>
+<script type="text/javascript" src="./jQuery经典面试题及答案精选 – 码农网_files/embed.js" charset="UTF-8" async="async"></script>
+<link rel="prev" title="为什么CDN对移动客户端加速“没有”效果" href="http://www.codeceo.com/article/why-cdn-not-effect-with-mobile.html">
+<link rel="next" title="Android Touch事件分发过程" href="http://www.codeceo.com/article/android-touch-event.html">
+<link rel="canonical" href="./jQuery经典面试题及答案精选 – 码农网_files/jQuery经典面试题及答案精选 – 码农网.html">
+<meta name="keywords" content="jQuery, jQuery面试题, 面试题, WEB开发, 编程开发, 首页精华">
+<meta name="description" content="jQuery是一款非常流行的Javascript框架，如果你想要从事Web前端开发这个岗位，那么jQuery是你必须掌握而且能够熟练应用的一门技术。本文整理了一些关于jQuery的经典面试题及答案，分享给正要面试Web开发岗位的同学。   问题：jQuery的美元符号$有什么作用？ 回答：其实美元符号$只是&#39;jQuery&#39;的别名，它是jQuery的选择器，如下代码： $(document).ready(function(){  }); ..">
+<link rel="stylesheet" href="http://www.codeceo.com/wp-content/themes/d-simple/style.css" media="all">
+<!--[if lt IE 9]><script src="http://www.codeceo.com/wp-content/themes/d-simple/js/html5.js"></script><![endif]-->
+<script src="./jQuery经典面试题及答案精选 – 码农网_files/jquery.min.js"></script><link type="text/css" rel="stylesheet" href="./jQuery经典面试题及答案精选 – 码农网_files/embed.default.css">
+
+<style type="text/css">
+
+.plink a {
+margin-right: 16px;
+display: inline-block;
+text-transform: uppercase;
+padding: 1em 1.5em 0.75em;
+border-radius: 2px;
+font-weight: bold;
+border: none;
+color: #fff !important;
+text-decoration: none;
+font-family: 'Open Sans Condensed',sans-serif;
+font-size: 14px;
+line-height: 1;
+cursor: pointer;
+}
+.plink a:hover{
+opacity:0.9;
+}
+.plink .phome{
+font-size: 16px;
+padding: 1em 2em 1em;
+background-color: #a5d16d;
+box-shadow: 0 0 5px #a4cf6c inset, 0 1px 1px #eee;
+}
+.plink .pdoc,.plink .pdownload{
+font-size: 16px;
+padding: 1em 2em 1em;
+background-color: #93d0ea;
+box-shadow: 0 0 5px #8fcde7 inset, 0 1px 1px #eee;
+}
+
+.dlink{
+text-align:center;
+}
+.dlink a{
+font-size:18px;
+}
+.trap-link,.un-link{
+display:none;
+}
+
+
+.d-links{
+text-align:center;
+}
+.d-links a {
+margin-right: 16px;
+margin-bottom: 10px;
+display: inline-block;
+text-transform: uppercase;
+padding: 1em 1.5em 0.75em;
+border-radius: 2px;
+font-weight: bold;
+border: none;
+color: #fff !important;
+text-decoration: none;
+font-family: 'Open Sans Condensed',sans-serif;
+font-size: 14px;
+line-height: 1;
+cursor: pointer;
+}
+.d-links a:hover{
+opacity:0.9;
+}
+.d-links .demo{
+font-size: 18px;
+padding: 1.2em 2.5em 1em;
+background-color: #a5d16d;
+box-shadow: 0 0 5px #a4cf6c inset, 0 1px 1px #eee;
+}
+.d-links .download{
+font-size: 18px;
+padding: 1.2em 2.5em 1em;
+background-color: #93d0ea;
+box-shadow: 0 0 5px #8fcde7 inset, 0 1px 1px #eee;
+}
+
+.perlink{
+display:none;
+}
+
+.nav_scroll{ position:fixed;z-index:1200;top:0px;}
+.related_scroll{ position:fixed;z-index:1200;top:0px;width:278px;}
+
+.article-entry .yunlu {
+    background: #f0f0f0;
+    text-align: left;
+    margin-bottom: 15px;
+
+    border: 1px dotted #9b9b9b;
+    padding:5px 0
+}
+
+.article-entry .yunlu ul {
+    list-style: none;
+    padding: 9px;
+    border: 1px dotted #9b9b9b;
+    overflow: hidden;
+    margin: 0;
+}
+
+.article-entry .yunlu ul li {
+    width: 310px;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 25px;
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+</style>
+<script src="./jQuery经典面试题及答案精选 – 码农网_files/share.js"></script><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style0_16.css?v=6aba13f0.css"><script type="text/javascript" charset="utf-8" src="./jQuery经典面试题及答案精选 – 码农网_files/getnum"></script></head>
+<body class="single single-post postid-1317 single-format-standard">
+<header class="header">
+	<div class="central">
+		<a class="logo" href="http://www.codeceo.com/" title="码农网 - 程序员编程资料和编程经验分享平台">码农网</a>
+		<ul class="nav">
+			<li id="menu-item-10" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10"><a href="http://www.codeceo.com/article/category/news">资讯</a></li>
+<li id="menu-item-226" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-226"><a href="http://www.codeceo.com/article/category/develop">编程开发</a>
+<ul class="sub-menu">
+	<li id="menu-item-10429" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10429"><a href="http://www.codeceo.com/article/category/develop/java">JAVA开发</a></li>
+	<li id="menu-item-10427" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10427"><a href="http://www.codeceo.com/article/category/develop/cpp">C/C++开发</a></li>
+	<li id="menu-item-10425" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10425"><a href="http://www.codeceo.com/article/category/develop/donet">.NET开发</a></li>
+	<li id="menu-item-10430" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10430"><a href="http://www.codeceo.com/article/category/develop/web">WEB开发</a></li>
+	<li id="menu-item-10426" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10426"><a href="http://www.codeceo.com/article/category/develop/android">Android开发</a></li>
+	<li id="menu-item-10428" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10428"><a href="http://www.codeceo.com/article/category/develop/ios">iOS开发</a></li>
+	<li id="menu-item-10431" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10431"><a href="http://www.codeceo.com/article/category/develop/cloud">云计算/大数据</a></li>
+	<li id="menu-item-10432" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10432"><a href="http://www.codeceo.com/article/category/develop/os">操作系统</a></li>
+	<li id="menu-item-10433" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10433"><a href="http://www.codeceo.com/article/category/develop/database">数据库</a></li>
+	<li id="menu-item-10434" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10434"><a href="http://www.codeceo.com/article/category/develop/machine">机器学习/人工智能</a></li>
+	<li id="menu-item-10435" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10435"><a href="http://www.codeceo.com/article/category/develop/algorithm">算法设计</a></li>
+	<li id="menu-item-10818" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10818"><a href="http://www.codeceo.com/article/category/develop/design-patterns">设计模式</a></li>
+</ul>
+</li>
+<li id="menu-item-9" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9"><a href="http://www.codeceo.com/article/category/programmer">程序员人生</a></li>
+<li id="menu-item-5237" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5237"><a href="http://www.codeceo.com/article/category/weekly">《快乐码农》</a></li>
+<li id="menu-item-4520" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4520"><a href="http://www.codeceo.com/article/category/project">开源软件</a></li>
+<li id="menu-item-13578" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13578"><a href="http://www.codeceo.com/article/jquery-interview.html#">RSS订阅</a>
+<ul class="sub-menu">
+	<li id="menu-item-13579" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13579"><a target="_blank" href="http://www.codeceo.com/feed">订阅全站文章</a></li>
+	<li id="menu-item-13580" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13580"><a target="_blank" href="http://www.codeceo.com/article/category/pick/feed">订阅首页精华文章</a></li>
+</ul>
+</li>
+		</ul>
+
+		
+<div style="float:right;margin-top:15px">
+<script type="text/javascript">(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=5192211232745119302' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();</script><div id="bdcs"><div class="bdcs-container"><meta http-equiv="x-ua-compatible" content="IE=9">   <!-- 嵌入式 -->  <div class="bdcs-main bdcs-clearfix" id="default-searchbox">      <div class="bdcs-search bdcs-clearfix" id="bdcs-search-inline">          <form action="http://zhannei.baidu.com/cse/search" method="get" target="_blank" class="bdcs-search-form" autocomplete="off" id="bdcs-search-form">              <input type="hidden" name="s" value="5192211232745119302">              <input type="hidden" name="entry" value="1">                                                                        <input type="text" name="q" class="bdcs-search-form-input" id="bdcs-search-form-input" placeholder="请输入关键词" autocomplete="off" style="height: 26px; line-height: 26px;">              <input type="submit" class="bdcs-search-form-submit " id="bdcs-search-form-submit" value="搜索">                       </form>      </div>                <div class="bdcs-search-sug" id="bdcs-search-sug" style="top: 44px; left: 918px; width: 179px;">              <ul class="bdcs-search-sug-list" id="bdcs-search-sug-list"></ul>          </div>                  </div>                           </div></div>
+</div>
+
+
+<!--
+		<form method="get" class="search-form" action="http://www.codeceo.com/" >
+			<input class="search-input" name="s" type="text" placeholder="输入关键字搜索" autofocus="" x-webkit-speech=""><input class="btn btn-primary search-submit" type="submit" value="搜索">
+		</form>
+-->
+
+	</div>
+</header>
+
+<div style="margin-bottom:16px;border-bottom:#eee solid 2px;padding:10px 0;background-color:#FCFCFC">
+<div style="width:970px;margin:0 auto">
+<script async="" src="./jQuery经典面试题及答案精选 – 码农网_files/adsbygoogle.js"></script>
+<!-- 码农网大横幅 -->
+<ins class="adsbygoogle" style="display:inline-block;width:970px;height:250px" data-ad-client="ca-pub-3171310320403916" data-ad-slot="2281748188"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>
+
+<section class="central container">
+<div class="content-wrap">
+	<div class="content">
+				<div class="artical">
+			<header class="article-header">
+				<h1 class="article-title"><a href="./jQuery经典面试题及答案精选 – 码农网_files/jQuery经典面试题及答案精选 – 码农网.html" title="jQuery经典面试题及答案精选 - 码农网">jQuery经典面试题及答案精选</a></h1>
+				
+				<p class="article-meta">
+
+					2014-09-04 &nbsp;&nbsp; 分类：<a href="http://www.codeceo.com/article/category/develop/web" title="查看 WEB开发 中的全部文章" rel="category tag">WEB开发</a>、<a href="http://www.codeceo.com/article/category/develop" title="查看 编程开发 中的全部文章" rel="category tag">编程开发</a>、<a href="http://www.codeceo.com/article/category/pick" title="查看 首页精华 中的全部文章" rel="category tag">首页精华</a><a class="comm" href="http://www.codeceo.com/article/jquery-interview.html#comments" title="查看 jQuery经典面试题及答案精选 的评论">21人评论</a> 				</p>
+
+<div class="bdsharebuttonbox share bdshare-button-style0-16" data-tag="share_1" data-bd-bind="1463797203699">
+	<span class="share-tit">分享到：</span>
+	<a class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a>
+	<a class="bds_qzone" data-cmd="qzone" href="http://www.codeceo.com/article/jquery-interview.html#" title="分享到QQ空间"></a>
+	<a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a class="bds_baidu" data-cmd="baidu"></a>
+	<a class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a class="bds_more" data-cmd="more">更多</a>
+	<a class="bds_count" data-cmd="count" title="累计分享17次">17</a>
+</div>
+
+
+			</header>
+
+						
+<div class="article-entry" id="article-entry">
+
+<p style="background:#eeefff;padding:10px;"><strong>本文由<a title="码农网" href="http://www.codeceo.com/" target="_blank">码农网</a>&nbsp;– 小峰原创，转载请看清文末的转载要求，欢迎参与我们的<a href="http://www.codeceo.com/article/2016-codeceo-post-plan.html" target="_blank">付费投稿计划</a>！</strong></p>
+
+				<p>jQuery是一款非常流行的Javascript框架，如果你想要从事Web前端开发这个岗位，那么jQuery是你必须掌握而且能够熟练应用的一门技术。本文整理了一些关于jQuery的经典面试题及答案，分享给正要面试Web开发岗位的同学。</p>
+<p><img class="alignnone size-full wp-image-1319 aligncenter" title="logo-jquery" src="./jQuery经典面试题及答案精选 – 码农网_files/logo-jquery.jpg" alt="" width="347" height="180"></p>
+<h2>问题：jQuery的美元符号$有什么作用？</h2>
+<p>回答：其实美元符号$只是”jQuery”的别名，它是jQuery的选择器，如下代码：</p>
+<pre>$(document).ready(function(){
+
+});</pre>
+<p>当然你也可以用jQuery来代替$，如下代码：</p>
+<pre>jQuery(document).ready(function(){
+
+});</pre>
+<p>jQuery中就是通过这个美元符号来实现各种灵活的DOM元素选择的，例如$(“#main”)即选中id为main的元素。</p>
+<h2>问题：body中的onload()函数和jQuery中的document.ready()有什么区别？</h2>
+<p>回答：onload()和document.ready()的区别有以下两点：</p>
+<p>1、我们可以在页面中使用多个document.ready()，但只能使用一次onload()。</p>
+<p>2、document.ready()函数在页面DOM元素加载完以后就会被调用，而onload()函数则要在所有的关联资源（包括图像、音频）加载完毕后才会调用。</p>
+<h2>问题：jQuery中有哪几种类型的选择器？</h2>
+<p>回答：从我自己的角度来讲，可以有3种类型的选择器，如下：</p>
+<p>1、基本选择器：直接根据id、css类名、元素名返回匹配的dom元素。</p>
+<p>2、层次选择器：也叫做路径选择器，可以根据路径层次来选择相应的DOM元素。</p>
+<p>3、过滤选择器：在前面的基础上过滤相关条件，得到匹配的dom元素。</p>
+<h2>问题：请使用jQuery将页面上的所有元素边框设置为2px宽的虚线？</h2>
+<p>回答：这正是jQuery选择器上场的时候了，代码如下：</p>
+<pre>&lt;script language="javascript" type="text/javascript"&gt;
+
+        <strong> $("*").css("border", "2px dotted red");</strong> 
+
+&lt;/script&gt;</pre>
+<h2>问题：当CDN上的jQuery文件不可用时，该怎么办？</h2>
+<p>回答：为了节省带宽和脚本引用的稳定性，我们会使用CDN上的jQuery文件，例如google的jquery cdn服务。但是如果这些CDN上的jQuery服务不可用，我们还可以通过以下代码来切换到本地服务器的jQuery版本：</p>
+<pre>&lt;script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.4.1.min.js "&gt;&lt;/script&gt;
+
+&lt;script type='text/javascript'&gt;//&lt;![CDATA[
+
+if (typeof jQuery == 'undefined') {
+
+document.write(unescape("%3Cscript src='/Script/jquery-1.4.1.min.js' type='text/javascript' %3E%3C/script%3E"));
+
+}//]]&gt;
+
+&lt;/script&gt;</pre>
+<h2>问题：如何使用jQuery实现点击按钮弹出一个对话框？</h2>
+<p>回答：代码如下：</p>
+<p>HTML：</p>
+<pre><strong>&lt;input id="inputField" type="text" size="12"/&gt;</strong></pre>
+<p>jQuery：</p>
+<pre><strong>&lt;script type="text/javascript"&gt; $(document).ready(function () { $('#Button1').click(function () { alert($('#inputField').attr("value")); }); }); &lt;/script&gt;</strong></pre>
+<h2>问题：jQuery中的Delegate()函数有什么作用？</h2>
+<p>回答：delegate()会在以下两个情况下使用到：</p>
+<p>1、如果你有一个父元素，需要给其下的子元素添加事件，这时你可以使用delegate()了，代码如下：</p>
+<pre>$("ul").delegate("li", "click", function(){
+
+$(this).hide();
+
+});</pre>
+<p>2、当元素在当前页面中不可用时，可以使用delegate()</p>
+<h2>问题：怎样用jQuery编码和解码URL？</h2>
+<p>回答：在jQuery中，我们可以使用以下方法实现URL的编码和解码。</p>
+<pre>encodeURIComponent(url) and decodeURIComponent(url)</pre>
+<h2>问题：如何用jQuery禁用浏览器的前进后退按钮？</h2>
+<p>回答：实现代码如下：</p>
+<pre>&lt;script type="text/javascript" language="javascript"&gt;
+
+$(document).ready(function() {
+
+     window.history.forward(1);
+
+     //OR
+
+     window.history.forward(-1);
+
+});
+
+&lt;/script&gt;</pre>
+<script type="text/javascript">
+var strBatchView = 1317</script>
+
+<a id="soft-link" name="soft-link"></a>
+
+<div style="width:336px;height:280px;margin:40px auto">
+<script async="" src="./jQuery经典面试题及答案精选 – 码农网_files/adsbygoogle.js"></script>
+<!-- codeceo-bottom-big -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3171310320403916" data-ad-slot="5138981789"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+
+<!--开源软件资源链接-->
+<!--开源软件资源链接结束-->
+
+
+
+
+
+
+<div class="article-entry">
+<p>本文链接：<a href="./jQuery经典面试题及答案精选 – 码农网_files/jQuery经典面试题及答案精选 – 码农网.html" target="_blank">http://www.codeceo.com/article/jquery-interview.html</a><br>
+本文作者：<a href="http://www.codeceo.com/" target="_blank">码农网</a>&nbsp;– 小峰<br>
+[&nbsp;<span style="color: #ff0000;"><strong>原创作品，转载必须在正文中标注并保留原文链接和作者等信息。</strong></span>]</p>
+</div>
+
+<div class="bd_ad_bottom" style="margin:40px 0 40px 0">
+
+<div class="sogou_ads" style="float:left;margin-right:36px">
+<script type="text/javascript">
+var cpro_id="u2554801";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"250",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0"}
+</script>
+<script src="./jQuery经典面试题及答案精选 – 码农网_files/c.js" type="text/javascript"></script>
+</div>
+
+<div class="baidu_ads" style="float:left">
+<script type="text/javascript">
+var cpro_id="u2405524";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"250",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"",rss2:"#000000",titSU:"0"}
+</script>
+<script src="./jQuery经典面试题及答案精选 – 码农网_files/c.js" type="text/javascript"></script>
+</div>
+<div style="clear:both"></div>
+</div>
+
+			</div>
+
+
+			<footer class="article-footer">
+				<div class="bdsharebuttonbox share bdshare-button-style0-16" data-tag="share_1" data-bd-bind="1463797203699">
+	<span class="share-tit">分享到：</span>
+	<a class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a>
+	<a class="bds_qzone" data-cmd="qzone" href="http://www.codeceo.com/article/jquery-interview.html#" title="分享到QQ空间"></a>
+	<a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a class="bds_baidu" data-cmd="baidu"></a>
+	<a class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+	<a class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+	<a class="bds_more" data-cmd="more">更多</a>
+	<a class="bds_count" data-cmd="count" title="累计分享17次">17</a>
+</div>
+		
+				<div class="article-tags">继续浏览有关<a href="http://www.codeceo.com/article/tag/jquery" rel="tag">jQuery</a><a href="http://www.codeceo.com/article/tag/jquery%e9%9d%a2%e8%af%95%e9%a2%98" rel="tag">jQuery面试题</a><a href="http://www.codeceo.com/article/tag/%e9%9d%a2%e8%af%95%e9%a2%98" rel="tag">面试题</a>的文章</div>
+			</footer>
+
+			
+		</div>
+
+		
+		
+
+		
+		<a name="comments"></a>
+
+<div class="ds-thread" data-thread-key="1317" data-author-key="1" data-title="jQuery经典面试题及答案精选" data-url="http://www.codeceo.com/article/jquery-interview.html" id="ds-thread"><div id="ds-reset"><div class="ds-rounded" id="ds-hot-posts"><div class="ds-header ds-gradient-bg">被顶起来的评论</div><ul><li class="ds-post" data-post-id="6208459631066071809"><div class="ds-post-self" data-post-id="6208459631066071809" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="380980"><a rel="nofollow author" target="_blank" href="http://www.myesn.cn/" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=380980&#39;;" title="myesn"><img src="./jQuery经典面试题及答案精选 – 码农网_files/100" alt="myesn"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.myesn.cn/" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=380980&#39;;" rel="nofollow" target="_blank" data-user-id="380980">myesn</a></div><p>赞！</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-10-22T21:14:12+08:00" title="2015年10月22日 下午9:14:12">2015年10月22日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶(1)</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></div><div class="ds-comments-info"><div class="ds-sort"><a class="ds-order-desc">最新</a><a class="ds-order-asc ds-current">最早</a><a class="ds-order-hot">最热</a></div><ul class="ds-comments-tabs"><li class="ds-tab"><a class="ds-comments-tab-duoshuo ds-current" href="javascript:void(0);"><span class="ds-highlight">15</span>评论</a></li>  </ul></div><ul class="ds-comments"><li class="ds-post" data-post-id="1217802586250281451"><div class="ds-post-self" data-post-id="1217802586250281451" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="Roscoe"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">Roscoe</span></div><p>上面问题中，边框设置为虚线是不是dashed比dotted更合适一点？</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-04T23:28:21+08:00" title="2014年9月4日 下午11:28:21">2014年9月4日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div><ul class="ds-children"><li class="ds-post" data-post-id="1217802586250281452"><div class="ds-post-self" data-post-id="1217802586250281452" data-thread-id="1217802586250281136" data-root-id="1217802586250281451" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="thinkerchan"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">thinkerchan</span></div><p>这个还是次要的... 主要考点在通配符和css()</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-04T23:55:39+08:00" title="2014年9月4日 下午11:55:39">2014年9月4日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281518"><div class="ds-post-self" data-post-id="1217802586250281518" data-thread-id="1217802586250281136" data-root-id="1217802586250281451" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="starof"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">starof</span></div><p>是的，dashed虚线，dotted点状线</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-16T09:46:31+08:00" title="2014年9月16日 上午9:46:31">2014年9月16日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul></li><li class="ds-post" data-post-id="1217802586250281453"><div class="ds-post-self" data-post-id="1217802586250281453" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="yyy"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">yyy</span></div><p>7uty</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-05T10:45:55+08:00" title="2014年9月5日 上午10:45:55">2014年9月5日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281454"><div class="ds-post-self" data-post-id="1217802586250281454" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="ddd"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">ddd</span></div><p>ff</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-05T10:46:30+08:00" title="2014年9月5日 上午10:46:30">2014年9月5日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281455"><div class="ds-post-self" data-post-id="1217802586250281455" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="guozi"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">guozi</span></div><p>这个面试题完全没有意义啊，想找什么样的程序员呢？</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-05T15:18:39+08:00" title="2014年9月5日 下午3:18:39">2014年9月5日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281457"><div class="ds-post-self" data-post-id="1217802586250281457" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="一个资深的XXOO"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">一个资深的XXOO</span></div><p>XXXXXXXXXXXXXXXOOOOOOOOOOOOOOO</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-05T15:26:17+08:00" title="2014年9月5日 下午3:26:17">2014年9月5日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281458"><div class="ds-post-self" data-post-id="1217802586250281458" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="7539065"><a rel="nofollow author" target="_blank" href="http://weibo.com/abap" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=7539065&#39;;" title="gabardine12"><img src="./jQuery经典面试题及答案精选 – 码农网_files/0" alt="gabardine12"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/abap" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=7539065&#39;;" rel="nofollow" target="_blank" data-user-id="7539065">gabardine12</a></div><p>xiexie</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-06T13:40:39+08:00" title="2014年9月6日 下午1:40:39">2014年9月6日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281466"><div class="ds-post-self" data-post-id="1217802586250281466" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="6301464"><a rel="nofollow author" target="_blank" href="http://weibo.com/2078323075" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=6301464&#39;;" title="莫名小晟"><img src="./jQuery经典面试题及答案精选 – 码农网_files/1" alt="莫名小晟"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://weibo.com/2078323075" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=6301464&#39;;" rel="nofollow" target="_blank" data-user-id="6301464">莫名小晟</a></div><p>恩，学习一下吧</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-09T09:02:20+08:00" title="2014年9月9日 上午9:02:20">2014年9月9日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281467"><div class="ds-post-self" data-post-id="1217802586250281467" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="8844649"><a rel="nofollow author" target="_blank" href="http://t.qq.com/dadadads2013" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=8844649&#39;;" title="lily"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="lily"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://t.qq.com/dadadads2013" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=8844649&#39;;" rel="nofollow" target="_blank" data-user-id="8844649">lily</a></div><p>好</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-09T09:17:36+08:00" title="2014年9月9日 上午9:17:36">2014年9月9日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250281908"><div class="ds-post-self" data-post-id="1217802586250281908" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="2177459"><a rel="nofollow author" target="_blank" href="http://ruosen.io/" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=2177459&#39;;" title="Geek柴"><img src="./jQuery经典面试题及答案精选 – 码农网_files/1(1)" alt="Geek柴"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://ruosen.io/" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=2177459&#39;;" rel="nofollow" target="_blank" data-user-id="2177459">Geek柴</a></div><p>有些题就是搞笑呢</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2014-09-26T14:11:48+08:00" title="2014年9月26日 下午2:11:48">2014年9月26日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250288615"><div class="ds-post-self" data-post-id="1217802586250288615" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="lucy"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">lucy</span></div><p>ok</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-05-13T15:34:02+08:00" title="2015年5月13日 下午3:34:02">2015年5月13日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="1217802586250292071"><div class="ds-post-self" data-post-id="1217802586250292071" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="嘎嘎"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">嘎嘎</span></div><p>很经典</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-09-28T22:41:58+08:00" title="2015年9月28日 下午10:41:58">2015年9月28日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6208459631066071809"><div class="ds-post-self" data-post-id="6208459631066071809" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar" data-user-id="380980"><a rel="nofollow author" target="_blank" href="http://www.myesn.cn/" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=380980&#39;;" title="myesn"><img src="./jQuery经典面试题及答案精选 – 码农网_files/100" alt="myesn"></a></div><div class="ds-comment-body"><div class="ds-comment-header"><a class="ds-user-name ds-highlight" data-qqt-account="" href="http://www.myesn.cn/" onclick="this.href=&#39;http://codeceo.duoshuo.com/user-url/?user_id=380980&#39;;" rel="nofollow" target="_blank" data-user-id="380980">myesn</a></div><p>赞！</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-10-22T21:14:12+08:00" title="2015年10月22日 下午9:14:12">2015年10月22日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶(1)</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li><li class="ds-post" data-post-id="6228393602028929793"><div class="ds-post-self" data-post-id="6228393602028929793" data-thread-id="1217802586250281136" data-root-id="0" data-source="duoshuo"><div class="ds-avatar"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt="laa"></div><div class="ds-comment-body"><div class="ds-comment-header"><span class="ds-user-name" data-qqt-account="">laa</span></div><p>入门程序员的吧</p><div class="ds-comment-footer ds-comment-actions"><span class="ds-time" datetime="2015-12-15T14:28:11+08:00" title="2015年12月15日 下午2:28:11">2015年12月15日</span><a class="ds-post-reply" href="javascript:void(0);"><span class="ds-icon ds-icon-reply"></span>回复</a><a class="ds-post-likes" href="javascript:void(0);"><span class="ds-icon ds-icon-like"></span>顶</a><a class="ds-post-repost" href="javascript:void(0);"><span class="ds-icon ds-icon-share"></span>转发</a><a class="ds-post-report" href="javascript:void(0);"><span class="ds-icon ds-icon-report"></span>举报</a></div></div></div></li></ul><div class="ds-paginator" style="display: none;"><div class="ds-border"></div><a data-page="1" href="javascript:void(0);" class="ds-current">1</a></div><a name="respond"></a><div class="ds-login-buttons"><p>社交帐号登录:</p><div class="ds-social-links"><ul class="ds-service-list"><li><a href="http://codeceo.duoshuo.com/login/weixin/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-weixin">微信</a></li><li><a href="http://codeceo.duoshuo.com/login/weibo/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-weibo">微博</a></li><li><a href="http://codeceo.duoshuo.com/login/qq/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-qq">QQ</a></li><li><a href="http://codeceo.duoshuo.com/login/renren/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-renren">人人</a></li><li><a class="ds-more-services" href="javascript:void(0)">更多»</a></li></ul><ul class="ds-service-list ds-additional-services"><li><a href="http://codeceo.duoshuo.com/login/douban/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-douban">豆瓣</a></li><li><a href="http://codeceo.duoshuo.com/login/kaixin/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-kaixin">开心</a></li><li><a href="http://codeceo.duoshuo.com/login/baidu/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-baidu">百度</a></li><li><a href="http://codeceo.duoshuo.com/login/google/?sso=1&redirect_uri=http%3A%2F%2Fwww.codeceo.com%2Fwp-login.php%3Faction%3Dduoshuo_login%26redirect_to%3Dhttp%253A%252F%252Fwww.codeceo.com%252Farticle%252Fjquery-interview.html" rel="nofollow" class="ds-service-link ds-google">谷歌</a></li></ul></div></div><div class="ds-replybox"><a class="ds-avatar" href="javascript:void(0);" onclick="return false"><img src="./jQuery经典面试题及答案精选 – 码农网_files/noavatar_default.png" alt=""></a><form method="post"><input type="hidden" name="thread_id" value="1217802586250281136">
+<input type="hidden" name="parent_id" value="">
+<input type="hidden" name="nonce" value="5737244239f47"><div class="ds-textarea-wrapper ds-rounded-top"><textarea name="message" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea><pre class="ds-hidden-text"></pre></div><div class="ds-post-toolbar"><div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span></div><button class="ds-post-button" type="submit">发布</button><div class="ds-toolbar-buttons"><a class="ds-toolbar-button ds-add-emote" title="插入表情"></a></div></div></form></div><p class="ds-powered-by"><a href="http://duoshuo.com/" target="_blank" rel="nofollow">码农网正在使用多说</a></p></div></div>
+
+<script type="text/javascript">
+	if (typeof DUOSHUO !== 'undefined')
+		DUOSHUO.EmbedThread('.ds-thread');
+</script>
+	<div id="ds-ssr">
+
+		
+            <ol id="commentlist">
+                		<li class="comment even thread-even depth-1" id="li-comment-306">
+			<article id="comment-306" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">Roscoe</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-306"><time pubdate="" datetime="2014-09-04T23:28:21+08:00">2014 年 9 月 4 日 at 下午 11:28</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>上面问题中，边框设置为虚线是不是dashed比dotted更合适一点？</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		<ul class="children">
+		<li class="comment odd alt depth-2" id="li-comment-307">
+			<article id="comment-307" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">thinkerchan</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-307"><time pubdate="" datetime="2014-09-04T23:55:39+08:00">2014 年 9 月 4 日 at 下午 11:55</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>这个还是次要的… 主要考点在通配符和css()</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even depth-2" id="li-comment-357">
+			<article id="comment-357" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">starof</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-357"><time pubdate="" datetime="2014-09-16T09:46:31+08:00">2014 年 9 月 16 日 at 上午 9:46</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>是的，dashed虚线，dotted点状线</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+</ul>
+</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-308">
+			<article id="comment-308" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">yyy</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-308"><time pubdate="" datetime="2014-09-05T10:45:55+08:00">2014 年 9 月 5 日 at 上午 10:45</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>7uty</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even thread-even depth-1" id="li-comment-309">
+			<article id="comment-309" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">ddd</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-309"><time pubdate="" datetime="2014-09-05T10:46:30+08:00">2014 年 9 月 5 日 at 上午 10:46</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>ff</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-310">
+			<article id="comment-310" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">guozi</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-310"><time pubdate="" datetime="2014-09-05T15:18:39+08:00">2014 年 9 月 5 日 at 下午 3:18</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>这个面试题完全没有意义啊，想找什么样的程序员呢？</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even thread-even depth-1" id="li-comment-312">
+			<article id="comment-312" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">一个资深的XXOO</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-312"><time pubdate="" datetime="2014-09-05T15:26:17+08:00">2014 年 9 月 5 日 at 下午 3:26</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>XXXXXXXXXXXXXXXOOOOOOOOOOOOOOO</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-313">
+			<article id="comment-313" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://weibo.com/abap" rel="external nofollow" class="url">gabardine12</a></span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-313"><time pubdate="" datetime="2014-09-06T13:40:39+08:00">2014 年 9 月 6 日 at 下午 1:40</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>xiexie</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even thread-even depth-1" id="li-comment-321">
+			<article id="comment-321" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://weibo.com/2078323075" rel="external nofollow" class="url">莫名小晟</a></span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-321"><time pubdate="" datetime="2014-09-09T09:02:20+08:00">2014 年 9 月 9 日 at 上午 9:02</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>恩，学习一下吧</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-322">
+			<article id="comment-322" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://t.qq.com/dadadads2013" rel="external nofollow" class="url">asidiwed</a></span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-322"><time pubdate="" datetime="2014-09-09T09:17:36+08:00">2014 年 9 月 9 日 at 上午 9:17</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>好</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even thread-even depth-1" id="li-comment-489">
+			<article id="comment-489" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://ruosen.io/" rel="external nofollow" class="url">Geek柴</a></span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-489"><time pubdate="" datetime="2014-09-26T14:11:48+08:00">2014 年 9 月 26 日 at 下午 2:11</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>有些题就是搞笑呢</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-2542">
+			<article id="comment-2542" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">lucy</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-2542"><time pubdate="" datetime="2015-05-13T15:34:02+08:00">2015 年 5 月 13 日 at 下午 3:34</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>ok</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even thread-even depth-1" id="li-comment-5316">
+			<article id="comment-5316" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">嘎嘎</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-5316"><time pubdate="" datetime="2015-09-28T22:41:58+08:00">2015 年 9 月 28 日 at 下午 10:41</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>很经典</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="duoshuo odd alt thread-odd thread-alt depth-1" id="li-comment-5774">
+			<article id="comment-5774" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href="http://www.myesn.cn/" rel="external nofollow" class="url">myEsn</a></span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-5774"><time pubdate="" datetime="2015-10-22T21:14:12+08:00">2015 年 10 月 22 日 at 下午 9:14</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>赞！</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+		<li class="comment even thread-even depth-1" id="li-comment-6893">
+			<article id="comment-6893" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">laa</span> on <a rel="nofollow" href="http://www.codeceo.com/article/jquery-interview.html#comment-6893"><time pubdate="" datetime="2015-12-15T14:28:11+08:00">2015 年 12 月 15 日 at 下午 2:28</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>入门程序员的吧</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li>
+            </ol>
+
+		            
+    </div>
+		
+			</div>
+</div>
+
+
+<aside class="sidebar">	
+	<div class="widget widget_text">			<div class="textwidget"><style type="text/css">
+.hot{margin-bottom:20px}
+.hot h2{font-size:18px;padding-top:7px;text-align:center}
+.hot a{text-decoration:none}
+.hot img{width:300px;}
+</style>
+
+<div class="hot" style="height:250px">
+<script async="" src="./jQuery经典面试题及答案精选 – 码农网_files/adsbygoogle.js"></script>
+<!-- codeceo left 2 -->
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-3171310320403916" data-ad-slot="7648671380"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<div class="hot" style="height:250px">
+<script type="text/javascript">
+var cpro_id="u2191321";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"250",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0"}
+</script>
+<script src="./jQuery经典面试题及答案精选 – 码农网_files/c.js" type="text/javascript"></script>
+</div></div>
+		</div><div class="widget widget_d_hotpost"><h3 class="widget_tit">热门文章</h3><ul class="d_hotpost_txt"><li><a href="http://www.codeceo.com/article/android-studio-plugins.html" target="_blank">22 个 Android Studio 优秀插件汇总</a></li><li><a href="http://www.codeceo.com/article/angularjs-style-guides.html" target="_blank">AngularJS 样式指南介绍</a></li><li><a href="http://www.codeceo.com/article/java-remoted-communication.html" target="_blank">Java 远程通讯技术及原理分析</a></li><li><a href="http://www.codeceo.com/article/10-years-of-game-programming.html" target="_blank">游戏编程十年总结</a></li><li><a href="http://www.codeceo.com/article/paintings-in-programmer-eyes.html" target="_blank">程序员眼中的古典名画</a></li><li><a href="http://www.codeceo.com/article/my-google-interview.html" target="_blank">记一次 Google 面试经历</a></li><li><a href="http://www.codeceo.com/article/80-more-linux-monitor-tools.html" target="_blank">80 多个 Linux 系统管理员的监控工具</a></li><li><a href="http://www.codeceo.com/article/best-programmer-thinking.html" target="_blank">对优秀程序员的思考</a></li><li><a href="http://www.codeceo.com/article/69-spring-interview-questions.html" target="_blank">69 个经典 Spring 面试题和答案</a></li><li><a href="http://www.codeceo.com/article/my-it-job-hunter.html" target="_blank">我经历的IT公司面试及离职感受</a></li></ul></div><div class="widget widget_text">			<div class="textwidget"><div class="hot" style="height:250px">
+<script type="text/javascript">
+var cpro_id="u2509144";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"250",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0"}
+</script>
+<script src="./jQuery经典面试题及答案精选 – 码农网_files/c.js" type="text/javascript"></script>
+</div></div>
+		</div><div class="widget widget_d_hotpost"><h3 class="widget_tit">职场人生</h3><ul class="d_hotpost_txt"><li><a href="http://www.codeceo.com/article/shut-up-imposter-syndrome.html" target="_blank">闭嘴吧，冒名顶替综合症们，我太会编程了</a></li><li><a href="http://www.codeceo.com/article/how-i-prepare-interview.html" target="_blank">我是如何准备技术面试的</a></li><li><a href="http://www.codeceo.com/article/what-best-being-programmer.html" target="_blank">成为软件工程师最精彩的地方是什么？</a></li><li><a href="http://www.codeceo.com/article/30-sec-good-for-life.html" target="_blank">一个三十秒的习惯，让你受益终生</a></li><li><a href="http://www.codeceo.com/article/which-it-company-you-leave.html" target="_blank">什么样的IT公司你应该考虑辞职？</a></li><li><a href="http://www.codeceo.com/article/10-years-of-game-programming.html" target="_blank">游戏编程十年总结</a></li><li><a href="http://www.codeceo.com/article/what-awful-be-programmer-leader-pm.html" target="_blank">让程序员/技术主管/项目经理最可怕的事情是什么？</a></li><li><a href="http://www.codeceo.com/article/my-google-interview.html" target="_blank">记一次 Google 面试经历</a></li><li><a href="http://www.codeceo.com/article/best-programmer-thinking.html" target="_blank">对优秀程序员的思考</a></li><li><a href="http://www.codeceo.com/article/we-did-wrong-but-not-in-vain.html" target="_blank">我们做错了，但不是所有事情都是徒劳</a></li></ul></div><div class="widget widget_text">			<div class="textwidget"></div>
+		</div><div class="widget widget_text">			<div class="textwidget"><div id="related_post_bar" class="widget_d_hotpost" style="margin-top:10px">
+
+<h3>相关文章</h3>
+<ul class="d_hotpost_txt">
+<li><a href="http://www.codeceo.com/article/69-spring-interview-questions.html" target="_blank">69 个经典 Spring 面试题和答案</a></li><li><a href="http://www.codeceo.com/article/10-jquery-snippets-web-dev.html" target="_blank">高效Web开发的10个jQuery代码片段</a></li><li><a href="http://www.codeceo.com/article/jquery-3d-fullscreen-silder.html" target="_blank">jQuery炫酷全屏3D焦点图动画</a></li><li><a href="http://www.codeceo.com/article/jquery-artche-source-code.html" target="_blank">jQuery整体架构源码解析</a></li><li><a href="http://www.codeceo.com/article/jquery-cool-blind-player.html" target="_blank">超实用的jQuery百叶窗焦点图动画</a></li><li><a href="http://www.codeceo.com/article/jquery-horizon-image-slider.html" target="_blank">带水平滑杆的jQuery焦点图动画插件</a></li><li><a href="http://www.codeceo.com/article/8-useful-jquery-plugins.html" target="_blank">8个超实用的jQuery插件应用</a></li><li><a href="http://www.codeceo.com/article/10-jquery-image-player.html" target="_blank">10个超赞的jQuery图片滑块动画</a></li></ul>
+
+</div></div>
+		</div><div class="widgetRoller" style="position: fixed; top: 10px; z-index: 0; width: 300px; display: none;"></div></aside><style type="text/css">
+.hot_cat .cat_list{
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+.hot_cat .cat_list li{
+	border-bottom: solid 1px #eee;
+    padding:8px 0;
+}
+.hot_cat .cat_list li:last-child{
+	border-bottom:none;
+}
+.hot_cat .cat_img{
+	border: 0;
+    float: left;
+    width: 36px;
+    margin-right: 5px;
+}
+.hot_cat .cat_title{
+    padding: 0;
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    line-height: 13px;
+}
+.hot_cat .cat_link{
+	padding-right:8px;
+}
+.hot_cat .cat_link a{
+	color:#0088DB;
+}
+</style>
+
+<div style="position:absolute;right:0px;">
+	<div class="widget widget_d_hotpost hot_cat">
+		<h3 class="widget_tit">热门栏目订阅</h3>
+		<ul class="cat_list">
+			<li>
+				<img src="./jQuery经典面试题及答案精选 – 码农网_files/java-logo-4.jpg" alt="java" class="cat_img">
+				<h4 class="cat_title"><a href="http://www.codeceo.com/article/category/develop/java" target="_blank">Java</a></h4>
+				<span class="cat_link"><a href="http://www.codeceo.com/article/category/develop/java/feed" target="_blank">RSS</a></span>
+				<span class="cat_link"><a href="http://weibo.com/u/3206249732" target="_blank">微博</a></span>
+			</li>
+			<li>
+				<img src="./jQuery经典面试题及答案精选 – 码农网_files/programmer-logo-4.jpg" alt="程序员" class="cat_img">
+				<h4 class="cat_title"><a href="http://www.codeceo.com/article/category/programmer" target="_blank">程序员</a></h4>
+				<span class="cat_link"><a href="http://www.codeceo.com/article/category/programmer/feed" target="_blank">RSS</a></span>
+				<span class="cat_link"><a href="http://weibo.com/u/2832482174" target="_blank">微博</a></span>
+			</li>
+			<li>
+				<img src="./jQuery经典面试题及答案精选 – 码农网_files/android-logo-4.png" alt="Android" class="cat_img">
+				<h4 class="cat_title"><a href="http://www.codeceo.com/article/category/develop/android" target="_blank">Android</a></h4>
+				<span class="cat_link"><a href="http://www.codeceo.com/article/category/develop/android/feed" target="_blank">RSS</a></span>
+			</li>
+			<li>
+				<img src="./jQuery经典面试题及答案精选 – 码农网_files/php-logo-4.png" alt="PHP" class="cat_img">
+				<h4 class="cat_title"><a href="http://www.codeceo.com/article/tag/php" target="_blank">PHP</a></h4>
+				<span class="cat_link"><a href="http://www.codeceo.com/article/tag/php/feed" target="_blank">RSS</a></span>
+			</li>
+			<li>
+				<img src="./jQuery经典面试题及答案精选 – 码农网_files/javascript-logo-4.png" alt="JavaScript" class="cat_img">
+				<h4 class="cat_title"><a href="http://www.codeceo.com/article/tag/javascript" target="_blank">JavaScript</a></h4>
+				<span class="cat_link"><a href="http://www.codeceo.com/article/tag/javascript/feed" target="_blank">RSS</a></span>
+			</li>
+			<li>
+				<img src="./jQuery经典面试题及答案精选 – 码农网_files/linux-logo-4.png" alt="Linux" class="cat_img">
+				<h4 class="cat_title"><a href="http://www.codeceo.com/article/tag/linux" target="_blank">Linux</a></h4>
+				<span class="cat_link"><a href="http://www.codeceo.com/article/tag/linux/feed" target="_blank">RSS</a></span>
+			</li>
+		</ul>
+	</div>
+	
+	<div style="clear:both;width:160px"></div>
+	
+	<div style="width:160px;height:600px">
+		<script type="text/javascript">
+		var cpro_id="u2518649";
+		(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"160",rsi1:"600",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+		</script>
+		<script src="./jQuery经典面试题及答案精选 – 码农网_files/c.js" type="text/javascript"></script>
+	</div>
+
+	<div style="margin-top:20px" id="fixedNav" class="">
+		<p style="text-align:center">
+		<b>关注我们的微博</b>
+		</p><div style="width:156px;overflow:hidden;border:#2a7cb9 solid 2px;margin-top:10px;margin-bottom:20px">
+		<iframe width="100%" height="80" class="share_self" frameborder="0" scrolling="no" src="./jQuery经典面试题及答案精选 – 码农网_files/index.html"></iframe></div>
+		<p></p>
+		<p style="text-align:center">
+		<a style="display: block;width: 140px;background: #2a7cb9;font-size: 18px;color: #fff;line-height: 35px;padding: 10px;text-align:center;" href="http://www.codeceo.com/article/2016-codeceo-post-plan.html?utm_source=left_bar" target="_blank">付费投稿计划<br>点击查看详情</a>
+		</p>
+	</div>
+</div><script type="text/javascript">
+var relatedPostHTML = jQuery("#related-post-content");
+jQuery("#related_post_bar").html(relatedPostHTML.html());
+jQuery("#related-post-content").remove();
+
+
+jQuery(document).ready(function(){
+
+if (jQuery.browser.msie && (jQuery.browser.version == "6.0") && !jQuery.support.style) {
+var handler,sTop,dTop;
+dTop = jQuery("#related_post_bar").offset().top
+    jQuery(window).bind('scroll',function(){
+        window.clearTimeout(handler);
+        handler = window.setTimeout(function(){
+            sTop = jQuery(document).scrollTop();
+            sTop > dTop ? jQuery("#related_post_bar").css("top",sTop - dTop) : jQuery("#related_post_bar").css("top",0);
+	    jQuery("#related_post_bar").css({"position":"relative","z-index":"1200"});
+        },60);
+    });
+}
+else{
+var topMain= jQuery("#related_post_bar").offset().top
+ jQuery(window).scroll(function(){
+  if (jQuery(window).scrollTop()>topMain){
+   jQuery("#related_post_bar").addClass("related_scroll");
+  }else{
+   jQuery("#related_post_bar").removeClass("related_scroll");
+  }
+ });
+}
+});
+</script>
+<script language="javascript" type="text/javascript">
+try{
+	var elScript = document.createElement("script");
+	elScript.setAttribute("language", "javascript");
+	elScript.setAttribute("src", "http://www.codeceo.com/wp-counter.php?post_id=" + escape(strBatchView));
+	document.getElementsByTagName("body")[0].appendChild(elScript);
+	}
+catch(e){};
+</script>
+</section><script language="javascript" src="./jQuery经典面试题及答案精选 – 码农网_files/wp-counter.php"></script>
+<footer class="footer">
+	<div class="central">
+		<div class="trackcode">
+					</div>
+		<div class="copyright">
+			版权所有，保留一切权利！ © 2016 <a href="http://www.codeceo.com/">码农网</a>
+<a href="http://www.miitbeian.gov.cn/" target="_blank">浙ICP备14003773号-1</a>
+<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010502000955">浙公网安备 33010502000955号</a>
+		</div>
+	</div>
+</footer>
+<div class="rollto" style="display: block;"><a class="ico ico-totop" title="回顶部"></a><a href="http://www.codeceo.com/article/jquery-interview.html#respond" class="ico ico-torespond" title="发评论"></a></div>
+<script>var asr_1 = 0,asr_2 = 0;</script><script src="./jQuery经典面试题及答案精选 – 码农网_files/post.js"></script><div style="display:none">
+<script language="javascript" type="text/javascript" src="./jQuery经典面试题及答案精选 – 码农网_files/16025287.js"></script><a href="http://www.51.la/?16025287" target="_blank" title="51.La 网站流量统计系统"><img alt="51.La 网站流量统计系统" src="./jQuery经典面试题及答案精选 – 码农网_files/icon_9.gif" style="border:none"></a>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?af429ff7a5d8173130dceafabcc90a92";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</div>
+<script>
+	window._bd_share_config = {
+		common : {	
+			bdUrl : 'http://www.codeceo.com/article/jquery-interview.html'
+		},
+		share : [{
+			"bdSize" : 16
+		}]
+	}
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<script type="text/javascript">
+jQuery(function(){
+
+if (jQuery.browser.msie && (jQuery.browser.version == "6.0") && !jQuery.support.style) {
+var handler,sTop,dTop;
+dTop = jQuery("#fixedNav").offset().top
+    jQuery(window).bind('scroll',function(){
+        window.clearTimeout(handler);
+        handler = window.setTimeout(function(){
+            sTop = jQuery(document).scrollTop();
+            sTop > dTop ? jQuery("#fixedNav").css("top",sTop - dTop) : jQuery("#fixedNav").css("top",0);
+	    jQuery("#fixedNav").css({"position":"relative","z-index":"1200"});
+        },60);
+    });
+}
+else{
+      var topMain= jQuery("#fixedNav").offset().top
+      jQuery(window).scroll(function(){
+         if (jQuery(window).scrollTop()>topMain){
+             jQuery("#fixedNav").addClass("nav_scroll");
+         }else{
+             jQuery("#fixedNav").removeClass("nav_scroll");
+         }
+ });
+
+	}
+});
+
+</script>
+
+<script>function lc_get_cookie(name) {var c = document.cookie;if (c.indexOf(name) != -1) {var x = c.indexOf(name)+name.length+1;var y = c.indexOf(";",x);if (y < 0) y = c.length;return decodeURIComponent(c.substring(x,y));} else return "";}if ((d = document.getElementById("commentform")) != null) { e = d.elements;var z = lc_get_cookie("comment_author_email_badd07ee9c364732a5e9ad66c6ddab25");if (z != "") e["email"].value = z;z = lc_get_cookie("comment_author_badd07ee9c364732a5e9ad66c6ddab25");if (z != "") e["author"].value = z.replace(/\+/g, " ");z = lc_get_cookie("comment_author_url_badd07ee9c364732a5e9ad66c6ddab25");if (z != "") e["url"].value = z;}</script></body></html>

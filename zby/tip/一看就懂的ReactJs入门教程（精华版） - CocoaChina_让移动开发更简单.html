@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://www.cocoachina.com/webapp/20150721/12692.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+
+    <title>一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单</title>
+    <meta name="keywords" content="ReactJS,ReactiPhone开发,iOS开发,iPad开发,Mac开发,苹果开发中文站,iPhone开发中文站,CocoaChina首页, Mac OS开发, Cocoa介绍,移动互联网,触控科技,Cocoa,Apple,developer,iOS,iPhone,iPad,iMac,iPod Touch,iPhone5,iPhone4S,iPad3,招聘,iPhone程序员,Objective-c,iPhone应用外包,ios6,ios面试,Cocos2d-x,cocos2d,iTunes,App Store,苹果开发">
+    <meta name="description" content="CocoaChina前身是全球成立最早规模最大的苹果开发中文站，现致力为所有移动开发者提供资讯服务、问答服务、代码下载、工具库及人才招聘服务">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="baidu-tc-cerfication" content="3300a939a1098c27e94457b75a0bb8c1">
+    <script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/ca-pub-1180518835303646.js"></script><script type="text/javascript" async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/jquery.colorbox-min.js"></script><script async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/analytics.js"></script><script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/hm.js"></script><script type="text/javascript" async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/ga.js"></script><script async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/analytics.js"></script><script type="text/javascript">
+        function gotoMobilePage() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var agent_iphone = /iphone/i;
+            var agent_android = /android/i;
+            //var agent_ipad = /ipad/i;
+            var agent_ipod = /ipod/i;
+            var agent_wphone = /windows phone/i;
+            if(agent_iphone.test(sUserAgent) || agent_android.test(sUserAgent) || agent_ipod.test(sUserAgent) || agent_wphone.test(sUserAgent)){
+                var re = /\/\w+\/\d+\/(\d+)\.html/, 
+                    result = re.exec(window.location.pathname);
+                if ( result )
+                {
+                    window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=" + result[1];
+                } else {
+                    window.location.href = "http://m.cocoachina.com/";
+                }
+            }
+        }
+        gotoMobilePage(); 
+    </script>
+    <link rel="stylesheet" href="http://cdn.cocimg.com/assets/css/global.css?v=20150818" media="all">
+    <link rel="stylesheet" href="http://cdn.cocimg.com/assets/css/index.css?v=20151015" media="all">
+    <link href="http://cdn.cocimg.com/assets/css/module.css?v=20150906" rel="stylesheet">
+    <link href="http://cdn.cocimg.com/assets/css/style.css?v=20150818" rel="stylesheet">
+    <link href="http://cdn.cocimg.com/assets/css/navheader.css?v=20151120" rel="stylesheet">
+    <script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/navbar.js"></script>
+    <script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/abase.js"></script>
+    
+<script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/share.js"></script><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style1_32.css"></head>
+<body>
+
+    <div class="nav-header">
+            <div class="nav-header-top">
+                <div class="nav-logo nav-fl"><a href="http://www.cocoachina.com/"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/logo.png"></a></div>
+                <div class="nav-list nav-fl">
+                    <ul>
+                        <li><a href="http://www.cocoachina.com/news/">资讯</a></li>
+                        <li><a href="http://www.cocoachina.com/bbs/">论坛</a></li>
+                        <li><a target="_blank" href="http://code.cocoachina.com/" title="CODE">代码</a></li>
+                        <li><a href="http://tools.cocoachina.com/" title="工具" target="_blank">工具</a></li>
+                        <li><a target="_blank" href="http://job.cocoachina.com/" title="JOB">招聘</a></li>
+                        <li><a target="_blank" href="http://cvp.cocos.com/" title="CVP">CVP</a></li>
+                    </ul>
+                </div>
+                <div class="nav-search nav-fl">
+                    <div class="nav-search-flag" style="display:block"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/search-icon.png"></div>
+                    <div class="nav-search-form" style="display:none">
+                        <form action="http://www.cocoachina.com/cms/plus/search.php" name="formsearch" method="post" target="_blank">
+                            <input type="hidden" name="kwtype" value="0">
+                            <input type="hidden" name="searchtype" value="titlekeyword">
+                            <input name="keyword" type="text" placeholder="站内搜索">
+                            <input type="button">
+                        </form>
+                    </div>
+                </div>
+                <div class="nav-user nav-fr">
+                    <!-- #region 未登录时显示此区域 -->
+                    <div class="nav-user-login" style="display:block">
+                        <a href="http://www.cocoachina.com/bbs/login.php">登录</a>|
+                        <a href="http://www.cocoachina.com/bbs/register.php">注册</a>
+                    </div>
+                    <!-- #endregion -->
+                    <!-- #region 已登录时显示此区域 -->
+                    <div class="nav-user-name" style="display:none">
+                        <div><alert></alert><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/user.png">Guest</div>
+                        <ul>
+                            <li><a href="http://www.cocoachina.com/webapp/20150721/12692.html#"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/i-man.png">我的主页</a></li>
+                            <li><alert></alert><a href="http://www.cocoachina.com/webapp/20150721/12692.html#"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/i-mail.png">我的消息</a></li>
+                            <li><a href="http://www.cocoachina.com/webapp/20150721/12692.html#"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/i-setting.png">账户设置</a></li>
+                            <li><a href="http://www.cocoachina.com/webapp/20150721/index-offline.html"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/i-logout.png">退出</a></li>
+                        </ul>
+                    </div>
+                    <!-- #endregion -->
+                </div>
+                <div class="nav-clear"></div>
+            </div>
+        <div class="nav-header-bottom">
+            <ul>
+                <li><a id="ios" href="http://www.cocoachina.com/ios/" title="ios">iOS开发</a></li>
+                <li><a id="swift" href="http://www.cocoachina.com/swift/" title="swift">Swift</a></li>
+                <li><a id="app_store" href="http://www.cocoachina.com/appstore/" title="appstore">App Store研究</a></li>
+                <li><a id="design" href="http://www.cocoachina.com/design/" title="design">产品设计</a></li>
+                <li><a id="review" href="http://www.cocoachina.com/review/" title="review">应用评测</a></li>
+                <li><a id="game" href="http://www.cocoachina.com/game/" title="game">游戏开发</a></li>
+                <li><a id="apple" href="http://www.cocoachina.com/apple/" title="apple">苹果相关</a></li>
+                <!-- <li><a id="cocos" href="/cocos/" title="cocos">Cocos引擎</a></li>-->
+                <li><a id="webapp" href="http://www.cocoachina.com/webapp/" title="HTML5">HTML5</a></li>
+                <li><a id="android" href="http://www.cocoachina.com/android/" title="android">安卓相关</a></li>
+                <li><a id="market" href="http://www.cocoachina.com/market/" title="market">营销推广</a></li>
+                <li><a id="industry" href="http://www.cocoachina.com/industry/" title="industry">业界动态</a></li>
+                <li><a id="programmer" href="http://www.cocoachina.com/programmer/" title="programmer">程序人生</a></li>
+            </ul>
+        </div>
+    </div>
+<script language="javascript">
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPod");
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }
+        }
+        return flag;
+    }
+    if (!IsPC()){
+           window.location.href = "http://www.cocoachina.com/cms/wap.php?action=article&id=12692";
+    }
+
+</script>
+<!--middle-->
+<div class="middle clearfix">
+    <div class="m-wrap">
+        <div class="m-ad2" style="margin-top:12px;">
+            <div class="ad2-l">
+                <script async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/adsbygoogle.js"></script>
+                <!-- CC首页底部左侧72890 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1180518835303646" data-ad-slot="8012423965" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <div class="ad2-r">
+                <script async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/adsbygoogle.js"></script>
+                <!-- CC资讯页25090 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:250px;height:90px" data-ad-client="ca-pub-1180518835303646" data-ad-slot="9489157162" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><iframe width="250" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <!--left-->
+        <div class="detail-left float-l">
+            <p class="crumbs"><a href="http://www.cocoachina.com/" title="首页">首页</a> &gt;<a href="http://www.cocoachina.com/webapp" title="HTML5"><span id="type_name">HTML5</span></a></p>
+            <div class="detail-main">
+                <h2>一看就懂的ReactJs入门教程（精华版）</h2>
+                <div class="p-ico clearfix">
+                    <div>
+                        <span class="ml0">2015-07-21 10:39</span>
+                        <span>编辑：
+                        <a href="" id="field_author" target="_blank">cocopeng</a></span>
+                        <span>分类：<a href="http://www.cocoachina.com/webapp/" target="_blank">HTML5</a></span>
+                        <span id="source">来源：<a href="http://www.cnblogs.com/yunfeifei/p/4486125.html" target="_blank">雲霏霏的博客</a></span>
+
+                        <div class="float-r">
+                            <span id="artical_comment_cnt"><i></i>0</span>
+                            <span><i class="view"></i><script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/count.php" language="javascript"></script>148418</span>
+                    </div>
+                    </div>
+                </div>
+                <div class="p-ico clearfix">
+                    <p class="related float-l"><a href="http://www.cocoachina.com/cms/tags.php?/ReactJS/" target="_blank">ReactJS</a><a href="http://www.cocoachina.com/cms/tags.php?/React/" target="_blank">React</a></p>
+                    <input type="hidden" id="article_id" value="12692">
+                </div>
+                <div class="adsbox clearfix">
+                    <div class="float-l">
+                        <div class="float-l"><b>招聘信息：</b></div>
+                        <ul class="float-l" id="invitelist" style="margin-top: 0px;"><li><a href="http://job.cocoachina.com/job/show?id=66801" target="_blank">Android开发工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=66302" target="_blank">android应用开发工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=67493" target="_blank">iOS开发高级工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=67494" target="_blank">iOS开发工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=66873" target="_blank">iOS开发工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=67303" target="_blank">iOS高级开发工程师（中国排名第一的企业级移动互联网云计算公司 和创科技 红圈营销）</a></li><li><a href="http://job.cocoachina.com/job/show?id=67305" target="_blank">交互设计师（UE/产品）</a></li><li><a href="http://job.cocoachina.com/job/show?id=65788" target="_blank">高级研发/iOS工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=67190" target="_blank">iOS资深开发工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=66799" target="_blank">Cocos2d-x开发工程师</a></li><li><a href="http://job.cocoachina.com/job/show?id=66800" target="_blank">iOS开发工程师</a></li></ul>
+                    </div>
+                    <div class="float-r">
+                        <a href="javascript:void(0)" class="prev"></a>
+                        <a href="javascript:void(0)" class="next"></a>
+                    </div>
+                </div>
+                <div id="detailbody" class="field_body">
+                    <p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437447550886273.png" title="1437447550886273.png" alt="072107184074806.png"></p><p>现在最热门的前端框架有AngularJS、React、Bootstrap等。自从接触了ReactJS，ReactJs的虚拟DOM（Virtual DOM）和组件化的开发深深的吸引了我，下面来跟我一起领略<br>ReactJS的风采吧~~ 章有点长，耐心读完，你会有很大收获哦~<br></p><p><span style="color: rgb(0, 176, 80);"><strong>一、ReactJS简介</strong></span></p><p>React 起源于 Facebook 的内部项目，因为该公司对市场上所有 JavaScript MVC 框架，都不满意，就决定自己写一套，用来架设 Instagram 的网站。做出来以后，发现这套东西很好用，就在2013年5月开源了。由于 React 的设计思想极其独特，属于革命性创新，性能出众，代码逻辑却非常简单。所以，越来越多的人开始关注和使用，认为它可能是将来 Web 开发的主流工具。</p><p>ReactJS官网地址：<a href="http://facebook.github.io/react/" target="_blank">http://facebook.github.io/react/</a></p><p>Github地址：<a href="https://github.com/facebook/react" target="_blank">https://github.com/facebook/react</a></p><p><span style="color: rgb(0, 176, 80);"><strong><span style="line-height: 1.8;">二、对ReactJS的认识及ReactJS的优点</span></strong></span></p><p>首先，对于React，有一些认识误区，这里先总结一下：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>React不是一个完整的MVC框架，最多可以认为是MVC中的V（View），甚至React并不非常认可MVC开发模式；</p></li><li><p>React的服务器端Render能力只能算是一个锦上添花的功能，并不是其核心出发点，事实上React官方站点几乎没有提及其在服务器端的应用；</p></li><li><p>有人拿React和Web Component相提并论，但两者并不是完全的竞争关系，你完全可以用React去开发一个真正的Web Component；</p></li><li><p>React不是一个新的模板语言，JSX只是一个表象，没有JSX的React也能工作。</p></li></ul><p><strong>1、ReactJS的背景和原理</strong></p><p>在Web开发中，我们总需要将变化的数据实时反应到UI上，这时就需要对DOM进行操作。而<strong>复杂或频繁的DOM操作通常是性能瓶颈产生的原因</strong>（如何进行高性能的复杂DOM操作通常是衡量一个前端开发人员技能的重要指标）。React为此引入了<strong>虚拟DOM（Virtual DOM）</strong>的机制：在浏览器端用Javascript实现了一套DOM API。基于React进行开发时所有的DOM构造都是通过虚拟DOM进行，每当数据变化时，React都会重新构建整个DOM树，然后React将当前整个DOM树和上一次的DOM树进行对比，得到DOM结构的区别，然后仅仅将需要变化的部分进行实际的浏览器DOM更新。而且React能够批处理虚拟DOM的刷新，在一个事件循环（Event Loop）内的两次数据变化会被合并，例如你连续的先将节点内容从A变成B，然后又从B变成A，React会认为UI不发生任何变化，而如果通过手动控制，这种逻辑通常是极其复杂的。尽管每一次都需要构造完整的虚拟DOM树，但是因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是Diff部分，因而能达到提高性能的目的。这样，在保证性能的同时，开发者将不再需要关注某个数据的变化如何更新到一个或多个具体的DOM元素，而只需要关心在任意一个数据状态下，整个界面是如何Render的。</p><p>如果你像在90年代那样写过服务器端Render的纯Web页面那么应该知道，服务器端所要做的就是根据数据Render出HTML送到浏览器端。如果这时因为用户的一个点击需要改变某个状态文字，那么也是通过刷新整个页面来完成的。服务器端并不需要知道是哪一小段HTML发生了变化，而只需要根据数据刷新整个页面。换句话说，任何UI的变化都是通过整体刷新来完成的。而React将这种开发模式以高性能的方式带到了前端，每做一点界面的更新，你都可以认为刷新了整个页面。至于如何进行局部更新以保证性能，则是React框架要完成的事情。</p><p>借用Facebook介绍React的视频中聊天应用的例子，当一条新的消息过来时，传统开发的思路如上图，你的开发过程需要知道哪条数据过来了，如何将新的DOM结点添加到当前DOM树上；而基于React的开发思路如下图，你永远只需要关心数据整体，两次数据之间的UI如何变化，则完全交给框架去做。可以看到，使用React大大降低了逻辑复杂性，意味着开发难度降低，可能产生Bug的机会也更少。</p><p><strong>2、组件化</strong></p><p>虚拟DOM(virtual-dom)不仅带来了简单的UI开发逻辑，同时也带来了组件化开发的思想，所谓组件，即封装起来的具有独立功能的UI部件。React推荐以组件的方式去重新思考UI构成，将UI上每一个功能相对独立的模块定义成组件，然后将小的组件通过组合或者嵌套的方式构成大的组件，最终完成整体UI的构建。例如，Facebook的instagram.com整站都采用了React来开发，整个页面就是一个大的组件，其中包含了嵌套的大量其它组件，大家有兴趣可以看下它背后的代码。</p><p>如果说MVC的思想让你做到视图-数据-控制器的分离，那么组件化的思考方式则是带来了UI功能模块之间的分离。我们通过一个典型的Blog评论界面来看MVC和组件化开发思路的区别。</p><p>对于MVC开发模式来说，开发者将三者定义成不同的类，实现了表现，数据，控制的分离。开发者更多的是从技术的角度来对UI进行拆分，实现松耦合。</p><p>对于React而言，则完全是一个新的思路，开发者从功能的角度出发，将UI分成不同的组件，每个组件都独立封装。</p><p>在React中，你按照界面模块自然划分的方式来组织和编写你的代码，对于评论界面而言，整个UI是一个通过小组件构成的大组件，每个组件只关心自己部分的逻辑，彼此独立。</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437447742946406.jpg" title="1437447742946406.jpg" alt="072132381261891600.jpg"></p><p><span style="line-height: 1.8;">React认为一个组件应该具有如下特征：</span></p><p><strong>（1）可组合（Composeable）</strong>：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有（own）它创建的子组件，通过这个特性，一个复杂的UI可以拆分成多个简单的UI组件；</p><p><strong>（2）可重用（Reusable）</strong>：每个组件都是具有独立功能的，它可以被使用在多个UI场景；</p><p><strong>（3）可维护（Maintainable）</strong>：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；</p><p><span style="color: rgb(0, 176, 80);"><strong><span style="line-height: 1.8;">三、下载ReactJS，编写Hello，world</span></strong></span></p><p>ReactJs下载非常简单，为了方便大家下载，这里再一次给出下载地址（<a href="http://facebook.github.io/react/downloads.html" target="_blank">链接</a>）,下载完成后，我么看到的是一个压缩包。解压后，我们新建一个html文件，引用react.js和JSXTransformer.js这两个js文件。html模板如下(js路径改成自己的):</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448020516385.png" title="1437448020516385.png" alt="QQ截图20150721110651.png"></p><p>这里大家可能会奇怪，<strong>为什么script的type是text/jsx,这是因为 React 独有的 JSX 语法，跟 JavaScript 不兼容</strong><strong>。</strong>凡是使用 JSX 的地方，都要加上 type="text/jsx" 。 其次，React 提供两个库： react.js 和 JSXTransformer.js ，它们必须首先加载。其中，JSXTransformer.js 的作用是将 JSX 语法转为 JavaScript 语法。这一步很消耗时间，实际上线的时候，应该将它放到服务器完成。</p><p>到这里我们就可以开始编写代码了，首先我们先来认识一下ReactJs里面的React.render方法：</p><p>React.render 是 React 的最基本方法，用于将模板转为 HTML 语言，并插入指定的 DOM 节点。</p><p>下面我们在script标签里面编写代码，来输出Hello，world，代码如下：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448310321783.png" title="1437448310321783.png" alt="QQ截图20150721111143.png"></p><p><strong>这里需要注意的是，react并不依赖jQuery，当然我们可以使用jQuery，但是render里面第二个参数必须使用JavaScript原生的getElementByID方法，不能使用jQuery来选取DOM节点。</strong></p><p>然后，在浏览器打开这个页面，就可以看到浏览器显示一个大大的Hello，world,因为我们用了</p><h1>标签。<p></p><p>到这里，恭喜，你已经步入了ReactJS的大门~~下面，让我们来进一步学习ReactJs吧~~</p><p><span style="color: rgb(0, 176, 80);"><strong><span style="line-height: 1.8;">四、Jsx语法</span></strong></span><br></p><p>HTML 语言直接写在 JavaScript 语言之中，不加任何引号，这就是 JSX 的语法，它允许 HTML 与 JavaScript 的混写，了解过AngularJs的看到下面的代码一定会感觉很熟悉的，我们来看代码：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448537331875.png" title="1437448537331875.png" alt="QQ截图20150721111531.png"></p><p>这里我们声明了一个names数组，然后遍历在前面加上Hello,输出到DOM中，输出结果如下：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448634190509.png" title="1437448634190509.png" alt="QQ截图20150721111639.png"></p><p>JSX 允许直接在模板插入 JavaScript 变量。如果这个变量是一个数组，则会展开这个数组的所有成员，代码如下：<br></p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448650987348.png" title="1437448650987348.png" alt="QQ截图20150721111724.png"></p><p>显示结果如下：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448663342127.png" title="1437448663342127.png" alt="QQ截图20150721111738.png"></p><p>这里的星号只是做标识用的，大家不要被迷惑了~~</p><p>你看到这里，说明你对React还是蛮感兴趣的，恭喜你，坚持下来了，那么下面，我们开始学习React里面的"真功夫"了~~ Are　you ready?</p><p><span style="color: rgb(0, 176, 80);"><strong><span style="line-height: 1.8;">五、ReactJS组件</span></strong></span><br></p><p><strong>1、组件属性</strong></p><p>前面说了，ReactJS是基于组件化的开发，下面我们开始来学习ReactJS里面的组件，React 允许将代码封装成组件（component），然后像插入普通 HTML 标签一样，在网页中插入这个组件。React.createClass 方法就用于生成一个组件类。</p><p>下面，我们来编写第一个组件Greet，有一个name属性，然后输出hello + name的值，代码如下：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448747690848.png" title="1437448747690848.png" alt="QQ截图20150721111858.png"></p><p>看到这段代码，接触过AngularJS的朋友们是不是有一种熟悉的感觉，不过这里有几点需要注意：</p><p>1）获取属性的值用的是this.props.属性名</p><p>2）创建的组件名称首字母必须大写。</p><p>3）为元素添加css的class时，要用className。</p><p>4）组件的style属性的设置方式也值得注意，要写成style={{width: this.state.witdh}}。</p><p><strong><span style="line-height: 1.8;">2、组件状态</span></strong></p><p>组件免不了要与用户互动，React 的一大创新，就是将组件看成是一个状态机，一开始有一个初始状态，然后用户互动，导致状态变化，从而触发重新渲染 UI 。下面我们来编写一个小例子，一个文本框和一个button，通过点击button可以改变文本框的编辑状态，禁止编辑和允许编辑。通过这个例子来理解ReactJS的状态机制。先看代码：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448820211609.png" title="1437448820211609.png" alt="QQ截图20150721112014.png"></p><p>这里，我们又使用到了一个方法getInitialState,这个函数在组件初始化的时候执行，必需返回NULL或者一个对象。这里我们可以通过this.state.属性名来访问属性值，这里我们将enable这个值跟input的disabled绑定，当要修改这个属性值时，要使用setState方法。我们声明handleClick方法，来绑定到button上面，实现改变state.enable的值。效果如下：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448868321360.gif" title="1437448868321360.gif" alt="072305421429007.gif"></p><p>原理分析：</p><p>当用户点击组件，导致状态变化，this.setState 方法就修改状态值，每次修改以后，自动调用 this.render 方法，再次渲染组件。</p><p>这里值得注意的几点如下：</p><p>1）getInitialState函数必须有返回值，可以是NULL或者一个对象。</p><p>2）访问state的方法是this.state.属性名。</p><p>3）变量用{}包裹，不需要再加双引号。</p><p><strong><span style="line-height: 1.8;">3、组件的生命周期</span></strong></p><p>组件的生命周期分成三个状态：</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>Mounting：已插入真实 DOM</p></li><li><p>Updating：正在被重新渲染</p></li><li><p>Unmounting：已移出真实 DOM</p></li></ul><p>React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>componentWillMount()</p></li><li><p>componentDidMount()</p></li><li><p>componentWillUpdate(object nextProps, object nextState)</p></li><li><p>componentDidUpdate(object prevProps, object prevState)</p></li><li><p>componentWillUnmount()</p></li></ul><p>此外，React 还提供两种特殊状态的处理函数。</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用</p></li><li><p>shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用</p></li></ul><p><span style="line-height: 1.8;">下面来看一个例子：</span><br></p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437448983313298.png" title="1437448983313298.png" alt="QQ截图20150721112254.png"></p><p>上面代码在hello组件加载以后，通过 componentDidMount 方法设置一个定时器，每隔100毫秒，就重新设置组件的透明度，从而引发重新渲染。</p><p><strong><span style="line-height: 1.8;">4、组件的嵌套</span></strong></p><p>React是基于组件化的开发，那么组件化开发最大的优点是什么？毫无疑问，当然是复用，下面我们来看看React中到底是如何实现组件的复用的，这里我们还写一个例子来说吧，代码如下：</p><p style="text-align:center"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/1437449013373022.png" title="1437449013373022.png" alt="QQ截图20150721112325.png"></p><p>这里我们创建了一个Search组件，然后又创建了一个Page组件，然后我们在Page组件中调用Search组件，并且调用了两次，这里我们通过属性searchType传入值，最终显示结果如图：</p><p><span style="color: rgb(0, 176, 80);"><strong><span style="line-height: 1.8;">六、ReactJS小结</span></strong></span><br></p><p>关于ReactJS今天就先学习到这里了，下面来总结一下，主要有以下几点：</p><p>1、ReactJs是基于组件化的开发，所以最终你的页面应该是由若干个小组件组成的大组件。</p><p>2、可以通过属性，将值传递到组件内部，同理也可以通过属性将内部的结果传递到父级组件(留给大家研究)；要对某些值的变化做DOM操作的，要把这些值放到state中。</p><p>3、为组件添加外部css样式时，类名应该写成className而不是class;添加内部样式时，应该是style={{opacity: this.state.opacity}}而不是style="opacity:{this.state.opacity};"。</p><p>4、组件名称首字母必须大写。</p><p>5、变量名用{}包裹，且不能加双引号。</p><p><span style="color: rgb(0, 176, 80);"><strong>七、参考资料</strong></span></p><p><a href="http://reactjs.cn/" target="_blank">React中文文档</a>&nbsp;</p><p><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank">React入门实例教程</a></p><p><a href="http://www.infoq.com/cn/articles/subversion-front-end-ui-development-framework-react" target="_blank">颠覆式前端UI开发框架：React</a></p>
+                </h1></div>
+                <div id="page" style="padding:0"></div>
+
+                <div class="wx_article">
+                    <div class="article_weixin">
+                        <img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/article_weixin.jpg" width="131" height="131" alt="搜索CocoaChina微信公众号：CocoaChina">
+                        <div class="article_scan">微信扫一扫</div>
+                        <div class="article_txt"><span style="color:#999999">订阅每日移动开发及APP推广热点资讯<br>公众号：</span>CocoaChina</div>
+                    </div>
+                </div>
+
+               <div class="clearfix tgbox">
+                    <a href="mailto:support@cocoachina.com" class="tg float-l" target="_blank">我要投稿</a>&nbsp;&nbsp;
+                    <a style="margin-left:10px" href="javascript:void(0)" onclick="add_favors(12692,&#39;一看就懂的ReactJs入门教程（精华版）&#39;)" class="tg float-l">收藏文章</a>
+                    <div class="share float-r">分享到：
+                        <div class="bdsharebuttonbox" id="sharediv" data-bd-bind="1466004769746"><a href="http://www.cocoachina.com/webapp/20150721/12692.html#" class="bds_more" data-cmd="more"></a> <a href="http://www.cocoachina.com/webapp/20150721/12692.html#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="http://www.cocoachina.com/webapp/20150721/12692.html#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a> <a href="http://www.cocoachina.com/webapp/20150721/12692.html#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                    </div>
+                </div>
+
+
+                <a class="zanbox" href="javascript:void(0)" id="zanbox" onclick="postDigg(&#39;good&#39;,12692)" title="哎呦，不错噢，赞一个">
+                    <strong id="newdigg">
+                     <script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/count(1).php" language="javascript"></script>171
+                    </strong>
+                </a>
+            </div>
+
+            <div class="article-prev">上一篇：<a href="http://www.cocoachina.com/webapp/20150720/12654.html">2015年开发一款Web App所需了解的事情</a> </div>
+            <div class="article-next">下一篇：<a href="http://www.cocoachina.com/webapp/20150724/12760.html">人气超高的HTML5特效排行榜TOP 10（附经典案例）</a> </div>
+
+            <!--相关资讯-->
+            <div class="part-wrap clearfix">
+                <h3>相关资讯</h3>
+                <ul class="info-list clearfix">
+                    <li>
+                        <a href="http://www.cocoachina.com/webapp/20151119/14295.html" target="_blank" title="Web应用的组件化是一个很复杂的话题。在大型软件中，组件化是一种共识，它一方面提高了开发效率，另一方面降低了维护成本。但是在Web前端这个领域，并没有很通用的组件模式，因为缺少一个大家">分享：2015前端组件化框架之路</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20151117/14250.html" target="_blank" title="本文推荐5个前端开源代码和工具，包括notie.js?、react-calculator、weui以及CSS Diff。">推荐：5个前端开源代码和工具</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20151112/14188.html" target="_blank" title="由于最近的Reactjs实在太火，而且距离第一版已经快2年的时间了，已经相对稳定和成熟了，基于这两个前提下，团队对Reactjs及其他开源技术进行了相关调研，发现落地是可行的，本文分享一些开发过程">百度母婴技术团队：基于Reactjs实现WebApp经验分享</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20151026/13906.html" target="_blank" title="本文讨论的是React.js编程中的一些编程风格，团队开发中遵循统一的风格有利于提高代码的阅读体验。">React 编程风格指南</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20151023/13866.html" target="_blank" title="美国HTML5市场经过5年的长期发展之后，早进入理性的状态，不是炒作概念或者单纯的市场宣讲活动，甚至关注度出现了下降，已经变成了在web技术各个独立领域深度探索和创新。而中国HTML5市场在2015年">中美两国HTML5市场对比 差距在哪里？</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20151010/13699.html" target="_blank" title="React 是近期非常热门的一个前端开发框架，其本身作为 MVC 中的 View 层可以用来构建 UI，也可以以插件的形式应用到 Web 应用非 UI 部分的构建中，轻松实现与其他 JS 框架的整合，比如 AngularJS。">React介绍及实践教程</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20151008/13649.html" target="_blank" title="Flux是Facebook用来构建客户端Web应用的应用架构。它利用单向数据流的方式来组合React中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。">【新手必读】React Flux入门指南</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20150928/13600.html" target="_blank" title="Flux是Facebook用来构建客户端web应用的应用架构。它利用单向数据流的方式来组合react中的视图组件。它更像一个模式而不是一个正式的框架，开发者不需要太多的新代码就可以快速的上手Flux。">谈一谈我对 React Flux 架构的理解</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20150902/13316.html" target="_blank" title="对于一个独立组件而言，你可以把它看成是一个JavaScript函数。对于函数而言，当你通过传递参数调用函数时，函数会返回给你一个值。">谈谈React的Flux架构和Immutable.js</a>
+                     </li>
+<li>
+                        <a href="http://www.cocoachina.com/webapp/20150921/13293.html" target="_blank" title="React Native的重点是把React编程模型引进到移动App的开发中去这篇教程带着你一点一点编写代码。React使用CSS属性来定义样式，这些样式通常都很易于阅读和理解。">React Navtive框架教程</a>
+                     </li>
+
+                </ul>
+            </div>
+            <div class="clearfix" style="margin-top:20px;">
+                <script async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/adsbygoogle.js"></script>
+                <!-- CC评论框 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:750px;height:90px" data-ad-client="ca-pub-1180518835303646" data-ad-slot="8242010366" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:750px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:750px;background-color:transparent"><iframe width="750" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <!-- 评论模块start -->
+            
+            <div class="clearfix" id="commnet_list_holder" style="margin-bottom:50px;">
+                <div class="glab-comment-form">
+                    <div class="dcbt">我来说两句</div>
+                    <div class="user-head">
+                        <img id="user_face_url" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/none.gif" height="43" width="43" alt="">
+                    </div>
+                    <div class="form-region">
+                        <textarea name="comment" id="main_comment_content" cols="30" rows="10" placeholder="你怎么看？快来评论一下吧！"></textarea>
+                        <a class="submitform" id="main_comment_bt">发表评论</a>
+                        <div class="unlogin-mask">
+                            <div>您还没有登录！请<a href="http://www.cocoachina.com/bbs/login.php">登录</a>或<a href="http://www.cocoachina.com/bbs/register.php">注册</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="glab-comment-callback-msg" class="glab-comment-info"></div>
+                <div class="glab-comment-title">所有评论（<span>0</span>）</div>
+                <div class="glab-commentlist" id="commentlist">
+                    <a id="refresh_comment_btn" href="javascript:;" onclick="$(&#39;#morecomment&#39;).trigger(&#39;click&#39;)" style="display: none;">刷新评论</a>
+                </div>
+                <div class="glab-comment-more" id="morecomment" style="display: none;">
+                    更多评论
+                </div>
+            </div>
+            
+            <!-- 评论模块end -->
+
+
+        </div>
+        <!--./left-->
+        <!--侧边栏-->
+        <div class="clearfix newslist">
+            <div class="rightSide detail-right float-r">
+                <!--两周热门资讯推荐-->
+                <div>
+                    <div class="part-wrap clearfix">
+                        <h3>热门资讯</h3>
+                        <ul class="related-hot">
+                            <li class="clearfix"><a href="http://www.cocoachina.com/ios/20151130/14477.html" class="float-l pic" target="_blank" title="如何让iOS 保持界面流畅？这些技巧你知道吗"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/68541cc4f15b68ad59deb67d0db2b9eb.jpg" style="max-height:60px" alt="如何让iOS 保持界面流畅？这些技巧你知道吗"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/ios/20151130/14477.html" target="_blank" title="如何让iOS 保持界面流畅？这些技巧你知道吗">如何让iOS 保持界面流畅？这些技巧你知道吗</a></p><p class="hits">点击量<span>11844</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/ios/20151127/14394.html" class="float-l pic" target="_blank" title="如何设计一个 iOS 控件?(iOS 控件完全解析)"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/e43d05ee204f0cd3415762c05c6a45ba.gif" style="max-height:60px" alt="如何设计一个 iOS 控件?(iOS 控件完全解析)"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/ios/20151127/14394.html" target="_blank" title="如何设计一个 iOS 控件?(iOS 控件完全解析)">如何设计一个 iOS 控件?(iOS 控件完全解析)</a></p><p class="hits">点击量<span>11134</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/programmer/20151125/14410.html" class="float-l pic" target="_blank" title="编程语言大牛王垠：编程的智慧，带你少走弯路"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/4a70c2fa485d774a6ac2a16392245934.jpg" style="max-height:60px" alt="编程语言大牛王垠：编程的智慧，带你少走弯路"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/programmer/20151125/14410.html" target="_blank" title="编程语言大牛王垠：编程的智慧，带你少走弯路">编程语言大牛王垠：编程的智慧，带你少走弯路</a></p><p class="hits">点击量<span>9353</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/programmer/20151125/14365.html" class="float-l pic" target="_blank" title="专业程序员必习：最牛B的编码套路"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/c8151a33ae41f519c834bc1953f562c0.jpg" style="max-height:60px" alt="专业程序员必习：最牛B的编码套路"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/programmer/20151125/14365.html" target="_blank" title="专业程序员必习：最牛B的编码套路">专业程序员必习：最牛B的编码套路</a></p><p class="hits">点击量<span>8096</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/programmer/20151127/14459.html" class="float-l pic" target="_blank" title="培训机构毕业的程序员被歧视的背后逻辑"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/6a81e2f8c0274757b32543bd8780eb3a.jpg" style="max-height:60px" alt="培训机构毕业的程序员被歧视的背后逻辑"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/programmer/20151127/14459.html" target="_blank" title="培训机构毕业的程序员被歧视的背后逻辑">培训机构毕业的程序员被歧视的背后逻辑</a></p><p class="hits">点击量<span>6379</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/apple/20151204/14571.html" class="float-l pic" target="_blank" title="苹果Swift编程语言开源 有望进一步普及"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/6c81c575a7437a569729d12d41b8c16e.jpg" style="max-height:60px" alt="苹果Swift编程语言开源 有望进一步普及"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/apple/20151204/14571.html" target="_blank" title="苹果Swift编程语言开源 有望进一步普及">苹果Swift编程语言开源 有望进一步普及</a></p><p class="hits">点击量<span>5600</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/ios/20151126/14455.html" class="float-l pic" target="_blank" title="快速搭建一个成熟，强壮的App框架"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/c4c91d8ff0fe034378817741f6869fa8.jpg" style="max-height:60px" alt="快速搭建一个成熟，强壮的App框架"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/ios/20151126/14455.html" target="_blank" title="快速搭建一个成熟，强壮的App框架">快速搭建一个成熟，强壮的App框架</a></p><p class="hits">点击量<span>5537</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/ios/20151204/14480.html" class="float-l pic" target="_blank" title="对 Xcode 菜单选项的详细探索（干货）"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/bb6ac188148bdbd8bae3d9985625ffe7.jpg" style="max-height:60px" alt="对 Xcode 菜单选项的详细探索（干货）"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/ios/20151204/14480.html" target="_blank" title="对 Xcode 菜单选项的详细探索（干货）">对 Xcode 菜单选项的详细探索（干货）</a></p><p class="hits">点击量<span>5374</span></p></div></li><li class="clearfix"><a href="http://www.cocoachina.com/ios/20151202/14532.html" class="float-l pic" target="_blank" title="一款Loading动画的实现思路（一）：拆分复杂任务"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/6a6c485d1a59219466d829eda823a022.jpg" style="max-height:60px" alt="一款Loading动画的实现思路（一）：拆分复杂任务"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/ios/20151202/14532.html" target="_blank" title="一款Loading动画的实现思路（一）：拆分复杂任务">一款Loading动画的实现思路（一）：拆分复杂任务</a></p><p class="hits">点击量<span>4930</span></p></div></li><li class="clearfix noborder-b"><a href="http://www.cocoachina.com/swift/20151204/14575.html" class="float-l pic" target="_blank" title="Swift 3 API 设计准则"><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/e6873f380791c0a3f48eff97119d961f.jpg" style="max-height:60px" alt="Swift 3 API 设计准则"></a><div style="margin-left:86px"><p class="related-intro"><a href="http://www.cocoachina.com/swift/20151204/14575.html" target="_blank" title="Swift 3 API 设计准则">Swift 3 API 设计准则</a></p><p class="hits">点击量<span>4680</span></p></div></li>
+                        </ul>
+                    </div>
+               </div>
+               <!--./两周热门资讯推荐-->
+                <!-- 广告位：资讯频道列表页面右侧300*90-->
+                <div class="job-ad"><script>CNZZ_SLOT_RENDER('324555');</script></div>
+               <!--综合评论-->
+                <div class="part-wrap clearfix" style="margin-top: 15px;">
+                    <h3>综合评论</h3>
+                    <ul class="related-comment clearfix" id="all_comments_holder"><li class=""><span class="hide_comment">mark&nbsp;&nbsp;谢谢楼主&nbsp;</span><br><p><span>Ellotti</span><span>评论了</span><a target="_blank" title="iOS面试必看，最全梳理" href="http://www.cocoachina.com/ios/20160323/15770.html"><span>iOS面试必看，最全梳理...</span></a></p></li><li class=""><span class="hide_comment">楼主是个菜逼，鉴定完毕！</span><br><p><span>呜呜呜无呜呜</span><span>评论了</span><a target="_blank" title="4道过滤菜鸟的iOS面试题" href="http://www.cocoachina.com/ios/20160612/16653.html"><span>4道过滤菜鸟的iOS面试题...</span></a></p></li><li class=""><span class="hide_comment">学习了</span><br><p><span>houhui</span><span>评论了</span><a target="_blank" title="程序员编程的 7 + 1 条小贴士" href="http://www.cocoachina.com/programmer/20160613/16664.html"><span>程序员编程的 7 + 1 条小贴士...</span></a></p></li><li class=""><span class="hide_comment">你是傻么？没事干就多休息休息，陪陪家人。别傻不垃圾的出来发一些没有意义的东西。</span><br><p><span>超超好66</span><span>评论了</span><a target="_blank" title="闷瓜金牛，本应昭告天下却缄默：开发者账号，审核加速揭秘" href="http://www.cocoachina.com/apple/20160615/16706.html"><span>闷瓜金牛，本应昭告天下却缄默：开发者账号，审核加速...</span></a></p></li><li class=""><span class="hide_comment">牛！！！！</span><br><p><span>hzw805</span><span>评论了</span><a target="_blank" title="深入理解RunLoop" href="http://www.cocoachina.com/ios/20150601/11970.html"><span>深入理解RunLoop</span></a></p></li><li class=""><span class="hide_comment">感觉并没有什么用</span><br><p><span>huawt</span><span>评论了</span><a target="_blank" title="一款快速生成代码的Xcode插件FastStub" href="http://www.cocoachina.com/ios/20160615/16704.html"><span>一款快速生成代码的Xcode插件FastStub...</span></a></p></li><li class=""><span class="hide_comment">mark</span><br><p><span>3219964685</span><span>评论了</span><a target="_blank" title="年度苹果设计奖出炉：200 万个 App 里，苹果挑了这 10 个" href="http://www.cocoachina.com/apple/20160615/16709.html"><span>年度苹果设计奖出炉：200 万个 App 里，苹果...</span></a></p></li><li class=""><span class="hide_comment">mark<br></span><br><p><span>xuchang4217</span><span>评论了</span><a target="_blank" title=" 知道这20个正则表达式，能让你少写1,000行代码" href="http://www.cocoachina.com/programmer/20160513/16243.html"><span> 知道这20个正则表达式，能让你少写1,000行代...</span></a></p></li><li class=""><span class="hide_comment">mark<br></span><br><p><span>xuchang4217</span><span>评论了</span><a target="_blank" title=" 知道这20个正则表达式，能让你少写1,000行代码" href="http://www.cocoachina.com/programmer/20160513/16243.html"><span> 知道这20个正则表达式，能让你少写1,000行代...</span></a></p></li><li class="noborder-b"><span class="hide_comment">mark<br></span><br><p><span>xuchang4217</span><span>评论了</span><a target="_blank" title=" 知道这20个正则表达式，能让你少写1,000行代码" href="http://www.cocoachina.com/programmer/20160513/16243.html"><span> 知道这20个正则表达式，能让你少写1,000行代...</span></a></p></li></ul>
+                </div>
+                <!--./综合评论-->
+                <!--相关帖子-->
+                <div class="part-wrap clearfix" style="margin:15px 0 15px 0;">
+                    <h3>相关帖子</h3>
+                    <ul class="related-comment clearfix">
+                        <script charset="gb2312" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/new.php"></script><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685458" target="_blank">Quick-lua3.6 写了一款小游戏－平面魔方</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685456" target="_blank">求解</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685455" target="_blank">求教admob大神，我admob后台所有数据都为零</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685454" target="_blank">textView换行的时候，其中的文字会偏上。</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685453" target="_blank">问个问题：关于澳大利亚和加拿大的税单</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685452" target="_blank">跪求解决方法！！！！！</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685451" target="_blank">Google地图加载啊</a></li><li><a href="http://www.cocoachina.com/bbs/read.php?tid=1685450" target="_blank">cocos2d-x3.x 版本的怎样播放 *.ptc 粒子特效文件啊</a></li><li class="clearfix noborder-b"><a href="http://www.cocoachina.com/bbs/read.php?tid=1685448" target="_blank">删除警告问题</a></li>
+                    </ul>
+                </div>
+                <!--./相关帖子-->
+                <iframe width="230" height="550" class="share_self" frameborder="0" scrolling="no" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/index.html"></iframe>
+                <script async="" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/adsbygoogle.js"></script>
+                <!-- CC列表页面230x230 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:230px;height:230px" data-ad-client="ca-pub-1180518835303646" data-ad-slot="6765277166" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:230px;margin:0;padding:0;position:relative;visibility:visible;width:230px;background-color:transparent"><ins id="aswift_3_anchor" style="display:block;border:none;height:230px;margin:0;padding:0;position:relative;visibility:visible;width:230px;background-color:transparent"><iframe width="230" height="230" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <!--./侧边栏-->
+    </div>
+
+    <div id="coco-store" style="display:none">
+        <div class="storebox">
+            <h5>提示</h5>
+            <h3>已经收藏该篇文章</h3>
+            <p class="p1"><a href="http://www.cocoachina.com/bbs/u.php?action=favor&tag=1" target="_blank">去我的收藏夹</a></p>
+            <p class="p2"><a href="http://www.cocoachina.com/bbs/login.php">请登录</a></p>
+        </div>
+    </div> <!--收藏提示-->
+</div>
+
+<script type="text/javascript">
+
+function postDigg(ftype,aid)
+{
+    var taget_obj = document.getElementById('newdigg');
+    var saveid = GetCookie('diggid');
+    if(saveid != null)
+    {
+        var saveids = saveid.split(',');
+        var hasid = false;
+        saveid = '';
+        j = 1;
+        for(i=saveids.length-1;i>=0;i--)
+        {
+            if(saveids[i]==aid && hasid) continue;
+            else {
+                if(saveids[i]==aid && !hasid) hasid = true;
+                saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+                j++;
+                if(j==20 && hasid) break;
+                if(j==19 && !hasid) break;
+            }
+        }
+        if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+        else saveid += ','+aid;
+        SetCookie('diggid',saveid,1);
+    }
+    else
+    {
+        SetCookie('diggid',aid,1);
+    }
+    myajax = new DedeAjax(taget_obj,false,false,'','','');
+    var url = "/cms/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+    myajax.SendGet2(url);
+    DedeXHTTP = null;
+    $('#zanbox').addClass('zanbox-selected');
+}
+function getDigg(aid)
+{
+    var taget_obj = document.getElementById('newdigg');
+    myajax = new DedeAjax(taget_obj,false,false,'','','');
+    myajax.SendGet2("/cms/plus/digg_ajax.php?id="+aid);
+    DedeXHTTP = null;
+}
+
+
+//显示对应的导航：
+$(function(){
+    var article_id = $('#article_id').val();
+    var saveid = GetCookie('diggid');
+
+    if(saveid != null)
+    {
+        var saveids = saveid.split(',');
+        var hasid = false;
+        saveid = '';
+        j = 1;
+        for(i=saveids.length-1;i>=0;i--)
+        {
+            if(saveids[i]==article_id && hasid) continue;
+            else {
+                if(saveids[i]==article_id && !hasid) hasid = true;
+                saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+                j++;
+                if(j==20 && hasid) break;
+                if(j==19 && !hasid) break;
+            }
+        }
+
+        if(hasid)
+        {
+            $('#zanbox').addClass('zanbox-selected');
+        }
+
+    }
+
+});
+
+window.onload = function() {
+
+    $('#sharediv').removeClass('bdshare-button-style1-32');
+    $('#sharediv').attr('class','bdsharebuttonbox');
+};
+</script>
+<script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/shCore.js"></script>
+    <script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/brush.js"></script>
+    <link type="text/css" rel="stylesheet" href="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/shCoreDefault.css">
+    <script type="text/javascript">
+    //SyntaxHighlighter.config.clipboardSwf = '/js/scripts/clipboard.swf';
+
+    SyntaxHighlighter.all();</script>
+
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"一看就懂的ReactJs入门教程（精华版） - 来自CocoaChina苹果开发中文站@CocoaChina","bdMini":"2","bdMiniList":false,"bdPic":"http://api.cocoachina.com/uploads/150721/28f9bee01d964682db84981b639b073b.jpg","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api//js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<!--./cont-->
+
+<!-- 回复评论框模板 -->
+<script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/comment.js"></script>
+<script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/mustache.min.js"></script>
+<!-- 回复评论框模板 -->
+<script id="reply_comment_template" type="x-tmpl-mustache">
+    <div id="sub-reply-comment" class="reply-comment">
+        <textarea name="subcomment" id="sub-reply-txt" cols="30" rows="10" placeholder="你怎么看？快来评论一下吧！"></textarea>
+        <input type="hidden" id="sub-reply-id" value="{{commentid}}" />
+        <input type="hidden" id="sub-reply-userid" value="{{parentuserid}}" />
+        <input type="hidden" id="sub-reply-username" value="{{parentusername}}" />
+        <a type="button" id="sub_comment_bt" class="submitbt">提交</a>
+        <div class="clearfloat"></div>
+        <div class="unlogin-mask">
+            <div>您还没有登录！请<a href="/bbs/login.php">登录</a>或<a href="/bbs/register.php">注册</a></div>
+        </div>
+    </div>
+</script>
+
+<!-- 评论模板 -->
+<script id="main_comment_template" type="x-tmpl-mustache">
+    <div class="glab-comment" rel-data-id="{{comment_id}}" rel-user-id="{{user_id}}" rel-user-name="{{user_name}}" rel-layer="1">
+        <div class="comment-left">
+            <a href="/bbs/u.php?action=feed&uid={{user_id}}" target="_blank"><img src="{{user_icon_url}}" height="43" width="43" alt=""></a>
+        </div>
+        <div class="comment-right">
+            <div class="comment-author"><a href="/bbs/u.php?action=feed&uid={{user_id}}" target="_blank">{{user_name}}</a><span class="puptime">{{create_time}}</span></div>
+            <div class="comment-content">{{content}}</div>
+            <div class="comment-buttons">
+                <span class="ding">                    
+                    <img src="http://cdn.cocimg.com/cms/templets/images/zan-default.png" height="14" width="14" alt="" class="default" style="{{#has_supported}} display:none; {{/has_supported}}">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/zan-active.png" height="14" width="14" alt="" class="actived" style="{{^has_supported}} display:none; {{/has_supported}}">
+                    <span class="zancnt">{{support}}</span>
+                </span>
+                <span class="cai">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/cai-default.png" height="14" width="14" alt="" class="default" style="{{#has_reported}} display:none; {{/has_reported}}">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/cai-active.png" height="14" width="14" alt="" class="actived" style="{{^has_reported}} display:none; {{/has_reported}}">
+                    <span class="zancnt">{{report}}</span>
+                </span>
+                <span class="replybt">回复</span>
+            </div>
+        </div>
+            {{#sub}}
+                <div class="glab-comment glab-sub-comment" rel-data-id="{{comment_id}}" rel-user-id="{{user_id}}" rel-user-name="{{user_name}}" rel-layer="2">
+                    <div class="comment-left">
+                        <a href="/bbs/u.php?action=feed&uid={{user_id}}" target="_blank"><img src="{{user_icon_url}}" height="43" width="43" alt=""></a>
+                    </div>
+                    <div class="comment-right">
+                        <div class="comment-author"><a href="/bbs/u.php?action=feed&uid={{user_id}}" target="_blank">{{user_name}}</a><span class="puptime">{{create_time}}</span></div>
+                        <div class="comment-content"><a href="/bbs/u.php?action=feed&uid={{parent_user_id}}" target="_blank">回复：{{parent}}</a>{{content}}</div>
+                        <div class="comment-buttons">
+                            <span class="ding">
+                                <img src="http://cdn.cocimg.com/cms/templets/images/zan-default.png" height="14" width="14" alt="" class="default" style="{{#has_supported}} display:none; {{/has_supported}}">
+                                <img src="http://cdn.cocimg.com/cms/templets/images/zan-active.png" height="14" width="14" alt="" class="actived" style="{{^has_supported}} display:none; {{/has_supported}}">
+                                <span class="zancnt">{{support}}</span>
+                            </span>
+                            <span class="cai">
+                                <img src="http://cdn.cocimg.com/cms/templets/images/cai-default.png" height="14" width="14" alt="" class="default" style="{{#has_reported}} display:none; {{/has_reported}}">
+                                <img src="http://cdn.cocimg.com/cms/templets/images/cai-active.png" height="14" width="14" alt="" class="actived" style="{{^has_reported}} display:none; {{/has_reported}}">
+                                <span class="zancnt">{{report}}</span>
+                            </span>
+                            <span class="replybt">回复</span>
+                        </div>          
+                    </div>
+                </div>
+            {{/sub}}         
+    </div>  
+</script>
+
+
+<script id="sub_comment_template" type="x-tmpl-mustache">
+    <div class="glab-comment glab-sub-comment" rel-data-id="{{comment_id}}" rel-user-id="{{user_id}}" rel-user-name="{{user_name}}" rel-layer="2">
+        <div class="comment-left">
+            <a href="/bbs/u.php?action=feed&uid={{user_id}}" target="_blank"><img src="{{user_icon_url}}" height="43" width="43" alt=""></a>
+        </div>
+        <div class="comment-right">
+            <div class="comment-author"><a href="/bbs/u.php?action=feed&uid={{user_id}}" target="_blank">{{user_name}}</a><span class="puptime">{{create_time}}</span></div>
+            <div class="comment-content"><a href="/bbs/u.php?action=feed&uid={{parent_user_id}}" target="_blank">回复：{{parent}}</a>{{content}}</div>
+            <div class="comment-buttons">
+                <span class="ding">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/zan-default.png" height="14" width="14" alt="" class="default" style="{{#has_supported}} display:none; {{/has_supported}}">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/zan-active.png" height="14" width="14" alt="" class="actived" style="{{^has_supported}} display:none; {{/has_supported}}">
+                    <span class="zancnt">{{support}}</span>
+                </span>
+                <span class="cai">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/cai-default.png" height="14" width="14" alt="" class="default" style="{{#has_reported}} display:none; {{/has_reported}}">
+                    <img src="http://cdn.cocimg.com/cms/templets/images/cai-active.png" height="14" width="14" alt="" class="actived" style="{{^has_reported}} display:none; {{/has_reported}}">
+                    <span class="zancnt">{{report}}</span>
+                </span>
+                <span class="replybt">回复</span>
+            </div>          
+        </div>
+    </div>
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68948817-1', 'auto', {'name': 'newTracker'});
+  ga('newTracker.send', 'pageview');
+
+</script>
+<!--右侧浮动-->
+<div class="r-bar" style="position: fixed; top: inherit; bottom: 10px;">
+    <img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/coco_weixin.png" class="weixin" style="display: none;">
+    <a href="http://weibo.com/cocoachina" target="_blank" title="" class="weibo">sina</a>
+    <a href="javascript:void(0);" target="_blank" title="" class="feedback">weixin</a>
+    <a href="mailto:support@cocoachina.com" title="" class="kefu">mail</a>
+    <a href="javascript:;" title="回到顶部" class="returntop">回到顶部</a>
+</div>
+
+<!--./cont-->
+<script type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/index.js"></script>
+<script language="javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/bbsauth_plus2015.php" type="text/javascript"></script>
+<script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/jquery.colorbox-min.js" type="text/javascript"></script>
+<script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/script.js" type="text/javascript"></script>
+
+<!--footer-->
+<div class="footer clearfix">
+    <!--<div class="footer-t">
+        <div class="friend-link">
+            <h4 class="rank-tit">友情链接</h4>
+            <ul>
+                <li><a href="https://www.youmi.net/" target="_blank">有米 | </a></li><li><a href="http://www.testin.cn/" target="_blank">Testin | </a></li><li><a href="http://www.apicloud.com/" target="_blank">APICloud | </a></li><li><a href="http://www.oneapm.com" target="_blank">OneAPM | </a></li><li><a href="http://www.jpush.cn" target="_blank">极光推送 | </a></li><li><a href="https://store.cocos.com" target="_blank">Cocos商店 | </a></li><li><a href="http://www.woshipm.com/" target="_blank">人人都是产品经理 | </a></li><li><a href="http://link.cocos.com" target="_blank">Cocos Link | </a></li><li><a href="http://www.tuicool.com/" target="_blank">推酷网 | </a></li><li><a href="http://www.youxituoluo.com/" target="_blank">游戏陀螺 | </a></li><li><a href="http://www.9miao.com" target="_blank">9秒社团 | </a></li><li><a href="http://segmentfault.com/" target="_blank">SegmentFault | </a></li><li><a href="http://www.sykong.com/" target="_blank">手游那点事 | </a></li><li><a href="https://developer.apple.com/" target="_blank">苹果开发者中心 | </a></li><li><a href="http://www.cocos2d-x.org/" target="_blank">cocos2d-x | </a></li><li><a href="http://gamerboom.com/" target="_blank">游戏邦 | </a></li><li><a href="http://www.nooidea.com/" target="_blank">Nooidea.com | </a></li><li><a href="http://www.iapps.im/" target="_blank">爱应用</a></li>
+            </ul>
+        </div>
+        <div class="two-code">
+            <div class="wx-code">
+                <img src="http://cdn.cocimg.com/assets/images/wx-code.jpg?v=20150818" alt="" />
+                <span>关注微信 每日推荐</span>
+            </div>
+            <div class="m-code">
+                <img src="http://cdn.cocimg.com/assets/images/mb-code.jpg?v=20150818" alt="" />
+                <span>扫一扫 浏览移动版</span>
+            </div>
+        </div>
+    </div>-->
+    <div class="footer-b">
+        <div>
+            <a href="http://www.cocoachina.com/aboutus/index.html" target="_blank">关于我们</a>
+            <a href="http://www.cocoachina.com/contactus/" target="_blank">商务合作</a>
+            <a target="_blank" href="mailto:support@cocoachina.com">联系我们</a>
+            <a href="http://www.cocoachina.com/corps/" target="_blank">合作伙伴</a>
+        </div>
+        <p class="footer-b-p">北京触控科技有限公司版权所有</p>
+        <p>
+            ©2015 Chukong Technologies,Inc.
+            <i>
+                <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备 11006519号 　京ICP证 100954号</a> 京公网安备11010502020289
+                <a href="http://182.131.21.137/ccnt-apply/admin/business/preview/business-preview!lookUrlRFID.action?main_id=A580B24B1AE846CE9DA949026D63939F" target="_blank">
+                    <img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/jingwen.png" style="margin: -10px auto -14px -10px;">
+                    京网文[2012]0426-138号
+                </a>
+            </i>
+        </p>
+    </div>
+</div>
+
+<!--./footer-->
+<script language="javascript" type="text/javascript" src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/dedeajax2-min.js"></script>
+<script type="text/javascript">
+function subscribe()
+{
+    var email_address = $('#demail').val();
+    var preg_email = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+
+    if( email_address == '' )
+    {
+        alert('请输入邮箱');
+    }
+    else if( !preg_email.test(email_address) )
+    {
+        alert('邮箱格式错误');
+    }
+    else
+    {
+        $.post(
+            '/edm.php',
+            {
+                email: $('#demail').val()
+            },
+            function(data) {
+                alert(data);
+             });
+    }
+}
+function search_check()
+{
+    var search_keyword = $('#search_keyword').val();
+
+    if( search_keyword.length < 2 )
+    {
+        alert("搜索关键字不能少于2个字节，请重新输入。");
+    }
+    else
+    {
+        $('#searchform').submit();
+    }
+}
+
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "http://hm.baidu.com/hm.js?88399e4c4cf744609c4fc8c3a8935691";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+
+$(document).ready(function(){
+    if (typeof(_user_info_html) != 'undefined' && _user_info_html)
+    {
+        $('.nav-user-login').hide();
+        $('.nav-user-name').html(_user_info_html).show();
+    }
+
+    var type = $('#type_name').html();
+    if(type)
+    {
+        switch( type )
+        {
+            case 'iOS开发':
+                $('#ios').addClass('light');
+                break;
+            case 'AppStore研究':
+                $('#app_store').addClass('light');
+                break;
+            case 'Mac开发':
+                $('#mac').addClass('light');
+                break;
+            case '产品设计':
+                $('#design').addClass('light');
+                break;
+            case 'Cocos引擎':
+                $('#cocos').addClass('light');
+                break;
+            case 'WebApp':
+                $('#webapp').addClass('light');
+                break;
+            case 'Swift':
+                $('#swift').addClass('light');
+                break;
+            case '游戏开发':
+                $('#game').addClass('light');
+                break;
+            case '苹果相关':
+                $('#apple').addClass('light');
+                break;
+            case '营销推广':
+                $('#market').addClass('light');
+                break;
+            case '业界动态':
+                $('#industry').addClass('light');
+                break;
+            case '程序人生':
+                $('#programmer').addClass('light');
+                break;
+        }
+    }
+
+    //更改文章来源
+    var source = $('#source a').html();
+    if( source == '未知' )
+        jQuery('#source a').html('CocoaChina');
+    if( jQuery('#source a').attr('href')=='')
+        jQuery('#source').html('来源：'+source);
+
+    //获取用户登录的id
+    var content = jQuery('.t-lid').attr("href");
+    var uid = 0;
+    if( content )
+    {
+        content = content.split('=');
+        uid = content[1];
+    }
+
+    var timestamp = new Date().getTime();
+    var uid_int = parseInt(uid);
+    if (uid_int == uid && uid_int != 0) {
+        uid = uid_int;
+    } else {
+        uid = parseInt($('#user-info').attr('data-uid'));
+    }
+    if ( uid )
+    {
+        uid = uid<<2;
+        uid = uid+''+timestamp;
+    } else {
+        uid = '';
+    }
+
+    var oIframe=document.getElementById("comiframe");
+    if(oIframe){
+        var oUrl=window.location.href;
+        oUrl = encodeURIComponent(oUrl);
+
+        oIframe.src="/comment.php?url="+oUrl+"&uid="+uid;
+    }
+
+});
+</script>
+<script>CNZZ_SLOT_RENDER('337970');</script>
+<div style="display:none"><a key="52df886aaf60041470116076" logo_size="83x30" logo_type="official" href="http://v.pinpaibao.com.cn/authenticate/cert/?site=www.cocoachina.com&at=official" target="_blank">
+<script src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/aq_auth.js"></script><b id="aqLogoSWWOP" style="display: none;"></b><img src="./一看就懂的ReactJs入门教程（精华版） - CocoaChina_让移动开发更简单_files/gw_83x30.png" alt="安全联盟认证" width="83" height="30" style="border: none;"></a></div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-16940817-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div></body></html>

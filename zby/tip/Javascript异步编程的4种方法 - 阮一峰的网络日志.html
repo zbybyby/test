@@ -1,0 +1,3207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0075)http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/styles.css" type="text/css">
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script async="" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/analytics.js"></script><script type="text/javascript" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/mt.js"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2007/01/guestbook.html">
+<dc:title>卡尔维诺中文站留言板</dc:title>
+<dc:description>这个帖子专门用作卡尔维诺中文站的留言板，欢迎大家留言和提问。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2007-01-04T18:54:26+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2012/12/obama_fundraising_website.html" title="奥巴马筹款网站的制作过程">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2012/12/minecraft_the_story_of_mojang.html" title="纪录片《Minecraft：Mojang的故事》">
+    
+    <title>Javascript异步编程的4种方法 - 阮一峰的网络日志</title>
+<script src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/bsStatic.js" type="text/javascript" charset="utf-8"></script><script src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/fingerprint2.min.js" type="text/javascript" charset="utf-8"></script><script src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/bs-engine.js" type="text/javascript" charset="utf-8"></script></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="http://www.ruanyifeng.com/blog/search.html" id="cse-search-box">
+      <div>
+        <input type="hidden" name="cx" value="016304377626642577906:b_e9skaywzq">
+    <input type="hidden" name="cof" value="FORID:11">
+    <input type="hidden" name="ie" value="UTF-8">
+        <input type="text" name="q" size="20" class="searchbox" id="sbi" value="">
+        <input type="image" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa">
+      </div>
+    </form>
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1756" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2012/12/obama_fundraising_website.html" title="奥巴马筹款网站的制作过程">奥巴马筹款网站的制作过</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2012/12/minecraft_the_story_of_mojang.html" title="纪录片《Minecraft：Mojang的故事》">纪录片《Minecra</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/javascript/" rel="tag">JavaScript</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+</div>
+                                </div>
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">Javascript异步编程的4种方法</h1>
+                                            <div id="share_button" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/buttonLite.js"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+                                    <div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2012/12/"><abbr class="published" title="2012-12-21T16:27:34+08:00">2012年12月21日</abbr></a></p>
+
+
+                                    </div>
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>你可能知道，Javascript语言的执行环境是"单线程"（single thread）。</p>
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>所谓"单线程"，就是指一次只能完成一件任务。如果有多个任务，就必须排队，前面一个任务完成，再执行后面一个任务，以此类推。</p>
+
+<p><img src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/bg2012122101.jpg"></p>
+
+<p>这种模式的好处是实现起来比较简单，执行环境相对单纯；坏处是只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。常见的浏览器无响应（假死），往往就是因为某一段Javascript代码长时间运行（比如死循环），导致整个页面卡在这个地方，其他任务无法执行。</p>
+
+<p>为了解决这个问题，Javascript语言将任务的执行模式分成两种：同步（Synchronous）和异步（Asynchronous）。</p>
+
+<p>"同步模式"就是上一段的模式，后一个任务等待前一个任务结束，然后再执行，程序的执行顺序与任务的排列顺序是一致的、同步的；"异步模式"则完全不同，每一个任务有一个或多个回调函数（callback），前一个任务结束后，不是执行后一个任务，而是执行回调函数，后一个任务则是不等前一个任务结束就执行，所以程序的执行顺序与任务的排列顺序是不一致的、异步的。</p>
+
+<p><!--img src="http://image.beekka.com/blog/201212/bg2012122102.png" style="border:none;" /--></p>
+
+<p>"异步模式"非常重要。在浏览器端，耗时很长的操作都应该异步执行，避免浏览器失去响应，最好的例子就是Ajax操作。在服务器端，"异步模式"甚至是唯一的模式，因为执行环境是单线程的，如果允许同步执行所有http请求，服务器性能会急剧下降，很快就会失去响应。</p>
+
+<p>本文总结了"异步模式"编程的4种方法，理解它们可以让你写出结构更合理、性能更出色、维护更方便的Javascript程序。</p>
+
+<p><strong>一、回调函数</strong></p>
+
+<p>这是异步编程最基本的方法。</p>
+
+<p>假定有两个函数f1和f2，后者等待前者的执行结果。</p>
+
+<blockquote>
+
+<p>　　f1();</p>
+
+<p>　　f2();</p>
+
+</blockquote>
+
+<p>如果f1是一个很耗时的任务，可以考虑改写f1，把f2写成f1的回调函数。</p>
+
+<blockquote>
+
+<p>　　function f1(callback){</p>
+
+<p>　　　　setTimeout(function () {</p>
+
+<p>　　　　　　// f1的任务代码</p>
+
+<p>　　　　　　callback();</p>
+
+<p>　　　　}, 1000);</p>
+
+<p>　　}</p>
+
+</blockquote>
+
+<p>执行代码就变成下面这样：</p>
+
+<blockquote>
+
+<p>　　f1(f2);</p>
+
+</blockquote>
+
+<p>采用这种方式，我们把同步操作变成了异步操作，f1不会堵塞程序运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。</p>
+
+<p>回调函数的优点是简单、容易理解和部署，缺点是不利于代码的阅读和维护，各个部分之间高度<a href="http://en.wikipedia.org/wiki/Coupling_(computer_programming)" target="_blank">耦合</a>（Coupling），流程会很混乱，而且每个任务只能指定一个回调函数。</p>
+
+<p><strong>二、事件监听</strong></p>
+
+<p>另一种思路是采用事件驱动模式。任务的执行不取决于代码的顺序，而取决于某个事件是否发生。</p>
+
+<p>还是以f1和f2为例。首先，为f1绑定一个事件（这里采用的jQuery的<a href="http://api.jquery.com/on/" target="_blank">写法</a>）。</p>
+
+<blockquote>
+
+<p>　　f1.on('done', f2);</p>
+
+</blockquote>
+
+<p>上面这行代码的意思是，当f1发生done事件，就执行f2。然后，对f1进行改写：</p>
+
+<blockquote>
+
+<p>　　function f1(){</p>
+
+<p>　　　　setTimeout(function () {</p>
+
+<p>　　　　　　// f1的任务代码</p>
+
+<p>　　　　　　<strong>f1.trigger('done');</strong></p>
+
+<p>　　　　}, 1000);</p>
+
+<p>　　}</p>
+
+</blockquote>
+
+<p>f1.trigger('done')表示，执行完成后，立即触发done事件，从而开始执行f2。</p>
+
+<p>这种方法的优点是比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以<a href="http://en.wikipedia.org/wiki/Decoupling" target="_blank">"去耦合"</a>（Decoupling），有利于实现<a href="http://www.ruanyifeng.com/blog/2012/10/javascript_module.html" target="_blank">模块化</a>。缺点是整个程序都要变成事件驱动型，运行流程会变得很不清晰。</p>
+
+<p><strong>三、发布/订阅</strong></p>
+
+<p>上一节的"事件"，完全可以理解成"信号"。</p>
+
+<p>我们假定，存在一个"信号中心"，某个任务执行完成，就向信号中心"发布"（publish）一个信号，其他任务可以向信号中心"订阅"（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做<a href="http://en.wikipedia.org/wiki/Publish-subscribe_pattern" target="_blank">"发布/订阅模式"</a>（publish-subscribe pattern），又称<a href="http://en.wikipedia.org/wiki/Observer_pattern" target="_blank">"观察者模式"</a>（observer pattern）。</p>
+
+<p>这个模式有多种<a href="http://msdn.microsoft.com/en-us/magazine/hh201955.aspx" target="_blank">实现</a>，下面采用的是Ben Alman的<a href="https://gist.github.com/661855" target="_blank">Tiny Pub/Sub</a>，这是jQuery的一个插件。</p>
+
+<p>首先，f2向"信号中心"jQuery订阅"done"信号。</p>
+
+<blockquote>
+
+<p>　　jQuery.subscribe("done", f2);</p>
+
+</blockquote>
+
+<p>然后，f1进行如下改写：</p>
+
+<blockquote>
+
+<p>　　function f1(){</p>
+
+<p>　　　　setTimeout(function () {</p>
+
+<p>　　　　　　// f1的任务代码</p>
+
+<p>　　　　　　<strong>jQuery.publish("done");</strong></p>
+
+<p>　　　　}, 1000);</p>
+
+<p>　　}</p>
+
+</blockquote>
+
+<p>jQuery.publish("done")的意思是，f1执行完成后，向"信号中心"jQuery发布"done"信号，从而引发f2的执行。</p>
+
+<p>此外，f2完成执行后，也可以取消订阅（unsubscribe）。</p>
+
+<blockquote>
+
+<p>　　jQuery.unsubscribe("done", f2);</p>
+
+</blockquote>
+
+<p>这种方法的性质与"事件监听"类似，但是明显优于后者。因为我们可以通过查看"消息中心"，了解存在多少信号、每个信号有多少订阅者，从而监控程序的运行。</p>
+
+<p><strong>四、Promises对象</strong></p>
+
+<p>Promises对象是CommonJS工作组提出的一种规范，目的是为异步编程提供<a href="http://wiki.commonjs.org/wiki/Promises/A" target="_blank">统一接口</a>。</p>
+
+<p>简单说，它的思想是，每一个异步任务返回一个Promise对象，该对象有一个then方法，允许指定回调函数。比如，f1的回调函数f2,可以写成：</p>
+
+<blockquote>
+
+<p>　　f1().then(f2);</p>
+
+</blockquote>
+
+<p>f1要进行如下改写（这里使用的是jQuery的<a href="http://www.ruanyifeng.com/blog/2011/08/a_detailed_explanation_of_jquery_deferred_object.html" target="_blank">实现</a>）：</p>
+
+<blockquote>
+
+<p>　　function f1(){</p>
+
+<p>　　　　var dfd = $.Deferred();</p>
+
+<p>　　　　setTimeout(function () {</p>
+
+<p>　　　　　　// f1的任务代码</p>
+
+<p>　　　　　　dfd.resolve();</p>
+
+<p>　　　　}, 500);</p>
+
+<p>　　　　<strong>return dfd.promise;</strong></p>
+
+<p>　　}</p>
+
+</blockquote>
+
+<p>这样写的优点在于，回调函数变成了链式写法，程序的流程可以看得很清楚，而且有一整套的<a href="http://api.jquery.com/category/deferred-object/" target="_blank">配套方法</a>，可以实现许多强大的功能。</p>
+
+<p>比如，指定多个回调函数：</p>
+
+<blockquote>
+
+<p>　　f1().then(f2).then(f3);</p>
+
+</blockquote>
+
+<p>再比如，指定发生错误时的回调函数：</p>
+
+<blockquote>
+
+<p>　　f1().then(f2).fail(f3);</p>
+
+</blockquote>
+
+<p>而且，它还有一个前面三种方法都没有的好处：如果一个任务已经完成，再添加回调函数，该回调函数会立即执行。所以，你不用担心是否错过了某个事件或信号。这种方法的缺点就是编写和理解，都相对比较难。</p>
+
+<p><strong>五、参考链接</strong></p>
+
+<p>　　* <a href="http://sporto.github.com/blog/2012/12/09/callbacks-listeners-promises/" target="_blank">Asynchronous JS: Callbacks, Listeners, Control Flow Libs and Promises</a></p>
+
+<p>（完）</p>
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/newwindow.js"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2012-12-21T16:27:34+08:00">2012年12月21日</abbr></li>
+<li>更多内容： <a href="http://www.ruanyifeng.com/blog/archives.html" target="_blank"> 档案</a>  » 
+<a href="http://www.ruanyifeng.com/blog/javascript/"> JavaScript</a> 
+</li>
+<li>购买文集：<a href="http://www.ruanyifeng.com/blog/2014/12/my-blog-book.html" target="_blank"><img src="data:image/png;base64,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" style="border:0;"> 《如何变得有思想》</a></li>
+<li>社交媒体：<a href="https://twitter.com/ruanyf" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAk1JREFUeNqsVc9rE0EU/mZ3dhPNJl2bVIk/Km09aFBE8GLvnrwJXvwLxIsgCP4Fnit6E8Gb0IMHwUsL9SSNgiAoooJIpE1Joo1h82uT7IxvxmRN3Q32kAdvdrI773vfe+/bDTu9WioDcDAda3Ja8piepQ1avCkCeny0Y+R9KenKwOmHHLvPaKn7AtVOoO8dOWDCMpg+41gMQv5FNEJACgoE8MsPNLDBhgfoutMOsJDmWLmU037C4TApciljwQ/kHoohQxV06+wMXNvE7WINuaSpvdYVKLgWnl3O4zAxU3Z1IYVGT+B5qYWV9z2kbQaT/cOwTsxOUUYF+mB5Dkmi8HG3h2q9hxsFNwRTdvQgxxnXRrMvIdkEhllis/qtiWuLDm4WZnBlPoWnXz28LHdw0uGR7m9Wu3j0qYGEubfn4UlBfXO4gTZltRNMg9w9f0i7kNFxllsBlS0x75gYfxyWTBUjT2W5CSMSPBrQuG21+hiMDS8CeCzF8eSLp13uQ3Ab1IqMFZN8tFHPmgOBF99bYP8Be1Xp6t7OJszJgKpPSiZvaj7uf2hguz2IBQuozDvFH6RDBjuK9wdQDvt0nMpW+8efGyh5UcAeZb2+UcHbnz5Jx4wdlp4yJYU3kLiQtfBwOYeLc8nIwfXtNu69q2Oz4mMxbemYOOOjKarhvq51KUjg3GwiFPIuvcNF6pnSnWK0lOEabNLgQh1aJFAhlGB9rG110B2+oyRNPc0sZbRNFltmLKDKqj4Qrm1ojzOxDz2pyPQ0P7CK4c40/wJ+CzAAGYrXsvfFXR4AAAAASUVORK5CYII=" style="border:0;"> twitter</a>，<a href="http://weibo.com/ruanyf" target="_blank"><img src="data:image/png;base64,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" style="border:0;"> weibo</a></li>
+<li>Feed订阅： <a href="http://www.ruanyifeng.com/feed.html" target="_blank"><img src="data:image/gif;base64,R0lGODlhFAAUANU2APV1GfmrePZ8IeR5VPq2ieNkLf7p3NpFJveCJ/NoFfibVPR1IexiJfvdzuZrNfXGuOhUEueTevaFOfzIpNxDGeZZJNU6IOubifiVTfOnid1aLuZpLOFSJf/28vJtIvGcefaLSd5kNu9iFv/z6//48//t4uFfLfNkCeJNGuGNc/rCof/+/PVxEeldI/V5KeKMbu9nIvB2OvzQtNxMKfOPXP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAADYALAAAAAAUABQAAAb/QJstEjKZCsjCZsl0pIS2QWXaYsA8noVWIEAgFoNhhWNyMESi7Jbr/aZCFdRnZJAFJCwAt+vlOkwtEBk1hDUkExJ6bQJaGyYMLTQTDSOFHQF8jAseSFYiJwkuAQ2FE1xaHjBIMDAgARguJwABJIQTLJswDEgeIgSEJQQILAqVNQEiui1HHgkBhTUGCiwYtR0xLS0VJhtaEgoEBoQkGCfPNSoQY9xaCwAsCBPALgmkJA4cZN0CAAgY/PJqEIDwgVAECjM0bOAnwcAKGQJclKhRgoGDDjUeUDigkN8vQiBOfByAglSDAxw3IBCgYEU0FyJoEPpA4UGNDjMsaHDQR8EdPVYOMmQYQGHAhQgHLIRIsWAlgASsGMRBMWMGBQtYZ7yIsoBRKkhjOMxAiXJGGCEpHGxIYsSIhrcaQmy1EQQAOw==" style="border:0;"></a></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+   <div id="gegz1">
+   <p style="text-align:center;"><a href="http://www.zhufengpeixun.cn/jscourse/new/js/index.html?ref=ruanyifeng.com" target="_blank"><img alt="珠峰培训" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/sup_zhufeng_page.png" width="600" height="160" style="border:none;"></a></p>
+   <p style="text-align:center;"><a href="https://h5.jianxun.io/20160321-qianlima?utm_source=event&utm_medium=blog_ad&utm_campaign=qianlima&utm_content=ruanyifeng&utm_term=wangzhan" target="_blank"><img alt="简寻" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/ruanyifeng-bottombanner.png" width="600" height="160" style="border:none;"></a></p>
+   </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2016.04.12: <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html">跨域资源共享 CORS 详解</a></strong>
+
+                           <div class="entry-body">
+                              CORS是一个W3C标准，全称是"跨域资源共享"（Cross-origin resource sharing）。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2016.04.08: <a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html">浏览器同源政策及其规避方法</a></strong>
+
+                           <div class="entry-body">
+                              浏览器安全的基石是"同源政策"（same-origin policy）。很多开发者都知道这一点，但了解得不全面。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2016.03.12: <a href="http://www.ruanyifeng.com/blog/2016/03/node-systemd-tutorial.html">Node 应用的 Systemd 启动</a></strong>
+
+                           <div class="entry-body">
+                              前面的文章介绍了 Systemd 的操作命令和基本用法，今天给出一个实例，如何使用 Systemd 启动一个 Node 应用。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2016.02.13: <a href="http://www.ruanyifeng.com/blog/2016/02/react-testing-tutorial.html">React 测试入门教程</a></strong>
+
+                           <div class="entry-body">
+                              越来越多的人，使用React开发Web应用。它的测试就成了一个大问题。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+<div id="gd1">
+<h2>广告<a href="http://www.ruanyifeng.com/support.html">（购买广告位）</a></h2>
+<div id="gd1-inner">
+<div id="gd1-left">
+<a href="http://a.maka.im/pcviewer/BA7L1P6B?utm_source=ruanyifeng.com" title="一灯学堂" target="_blank"><img alt="一灯学堂" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/sup_yideng.png" style="border:none;"></a>
+<br>
+<a href="http://www.zhinengshe.com/?utm_source=ruanyifeng.com" title="智能社" target="_blank"><img alt="智能社" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/sup_zhinengshe.jpg" style="border:none;"></a>
+</div>
+<div id="gd1-right">
+
+<a href="http://100offer.com/join/ruanyifeng?utm_source=ruanyifeng&utm_medium=dis&utm_campaign=ruanyifeng" target="_blank"><img src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/sup_1000ffer_2.jpg" style="border:none;"></a><br>
+<a href="http://www.ruanyifeng.com/support.html" target="_blank"><img src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/sup_sale_s.png" style="border:none;"></a>
+
+</div>
+</div>
+</div>
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（66条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-267156" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">小铱</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267156">
+            <p>特别推荐一下国产的continuation.js，可以将复杂的回调函数展平。</p>
+
+<p><a href="https://github.com/BYVoid/continuation" rel="nofollow"></a><a href="https://github.com/BYVoid/continuation" rel="nofollow">https://github.com/BYVoid/continuation</a></p>
+
+<p>回调函数的方法，会遇到“回调金字塔”的问题，比如</p>
+
+<blockquote><pre>
+<p>var err, stats, obj;<br>
+setTimeout(function () {<br>
+  fs.lstat('/path', function () {<br>
+    err = arguments[0];<br>
+    stats = arguments[1];<br>
+    fs.readdir('/path', function () {<br>
+      err = arguments[0];<br>
+      obj.files = arguments[1];<br>
+    });<br>
+  });<br>
+}, 1000);</p>
+
+</pre></blockquote>
+
+<p>而是用continuation.js就可以这样写</p>
+
+<blockquote><pre>
+<p>function textProcessing(ret) {<br>
+  fs.readFile('somefile.txt', 'utf-8', cont(err, contents));<br>
+  if (err) return ret(err);<br>
+  contents = contents.toUpperCase();<br>
+  fs.readFile('somefile2.txt', 'utf-8', cont(err, contents2));<br>
+  if (err) return ret(err);<br>
+  contents += contents2;<br>
+  fs.writeFile('somefile_concat_uppercase.txt', contents, cont(err));<br>
+  if (err) return ret(err);<br>
+  ret(null, contents);<br>
+}<br>
+textProcessing(cont(err, contents));<br>
+if (err)<br>
+  console.error(err);</p>
+
+</pre></blockquote>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 21, 2012  6:05 PM">2012年12月21日 18:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267156">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用小铱的这条留言" onclick="return CommentQuote(&#39;comment-quote-267156&#39;,&#39;小铱&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267159" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://hafeyang.blogjava.net" href="http://hafeyang.blogjava.net/" target="_blank" rel="nofollow">hafeyang</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267159">
+            <p>事件监听 和发布/订阅 内部实现，原理是一样的。发布/订阅其实也是事件。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 21, 2012  9:09 PM">2012年12月21日 21:09</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267159">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用hafeyang的这条留言" onclick="return CommentQuote(&#39;comment-quote-267159&#39;,&#39;hafeyang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267160" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.ciznx.com" href="http://blog.ciznx.com/" target="_blank" rel="nofollow">陈计节</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267160">
+            <blockquote>
+<pre>引用小铱的发言：</pre>
+特别推荐一下国产的continuation.js，可以将复杂的回调函数展平。
+</blockquote>
+
+<p>在 Node.js 的开发中，由于逻辑分层所致，会出现多层回调。易于引发异常处理混乱、闭包过于复杂、代码难以维护等问题。<br>
+没有了解过 continuation.js 项目，不过国内 <a href="http://jeffreyzhao.cnblogs.com/" rel="nofollow">Jeffery Zhao</a> 的项目 <a href="http://jscex.info/zh-cn/" rel="nofollow">Jscex</a> 做了一项有意思的事，就是使用一定的技巧将异步后续步骤的蹩脚语法整理成常见方式。<br>
+项目开源地址：https://github.com/JeffreyZhao/jscex<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 21, 2012 10:40 PM">2012年12月21日 22:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267160">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用陈计节的这条留言" onclick="return CommentQuote(&#39;comment-quote-267160&#39;,&#39;陈计节&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267164" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">RedNax</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267164">
+            <blockquote>
+<pre>引用陈计节的发言：</pre>
+
+<p></p>
+
+<p>在 Node.js 的开发中，由于逻辑分层所致，会出现多层回调。易于引发异常处理混乱、闭包过于复杂、代码难以维护等问题。<br>
+没有了解过 continuation.js 项目，不过国内 Jeffery Zhao 的项目 Jscex 做了一项有意思的事，就是使用一定的技巧将异步后续步骤的蹩脚语法整理成常见方式。<br>
+项目开源地址：https://github.com/JeffreyZhao/jscex</p>
+
+<p><br>
+</p></blockquote><br>
+Jscex现在已经改名为windjs。continuation.js和那个有点相似，都是基于js解析编译的新语法。这种方法虽然很酷不过是在难以让人放心，想不起来还是promise和async.js这种平坦化方式更让人放心一点。<br>
+
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 22, 2012  2:37 AM">2012年12月22日 02:37</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267164">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用RedNax的这条留言" onclick="return CommentQuote(&#39;comment-quote-267164&#39;,&#39;RedNax&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267165" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">lixiong</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267165">
+            <p>你的配图并不十分准确. 配图里面是同步无并发执行和并发执行的区别. 在JavaScript中, 是无法进行并发执行的. 所有的例子中, 没有任何两个函数或者两段代码是同时执行的.</p>
+
+<p>JavaScript可以通过快速的异步执行切换来模拟并发.</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 22, 2012  3:47 AM">2012年12月22日 03:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267165">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用lixiong的这条留言" onclick="return CommentQuote(&#39;comment-quote-267165&#39;,&#39;lixiong&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267167" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">RedNax</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267167">
+            <blockquote>
+<pre>引用lixiong的发言：</pre>
+
+<p>你的配图并不十分准确. 配图里面是同步无并发执行和并发执行的区别. 在JavaScript中, 是无法进行并发执行的. 所有的例子中, 没有任何两个函数或者两段代码是同时执行的.</p>
+
+<p>JavaScript可以通过快速的异步执行切换来模拟并发.</p>
+
+</blockquote>配图没错，那是loading资源，确是是并发的。没有并发的是loading之后的callback。
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 22, 2012  9:16 AM">2012年12月22日 09:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267167">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用RedNax的这条留言" onclick="return CommentQuote(&#39;comment-quote-267167&#39;,&#39;RedNax&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267171" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267171">
+            <p>@lixiong：</p>
+
+<p>配图改过了，现在应该准确一点了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 22, 2012 11:58 AM">2012年12月22日 11:58</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267171">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-267171&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267197" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ifree</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267197">
+            <p>第二种不一定比第三种好或者差,当订阅者到达一定数量时发布中心承受的压力是需要考虑的,全局消息充斥整个程序也见得很好</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 22, 2012 11:24 PM">2012年12月22日 23:24</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267197">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用ifree的这条留言" onclick="return CommentQuote(&#39;comment-quote-267197&#39;,&#39;ifree&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267228" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">小涛</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267228">
+            <p>异步的实现就是用定时器函数改变代码的执行顺序吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 23, 2012  9:32 PM">2012年12月23日 21:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267228">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用小涛的这条留言" onclick="return CommentQuote(&#39;comment-quote-267228&#39;,&#39;小涛&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267263" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">July</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267263">
+            <blockquote>
+<pre>引用hafeyang的发言：</pre>
+
+<p>事件监听 和发布/订阅 内部实现，原理是一样的。发布/订阅其实也是事件。</p>
+
+</blockquote>
+
+<p>是的，自定义事件和发布/订阅模式的实现代码一模一样，只不过换了个叫法而已，<br>
+《JavaScript程序员参考手册》中就有相关实现的代码。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 25, 2012 11:03 AM">2012年12月25日 11:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267263">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用July的这条留言" onclick="return CommentQuote(&#39;comment-quote-267263&#39;,&#39;July&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267285" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jlake</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267285">
+            <p>这篇文章不错，浅显易懂。<br>
+实际上用任何语言进行异步处理都要面临相同的问题。原理才是重要的。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 25, 2012  3:43 PM">2012年12月25日 15:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267285">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用jlake的这条留言" onclick="return CommentQuote(&#39;comment-quote-267285&#39;,&#39;jlake&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267287" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blogjava.net/javagui" href="http://blogjava.net/javagui" target="_blank" rel="nofollow">电玩</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267287">
+            <p>发布/订阅模式，还能携带参数和返回值。</p>
+
+<p>        var invokeMapping = {}, addInvokeListener = function addInvokeListener (opCode, func) {<br>
+            (invokeMapping[opCode] = invokeMapping[opCode] || []).push(func);<br>
+        }, invokeAndWait = function invokeAndWait (opCode, inParam, outParam) {<br>
+            var listeners = invokeMapping[opCode];<br>
+            if (listeners) {<br>
+                listeners.forEach(function (func, index) {<br>
+                    func(inParam, outParam);<br>
+                });<br>
+            }<br>
+        };</p>
+
+<p>        //使用方法：<br>
+        addInvokeListener("hello", function (inParam, outParam) {<br>
+            alert(inParam);<br>
+            outParam.result = "success";<br>
+        });<br>
+        var ret = {};<br>
+        invokeAndWait("hello", "hello world", ret);<br>
+        alert(ret.result); // 输出success</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 25, 2012  6:21 PM">2012年12月25日 18:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267287">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用电玩的这条留言" onclick="return CommentQuote(&#39;comment-quote-267287&#39;,&#39;电玩&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267289" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://yu123.me" href="http://yu123.me/" target="_blank" rel="nofollow">wordgold</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267289">
+            <blockquote>
+<pre>引用小涛的发言：</pre>
+
+<p>异步的实现就是用定时器函数改变代码的执行顺序吗？</p>
+
+</blockquote>
+
+<p>这只是异步编程，并不是异步执行，<br>
+我的理解，javascript应该只有单线程，即使使用了异步编程，在执行层面上还是一步一步执行的，只是会随时有插队的而已</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 25, 2012  7:17 PM">2012年12月25日 19:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267289">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用wordgold的这条留言" onclick="return CommentQuote(&#39;comment-quote-267289&#39;,&#39;wordgold&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267332" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://redhacker.iteye.com" href="http://redhacker.iteye.com/" target="_blank" rel="nofollow">redhacker</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267332">
+            <p>在一个系统中有多个被监听对象时，订阅/发布（观察者模式）确实比监听模式可以集中管理事件处理，事件的触发也可以做成统一模型，程序的结构更加清晰。</p>
+
+<p>不管怎样，观察者模式是监听模式的高级演进版，监听模式是基础。</p>
+
+<p>当需要监听的对象只有一两个时，就没有必要再使用观察者模式了，使用反而增加了系统的复杂度。</p>
+
+<p>根据java jdk的api，监听模式至少要实现两个接口java.util.EventListener和java.util.Event，Event的构造函数里有一个保留事件发生点的钩子（对象），用于在监听对象里回调钩子相关的东西。<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 27, 2012 10:16 AM">2012年12月27日 10:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267332">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用redhacker的这条留言" onclick="return CommentQuote(&#39;comment-quote-267332&#39;,&#39;redhacker&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267333" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://redhacker.iteye.com" href="http://redhacker.iteye.com/" target="_blank" rel="nofollow">redhacker</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267333">
+            <p>我看作者给出的例子都比较简单，这里给出js监听模式的具体实现，仅供大家讨论。</p>
+
+<blockquote>
+
+<p>// 事件对象<br>
+var Event = function(obj) {<br>
+	this.obj = obj;<br>
+	this.getSource = function() {<br>
+		return this.obj;<br>
+	}<br>
+}</p>
+
+<p>// 监听对象<br>
+var F2 = function() {<br>
+    this.hander = function(event) {<br>
+    	var f2 = event.getSource();<br>
+    	console.log("f2 do something!");<br>
+        f2.callback();<br>
+    }<br>
+}</p>
+
+<p>// 被监听对象<br>
+var F1 = function() {<br>
+	this.abc = function() {<br>
+        console.log("f1 do something one!");<br>
+        // 创建事件对象<br>
+        var e = new Event(this);<br>
+        // 发布事件<br>
+        this.f2.hander(e);<br>
+        console.log("f1 do something two!");<br>
+	}<br>
+	<br>
+	this.on = function(f2) {<br>
+	   this.f2 = f2;<br>
+	}<br>
+	<br>
+	this.callback = function() {<br>
+	   console.log("f1 callback invoke!");<br>
+	}<br>
+}</p>
+
+<p>// 主函数<br>
+function main() {<br>
+    var f1 = new F1();<br>
+    var f2 = new F2();<br>
+    // 加入监听<br>
+    f1.on(f2);<br>
+    f1.abc();<br>
+}</p>
+
+<p>// 运行主函数<br>
+main();</p>
+
+</blockquote>
+
+<p>执行结果是:<br>
+</p><blockquote><br>
+f1 do something one!<br>
+f2 do something!<br>
+f1 callback invoke!<br>
+f1 do something two!<br>
+</blockquote><br>
+<p></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 27, 2012 10:16 AM">2012年12月27日 10:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267333">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用redhacker的这条留言" onclick="return CommentQuote(&#39;comment-quote-267333&#39;,&#39;redhacker&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267413" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://outofmemory.cn" href="http://outofmemory.cn/" target="_blank" rel="nofollow">程序员老A</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267413">
+            <p>我自认为是个经验比较丰富的web开发人员，但是一般情况下用setTimeout就完了。没发现平时的开发中需要这么复杂的异步操作。</p>
+
+<p>其实异步也是用ajax比较多，ajax是你阐述的异步编程中的一种吗。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 30, 2012  8:38 AM">2012年12月30日 08:38</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267413">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用程序员老A的这条留言" onclick="return CommentQuote(&#39;comment-quote-267413&#39;,&#39;程序员老A&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267566" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://my.oschina.net/aiguozhe" href="http://my.oschina.net/aiguozhe" target="_blank" rel="nofollow">爱国者</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267566">
+            <p>我来分享一个自己实现的基于事件驱动的单线程异步框架 ：http://www.oschina.net/code/snippet_103999_14286</p>
+
+<p>欢迎拍砖</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  5, 2013 12:15 AM">2013年1月 5日 00:15</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267566">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用爱国者的这条留言" onclick="return CommentQuote(&#39;comment-quote-267566&#39;,&#39;爱国者&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267571" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://my.oschina.net/aiguozhe" href="http://my.oschina.net/aiguozhe" target="_blank" rel="nofollow">爱国者</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267571">
+            <p>异步编程的关键是切分任务，并且保证每个任务足够小，执行得足够快。<b>注意，任务能被快速执行是关键中的关键。</b>因为在单线程环境中，只要有一个任务的执行时间稍长，就会导致排在后面的任务被延后。</p>
+
+<p>楼主提到将<br>
+<br>
+  f1();<br>
+  f2();<br>
+<br>
+改成<br>
+<br>
+   function f1(callback){<br>
+　　　　setTimeout(function () {<br>
+　　　　　　// f1的任务代码<br>
+　　　　　　callback();<br>
+　　　　}, 1000);<br>
+　　}<br>
+<br>
+便不会阻塞程序的执行的说法有失偏颇。</p>
+
+<p>因为当执行f1的任务代码时, setTimeout的回调函数：<br>
+<br>
+    function(){<br>
+      // f1的任务代码<br>
+　　　callback();<br>
+    }   <br>
+<br>
+会独占当前的执行线程， 直至执行完毕；除非虚拟机（或运行时）允许<b>基于单线程的多任务(函数)抢占式调度(即一个函数执行了一半时被中断，切换到另一个函数中执行)</b>。至少目前nodejs不支持所谓的<b>基于单线程的多任务(函数)抢占式调度</b></p>
+
+<p><br>
+个人认为，不管是上述哪四种方式来实现异步，原理都是一样的。那就是有一个任务队列存放待执行的任务，一个工作线程不断从任务队列中取出任务然后执行；另外还需要一个事件监控线程来捕捉事件并把事件封装成新的任务放入任务队列中。</p>
+
+<p></p>
+
+<p><br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  5, 2013 12:50 AM">2013年1月 5日 00:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267571">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用爱国者的这条留言" onclick="return CommentQuote(&#39;comment-quote-267571&#39;,&#39;爱国者&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267598" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.cppblog.com/korall/" href="http://www.cppblog.com/korall/" target="_blank" rel="nofollow">korall</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267598">
+            <p>js 的异步其更多的是为了和界面UI 的分时，所以尽量将任务切割为细粒度的小任务，每次执行完一段小任务只耗费一段足够小的时间然后让出时间给UI，这样UI就不会卡死。如果任务切割得不好，任务段仍然耗时长，那么无论使什么花样，一样卡死UI。因为js的异步实现不了真正并行。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  5, 2013  2:38 PM">2013年1月 5日 14:38</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267598">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用korall的这条留言" onclick="return CommentQuote(&#39;comment-quote-267598&#39;,&#39;korall&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267705" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">路人</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267705">
+            <p>我用IE9 查看你的主页时，里面的链接一个都不能点击；刷新了几次仍然不能点击，换成火狐浏览器 就一切正常了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  9, 2013  4:27 PM">2013年1月 9日 16:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267705">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用路人的这条留言" onclick="return CommentQuote(&#39;comment-quote-267705&#39;,&#39;路人&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267710" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267710">
+            <p>@路人：</p>
+
+<p>我都没发觉……这是因为加了雪花特效，现在取消了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  9, 2013  6:26 PM">2013年1月 9日 18:26</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267710">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-267710&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-267875" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">consatan</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-267875">
+            <p>其实还是单线程执行，只是改变了顺序，将执行时间长的代码片断(假设为片断A)给延迟执行了<br>
+但...如果某个函数的执行必须基于这个片断A的执行结果，那异步编程也就无意义了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 15, 2013  3:49 PM">2013年1月15日 15:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-267875">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用consatan的这条留言" onclick="return CommentQuote(&#39;comment-quote-267875&#39;,&#39;consatan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-269444" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Evan</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-269444">
+            <p>你好阮老师：<br>
+1.回调函数，如下这么写难道不是等“f1的任务代码”执行完再执行callback()吗？<br>
+  这还是同步呀。<br>
+f1(f2);<br>
+function f1(callback){</p>
+
+<p>　　　　setTimeout(function () {</p>
+
+<p>　　　　　　// f1的任务代码</p>
+
+<p>　　　　　　callback();</p>
+
+<p>　　　　}, 1000);</p>
+
+<p>　　}</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March  7, 2013  2:28 PM">2013年3月 7日 14:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-269444">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用Evan的这条留言" onclick="return CommentQuote(&#39;comment-quote-269444&#39;,&#39;Evan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-269529" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">larz</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-269529">
+            <p>to Evan<br>
+"同步或异步"要从调用方来判断。</p>
+
+<p>同步函数返回表示工作已完成或发生异常，接下来依赖此结果的的代码被调用方继续执行。</p>
+
+<p>异步函数返回表示工作已发布出去，什么时候完成不知道，接下来的代码无法依赖一个未知的结果，所以要传入一个回调在完成后处理。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March  9, 2013  3:52 PM">2013年3月 9日 15:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-269529">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用larz的这条留言" onclick="return CommentQuote(&#39;comment-quote-269529&#39;,&#39;larz&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-271801" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://huangyunbin.iteye.com/" href="http://huangyunbin.iteye.com/" target="_blank" rel="nofollow">huangyunbin</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-271801">
+            <p>我感觉js的异步就是两种：回调和观察者模式。监听器的方式也是观察者模式的一种实现，Promises对象只是个语法糖而已。 <br>
+js是单线程的，异步也不能加快程序运行 .</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 28, 2013  6:34 PM">2013年5月28日 18:34</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-271801">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用huangyunbin的这条留言" onclick="return CommentQuote(&#39;comment-quote-271801&#39;,&#39;huangyunbin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-272083" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fatter</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-272083">
+            <blockquote>
+<pre>引用huangyunbin的发言：</pre>
+
+<p>我感觉js的异步就是两种：回调和观察者模式。监听器的方式也是观察者模式的一种实现，Promises对象只是个语法糖而已。 <br>
+js是单线程的，异步也不能加快程序运行 .</p>
+
+</blockquote>
+
+<p>同意js的异步就是回调和观察者模式两种的观点。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 13, 2013  9:29 PM">2013年6月13日 21:29</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-272083">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用fatter的这条留言" onclick="return CommentQuote(&#39;comment-quote-272083&#39;,&#39;fatter&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-272252" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://kein.pw" href="http://kein.pw/" target="_blank" rel="nofollow">菜鸟：Keinwang</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-272252">
+            <p>发现这里的文章还不适合我这种刚学习JS的，看看先，话说留言板很干净，是怎么实现的啊</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 21, 2013 12:42 PM">2013年6月21日 12:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-272252">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用菜鸟：Keinwang的这条留言" onclick="return CommentQuote(&#39;comment-quote-272252&#39;,&#39;菜鸟：Keinwang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-272897" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">canon</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-272897">
+            <p>个人感觉第一个例子总让人产生歧义，我一开始以为你想说明f1()很耗时，为了不阻塞f2()，所以采用回调的方式来解决这个问题。而你这没有解决这个问题，而是将f1()推迟执行，没有阻塞其他逻辑（不包括f2()）......总感觉答非所问，提出的问题和解决的问题不一致</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 31, 2013  4:51 PM">2013年7月31日 16:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-272897">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用canon的这条留言" onclick="return CommentQuote(&#39;comment-quote-272897&#39;,&#39;canon&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-273093" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.netsh.org" href="http://blog.netsh.org/" target="_blank" rel="nofollow">Net's H</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-273093">
+            <p>很详细，差不多懂了。 </p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 16, 2013  7:10 PM">2013年8月16日 19:10</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-273093">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用Net&#39;s H的这条留言" onclick="return CommentQuote(&#39;comment-quote-273093&#39;,&#39;Net&#39;s H&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-277580" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">song</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-277580">
+            <p>貌似有点儿涩</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October  8, 2013 10:10 AM">2013年10月 8日 10:10</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-277580">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用song的这条留言" onclick="return CommentQuote(&#39;comment-quote-277580&#39;,&#39;song&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-277805" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">tazi</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-277805">
+            <p>回调函数不一定是异步的，第一个例子异步执行不是因为f2作为回调函数，而是setTimeout促发的异步执行</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October  9, 2013 12:07 PM">2013年10月 9日 12:07</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-277805">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用tazi的这条留言" onclick="return CommentQuote(&#39;comment-quote-277805&#39;,&#39;tazi&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-293601" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">XC</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-293601">
+            <p>异步会有暴露过多接口的问题</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 18, 2013  4:59 PM">2013年12月18日 16:59</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-293601">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用XC的这条留言" onclick="return CommentQuote(&#39;comment-quote-293601&#39;,&#39;XC&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-293747" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">holly</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-293747">
+            <p>四、Promises对象=&gt; return dfd.promise; 少写了一对括号=》 return dfd.promise();</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 19, 2013 11:29 AM">2013年12月19日 11:29</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-293747">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用holly的这条留言" onclick="return CommentQuote(&#39;comment-quote-293747&#39;,&#39;holly&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-295023" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://google.com" href="http://google.com/" target="_blank" rel="nofollow">yaya</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-295023">
+            <blockquote>
+<pre>第一个callback例子：</pre>
+采用这种方式，我们把同步操作变成了异步操作，f1不会堵塞程序运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。
+</blockquote>
+我想来想去都感觉应该是：防止f2堵塞程序运行，而不是防f1堵塞。而f1本身就如同ajax这类异步请求，f2依赖f1的结果。
+是这么理解么？
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 28, 2013  9:03 PM">2013年12月28日 21:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-295023">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用yaya的这条留言" onclick="return CommentQuote(&#39;comment-quote-295023&#39;,&#39;yaya&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-295518" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ec</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-295518">
+            <blockquote>
+<pre>引用hafeyang的发言：</pre>
+
+<p>事件监听 和发布/订阅 内部实现，原理是一样的。发布/订阅其实也是事件。</p>
+
+</blockquote>
+
+<p>说成事件监听是发布/订阅的一个特殊例子更好</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  1, 2014  2:26 PM">2014年1月 1日 14:26</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-295518">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用ec的这条留言" onclick="return CommentQuote(&#39;comment-quote-295518&#39;,&#39;ec&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-295821" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">leo</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-295821">
+            <blockquote>
+<pre>引用canon的发言：</pre>
+
+<p>个人感觉第一个例子总让人产生歧义，我一开始以为你想说明f1()很耗时，为了不阻塞f2()，所以采用回调的方式来解决这个问题。而你这没有解决这个问题，而是将f1()推迟执行，没有阻塞其他逻辑（不包括f2()）......总感觉答非所问，提出的问题和解决的问题不一致</p>
+
+</blockquote>
+
+<p>同感。但保留对阮老的敬意。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  3, 2014  3:21 PM">2014年1月 3日 15:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-295821">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用leo的这条留言" onclick="return CommentQuote(&#39;comment-quote-295821&#39;,&#39;leo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-297951" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">traxex</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-297951">
+            <blockquote>
+<pre>引用holly的发言：</pre>
+
+<p>四、Promises对象=&gt; return dfd.promise; 少写了一对括号=》 return dfd.promise();</p>
+
+</blockquote>
+
+<p>太感谢了！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 16, 2014 11:12 AM">2014年1月16日 11:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-297951">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用traxex的这条留言" onclick="return CommentQuote(&#39;comment-quote-297951&#39;,&#39;traxex&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-303565" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://keenwon.com" href="http://keenwon.com/" target="_blank" rel="nofollow">keenwon</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-303565">
+            <p>总是这么通俗易懂，言简意赅，牛！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 18, 2014  5:40 PM">2014年3月18日 17:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-303565">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用keenwon的这条留言" onclick="return CommentQuote(&#39;comment-quote-303565&#39;,&#39;keenwon&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-318366" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fish</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-318366">
+            <p>阮老师，第一个例子就不是很理解</p>
+
+<p>　function f1(callback){<br>
+　　　　setTimeout(function () {<br>
+　　　　　　// f1的任务代码<br>
+　　　　　　callback();<br>
+　　　　}, 1000);<br>
+　　}</p>
+
+<p>这样的话f1的任务代码和callback不依然是顺序执行吗？如何做到了异步执行？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 25, 2014  4:30 PM">2014年4月25日 16:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-318366">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用fish的这条留言" onclick="return CommentQuote(&#39;comment-quote-318366&#39;,&#39;fish&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-318367" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fish</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-318367">
+            <blockquote>
+<pre>引用larz的发言：</pre>
+
+<p>to Evan<br>
+"同步或异步"要从调用方来判断。</p>
+
+<p>同步函数返回表示工作已完成或发生异常，接下来依赖此结果的的代码被调用方继续执行。</p>
+
+<p>异步函数返回表示工作已发布出去，什么时候完成不知道，接下来的代码无法依赖一个未知的结果，所以要传入一个回调在完成后处理。</p>
+
+</blockquote>
+文中的写法貌似依然是同步顺序执行的
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 25, 2014  4:32 PM">2014年4月25日 16:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-318367">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用fish的这条留言" onclick="return CommentQuote(&#39;comment-quote-318367&#39;,&#39;fish&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-318369" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fish</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-318369">
+            <p>发布/订阅 文中说的那个插件也是用on trigger 实现的。。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 25, 2014  4:36 PM">2014年4月25日 16:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-318369">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用fish的这条留言" onclick="return CommentQuote(&#39;comment-quote-318369&#39;,&#39;fish&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330098" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">百川</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330098">
+            <blockquote>
+<pre>引用canon的发言：</pre>
+
+<p>个人感觉第一个例子总让人产生歧义，我一开始以为你想说明f1()很耗时，为了不阻塞f2()，所以采用回调的方式来解决这个问题。而你这没有解决这个问题，而是将f1()推迟执行，没有阻塞其他逻辑（不包括f2()）......总感觉答非所问，提出的问题和解决的问题不一致</p>
+
+</blockquote>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2014 11:25 AM">2014年7月 3日 11:25</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-330098">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用百川的这条留言" onclick="return CommentQuote(&#39;comment-quote-330098&#39;,&#39;百川&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330099" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ricson</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330099">
+            <p>我以为应该只是放setimeout放在最上端，里面放进f2,然后才执行f1</p>
+
+<p>当f1执行过久，f2自动先被执行，无需等待f1，当f1比预期早执行完，clear setimeout,执行f2...<br>
+我平常好像是这样写的。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2014 11:28 AM">2014年7月 3日 11:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-330099">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用ricson的这条留言" onclick="return CommentQuote(&#39;comment-quote-330099&#39;,&#39;ricson&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-330133" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">leuvi</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-330133">
+            <p>第一种顶多算伪异步，真正的异步是程序执行期间不会冻结UI的，比如AJAX的异步操作</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2014  3:19 PM">2014年7月 3日 15:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-330133">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用leuvi的这条留言" onclick="return CommentQuote(&#39;comment-quote-330133&#39;,&#39;leuvi&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-341242" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Vivian</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-341242">
+            <p>javaScript 是单线程运行机制，无论同步和异步最终还是单线程的，异步只是把代码运行时间长的延迟了，被延迟的时间里去执行其他代码而已。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 11, 2014  2:45 PM">2014年10月11日 14:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-341242">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用Vivian的这条留言" onclick="return CommentQuote(&#39;comment-quote-341242&#39;,&#39;Vivian&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-341909" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://weibo.com/haozi3156666" href="http://weibo.com/haozi3156666" target="_blank" rel="nofollow">耗子</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-341909">
+            <p>第一个例子，<br>
+function f1(callback){<br>
+　　setTimeout(function () {<br>
+　　　　// f1的任务代码<br>
+　　　　callback();<br>
+　　}, 1000);<br>
+}<br>
+我抓头想了大半天，没明白，于是我自己写了个验证，发现f1还是会阻塞f2，不知您作何解释？<br>
+我的代码如下：<br>
+function a(callback){<br>
+	setTimeout(function(){<br>
+		//耗时操作<br>
+                //-- f1 start --<br>
+		var i=0;<br>
+		while(i
+			if(i++ === 999999999){<br>
+				alert("终于执行完了");<br>
+			}<br>
+		}<br>
+                //-- f1 end --<br>
+		callback();<br>
+	},0);<br>
+};<br>
+a(function(){<br>
+	alert("立即执行");<br>
+});</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 21, 2014  5:19 PM">2014年10月21日 17:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-341909">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用耗子的这条留言" onclick="return CommentQuote(&#39;comment-quote-341909&#39;,&#39;耗子&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-344011" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">无名指</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-344011">
+            <p>如果有<br>
+f1(f2)<br>
+f3();</p>
+
+<p>对比下 <br>
+f1()<br>
+f2()<br>
+f3();</p>
+
+<p>应该就理解异步了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 17, 2014 12:08 PM">2014年11月17日 12:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-344011">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用无名指的这条留言" onclick="return CommentQuote(&#39;comment-quote-344011&#39;,&#39;无名指&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-344012" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">无名指</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-344012">
+            <p>continuation 这个好用不，现在经常碰到多重callback</p>
+
+<p>例如：</p>
+
+<p>$(element).one($.support.transition.end,function(){<br>
+      //第一步动画完成<br>
+       $(element).one($.support.animation.end,function(){<br>
+      //第二步动画完成<br>
+       。。。。。。<br>
+       。。。。<br>
+       //十步动画 写得特别疼。。。。<br>
+     })<br>
+})</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 17, 2014 12:13 PM">2014年11月17日 12:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-344012">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用无名指的这条留言" onclick="return CommentQuote(&#39;comment-quote-344012&#39;,&#39;无名指&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-346616" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">大白菜</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-346616">
+            <p>@耗子：</p>
+
+<p>我也是觉得有点问题。还是被阻塞了啊。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 25, 2014  4:26 PM">2014年12月25日 16:26</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-346616">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用大白菜的这条留言" onclick="return CommentQuote(&#39;comment-quote-346616&#39;,&#39;大白菜&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350364" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">t1mer</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350364">
+            <blockquote>
+<pre>引用无名指的发言：</pre>
+
+<p>如果有<br>
+f1(f2)<br>
+f3();</p>
+
+<p>对比下 <br>
+f1()<br>
+f2()<br>
+f3();</p>
+
+<p>应该就理解异步了。</p>
+
+</blockquote>
+
+<p>谢谢！刚开始我也不是很理解，看到你说到后面的f3()之后理解了。</p>
+
+<p>我的理解是：</p>
+
+<p>假如有两个函数f1、f2、f3, 后者f2等待前者f1的执行结果.<br>
+```javascript<br>
+f1();<br>
+f2();<br>
+f3();<br>
+```<br>
+如果f1是个很耗时，可以考虑改写f1, 把f2写成f1的回调函数. <br>
+```javascript<br>
+function f1(callback) {<br>
+    setTimeout(function () {<br>
+        // f1的任务代码<br>
+        callback();<br>
+    }, 1000);<br>
+}<br>
+f1(f2);<br>
+f3();<br>
+```<br>
+采用这样的方式，f1不会堵塞后面的程序例如f3的运行，相当于先执行程序的主要逻辑，将耗时的操作推迟执行。<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 16, 2015  8:45 PM">2015年6月16日 20:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-350364">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用t1mer的这条留言" onclick="return CommentQuote(&#39;comment-quote-350364&#39;,&#39;t1mer&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350391" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.cuiyongjian.com" href="http://www.cuiyongjian.com/" target="_blank" rel="nofollow">崔永键</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350391">
+            <p>将耗时的操作延迟执行，貌似没有什么意义。假设f3是界面，则先执行了f3此时界面能拖动，然后settimeout之后又去执行f1，此时f3不被执行，界面又卡了。</p>
+
+<p>我认为所谓的异步执行，其实是settimeout所控制的那部分时间，让js在底层开辟了新的线程去做一些IO操作了。这样才实现了f3执行的时候界面不卡顿，忽然f1底层线程的IO操作完成了则执行f2，f2执行完了又回到f3. </p>
+
+<p>尼玛，底层的多线程才是所谓的异步。 这些js所谓的异步编程根本都是语法而已，只有在f1函数中使用了ajax之类的底层多线程函数，才能利用起f3执行所用的那段setTimeout时间。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 18, 2015  2:44 PM">2015年6月18日 14:44</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-350391">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用崔永键的这条留言" onclick="return CommentQuote(&#39;comment-quote-350391&#39;,&#39;崔永键&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350412" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">cxt</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350412">
+            <blockquote>
+<pre>引用hafeyang的发言：</pre>
+
+<p>事件监听 和发布/订阅 内部实现，原理是一样的。发布/订阅其实也是事件。</p>
+
+</blockquote>
+
+<p>其实这4个方法全是事件驱动了,看起来有点奇技淫巧.<br>
+实际上仔细分析,他也就是数学上那么点东西</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 20, 2015  9:16 AM">2015年6月20日 09:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-350412">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用cxt的这条留言" onclick="return CommentQuote(&#39;comment-quote-350412&#39;,&#39;cxt&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-350472" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">sundway</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-350472">
+            <p>return dfd.promise;有错，应该是return dfd.promise();</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 26, 2015 10:12 PM">2015年6月26日 22:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-350472">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用sundway的这条留言" onclick="return CommentQuote(&#39;comment-quote-350472&#39;,&#39;sundway&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-351559" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">新手</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-351559">
+            <p>var worker = new Worker("/myJs.js");<br>
+worker.onmessage = function(e){ var message = e.data; };<br>
+worker.onerror = function(e){ var error = e.message; };<br>
+worker.postMessage("参数");</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September  4, 2015  6:44 PM">2015年9月 4日 18:44</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-351559">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用新手的这条留言" onclick="return CommentQuote(&#39;comment-quote-351559&#39;,&#39;新手&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352034" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">mqliutie</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352034">
+            <blockquote>
+<pre>引用无名指的发言：</pre>
+
+<p>如果有<br>
+f1(f2)<br>
+f3();</p>
+
+<p>对比下 <br>
+f1()<br>
+f2()<br>
+f3();</p>
+
+<p>应该就理解异步了。</p>
+
+</blockquote>
+
+<p>这个是setTimeout的功劳吧?它会把耗时操作放到队列中啊,主线程只剩f3了,所以肯定先执行的f3</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October  8, 2015  4:38 PM">2015年10月 8日 16:38</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-352034">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用mqliutie的这条留言" onclick="return CommentQuote(&#39;comment-quote-352034&#39;,&#39;mqliutie&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352039" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">吴聊</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352039">
+            <blockquote>
+<pre>引用耗子的发言：</pre>
+
+<p>第一个例子，<br>
+function f1(callback){<br>
+　　setTimeout(function () {<br>
+　　　　// f1的任务代码<br>
+　　　　callback();<br>
+　　}, 1000);<br>
+}<br>
+我抓头想了大半天，没明白，于是我自己写了个验证，发现f1还是会阻塞f2，不知您作何解释？<br>
+我的代码如下：<br>
+function a(callback){<br>
+	setTimeout(function(){<br>
+		//耗时操作<br>
+//-- f1 start --<br>
+		var i=0;<br>
+		while(i<br>
+			if(i++ === 999999999){<br>
+				alert("终于执行完了");<br>
+			}<br>
+		}<br>
+//-- f1 end --<br>
+		callback();<br>
+	},0);<br>
+};<br>
+a(function(){<br>
+	alert("立即执行");<br>
+});</p>
+
+</blockquote>
+
+<p><br>
+你楼下的作者说的对, 因为setTimeout是一个异步方法,所以当你这样写的时候才能感觉到异步调用,<br>
+f1(f2)<br>
+f3()<br>
+你会发现f3会优先于f1(f2)执行<br>
+老师的例子确实是按顺序执行f1,f2的,觉得老师应该是语误了,没表达清楚, 不知道我理解的对不对<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October  8, 2015  4:55 PM">2015年10月 8日 16:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-352039">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用吴聊的这条留言" onclick="return CommentQuote(&#39;comment-quote-352039&#39;,&#39;吴聊&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352239" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://aa" href="http://aa/" target="_blank" rel="nofollow">wwwsyccom</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352239">
+            <p>其实异步还是定时器发生的作用</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 19, 2015  6:35 PM">2015年10月19日 18:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-352239">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用wwwsyccom的这条留言" onclick="return CommentQuote(&#39;comment-quote-352239&#39;,&#39;wwwsyccom&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352627" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.nokey.me" href="http://blog.nokey.me/" target="_blank" rel="nofollow">木马人</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352627">
+            <p>function f1(callback){<br>
+　　　　setTimeout(function () {<br>
+　　　　　　// f1的任务代码<br>
+　　　　　　callback();<br>
+　　　　}, 1000);<br>
+　　}</p>
+
+<p>"// f1的任务代码" 这个注释应该放在 setTimeout 外面吧？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  6, 2015 11:50 AM">2015年11月 6日 11:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-352627">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用木马人的这条留言" onclick="return CommentQuote(&#39;comment-quote-352627&#39;,&#39;木马人&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352875" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://1289662404@qqc.om" href="http://1289662404@qqc.om/" target="_blank" rel="nofollow">阿辉</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352875">
+            <p>第一种根本不是所谓的异步啊，异步应该是有了多线程的效果，就是同时运行多个任务（代码），貌似只有事件驱动是没有和js在同一线程的，从而实现了异步，settimeout什么的只是改变队列顺序而已。后面的模拟事件的几种方法才有可能是异步</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 22, 2015  1:17 AM">2015年11月22日 01:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-352875">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用阿辉的这条留言" onclick="return CommentQuote(&#39;comment-quote-352875&#39;,&#39;阿辉&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352972" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://1289662404@qqc.om" href="http://1289662404@qqc.om/" target="_blank" rel="nofollow">阿辉</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352972">
+            <blockquote>
+<pre>引用korall的发言：</pre>
+
+<p>js 的异步其更多的是为了和界面UI 的分时，所以尽量将任务切割为细粒度的小任务，每次执行完一段小任务只耗费一段足够小的时间然后让出时间给UI，这样UI就不会卡死。如果任务切割得不好，任务段仍然耗时长，那么无论使什么花样，一样卡死UI。因为js的异步实现不了真正并行。</p>
+
+</blockquote>
+
+<p>这个网友说的很对，之前我都理解错了，对不住老师。原来js不管怎么做都是单线程的，异步也不能开启多线程，js里的异步只是改变队列的执行顺序，要想不出现耗时代码，唯一的方法的就是把耗时代码切成小段的代码，然后用settimeout异步留出线程的空闲时间给渲染线程，这样才不会出现ui卡死的现象。<br>
+否则无论怎么做没有用，说白了，js本来就不适合做大量运算的代码，那样的代码应该用多线程的语言来写</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 27, 2015  5:33 PM">2015年11月27日 17:33</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-352972">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用阿辉的这条留言" onclick="return CommentQuote(&#39;comment-quote-352972&#39;,&#39;阿辉&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-353204" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">whws</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-353204">
+            <p>还是以f1和f2为例。首先，为f1绑定一个事件（这里采用的jQuery的写法）。</p>
+
+<p>我只想知道 jQuery 是怎么给函数绑定事件的。。。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 10, 2015 11:43 AM">2015年12月10日 11:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-353204">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用whws的这条留言" onclick="return CommentQuote(&#39;comment-quote-353204&#39;,&#39;whws&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-354560" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">limerick</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-354560">
+            <p>promise算作观察者模式吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February 18, 2016 10:16 AM">2016年2月18日 10:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-354560">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用limerick的这条留言" onclick="return CommentQuote(&#39;comment-quote-354560&#39;,&#39;limerick&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-355209" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://home.cnblogs.com/u/laden666666/" href="http://home.cnblogs.com/u/laden666666/" target="_blank" rel="nofollow">laden666666</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-355209">
+            <blockquote>
+<pre>引用阿辉的发言：</pre>
+
+<p>第一种根本不是所谓的异步啊，异步应该是有了多线程的效果，就是同时运行多个任务（代码），貌似只有事件驱动是没有和js在同一线程的，从而实现了异步，settimeout什么的只是改变队列顺序而已。后面的模拟事件的几种方法才有可能是异步</p>
+
+</blockquote>
+
+<p>大哥 settimeout是js中最简单的异步方法，没有多线程，如果这都不算异步那什么才算异步？阮老师的这篇文章比较早，如今对于异步编程又有了很多新的方式，比如es6中promise也成了标准语法糖，es7中基于promise又提出几种新的语法糖，还有了可以替代ajax的fetch也是基于promise，总之如今异步编程的方法已经越来越多了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 24, 2016  8:43 AM">2016年3月24日 08:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-355209">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用laden666666的这条留言" onclick="return CommentQuote(&#39;comment-quote-355209&#39;,&#39;laden666666&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-355210" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://home.cnblogs.com/u/laden666666/" href="http://home.cnblogs.com/u/laden666666/" target="_blank" rel="nofollow">laden666666</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-355210">
+            <p>@耗子:</p>
+
+<p>js没有多线程的概念，只有阻塞的概念，我们说的异步，是只不阻塞后续代码的意思。如：</p>
+
+<p>function a(){<br>
+//耗时操作<br>
+//-- f1 start --<br>
+		var i=0;<br>
+		while(i<br>
+			if(i++ === 999999999){<br>
+				alert("终于执行完了");<br>
+			}<br>
+		}<br>
+//-- f1 end --<br>
+}</p>
+
+<p>function b(){<br>
+	setTimeout(function(){<br>
+		//耗时的a后执行<br>
+		a()<br>
+	})<br>
+	alert("立即执行")<br>
+}<br>
+b();</p>
+
+<p>这样a操作会在alert之后执行，而a不会阻塞后面alert执行。</p>
+
+<p>因为alert、同步ajax、大量的while循环在执行的时候，都会阻塞线程，所以尽量把他们放到线程空闲的时候执行</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 24, 2016  8:58 AM">2016年3月24日 08:58</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-355210">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用laden666666的这条留言" onclick="return CommentQuote(&#39;comment-quote-355210&#39;,&#39;laden666666&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-355735" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">竞折腰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-355735">
+            <p>回调函数中，我的理解是 callback() 要写到 setTimeout 外面。</p>
+
+<p>function f1(callback){<br>
+    setTimeout(function () {<br>
+　　　  // f1的任务代码　<br>
+    }, 1000);<br>
+    callback();<br>
+}</p>
+
+<p>f1(f2);</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 18, 2016  6:04 PM">2016年4月18日 18:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-355735">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用竞折腰的这条留言" onclick="return CommentQuote(&#39;comment-quote-355735&#39;,&#39;竞折腰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-355946" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://cnblogs.com/jh1994/" href="http://cnblogs.com/jh1994/" target="_blank" rel="nofollow">大赚佬</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-355946">
+            <p>　　function f1(){<br>
+　　　　var dfd = $.Deferred();<br>
+　　　　setTimeout(function () {<br>
+　　　　　　// f1的任务代码<br>
+　　　　　　dfd.resolve();<br>
+　　　　}, 500);<br>
+　　　　return dfd.promise; //这里应该写成 return dfd.promise(); 否则报 then is not a function<br>
+　　}</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 28, 2016  5:01 PM">2016年4月28日 17:01</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-355946">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html#comment-text" title="引用大赚佬的这条留言" onclick="return CommentQuote(&#39;comment-quote-355946&#39;,&#39;大赚佬&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1756">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/prism.js"></script>
+
+            <div id="footer">
+    <div id="footer-inner">
+        <div id="footer-content">
+<p><a href="http://www.ruanyifeng.com/contact.html">联系方式</a> | ruanyifeng.com 2003 - 2016
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+<!-- Site Meter -->
+<a href="http://sm3.sitemeter.com/stats.asp?site=sm3bomoocom" target="_top">
+<img src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/meter.asp" alt="Site Meter" border="0"></a>
+
+<!-- Copyright (c)2009 Site Meter -->
+
+</p>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./Javascript异步编程的4种方法 - 阮一峰的网络日志_files/buttonLite.js"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+        </div>
+    </div>
+
+</body></html>

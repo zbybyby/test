@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    <input id="number" name="number"/>
+	<button onclick="leftin()">左侧入</button>
+	<button onclick="rightin()">右侧入</button>
+	<button onclick="leftout()">左侧出</button>
+	<button onclick="rightout()">右侧出</button>
+	<div id="list">
+	   <p style="display:inline">数字列:</p>
+	</div>
+	<script>
+	function leftin(){
+		var a=document.getElementById("number").value;
+		console.log(a);
+		var b=document.getElementById("id");
+		var c=document.createElement('p');
+		c.style.display='inline';
+		var node=document.createTextNode(a);//创建元素node值
+		c.appendChild(node);//元素赋值
+		var first=document.getElementsByTagName("p")[1];
+		document.getElementById("list").insertBefore(c,first);
+		//var d=document.getElementById("list").appendChild(c);	
+	};
+	function rightin(){
+		var a=document.getElementById("number").value;
+		console.log(a);
+		var b=document.getElementById("id");
+		var c=document.createElement('p');
+		c.style.display='inline';
+		var node=document.createTextNode(a);//创建元素node值
+		c.appendChild(node);//元素赋值
+		var d=document.getElementById("list").appendChild(c);	
+	};
+	function leftout(){
+		var a=document.getElementById("list");
+		a.removeChild(a.childNodes[2]);
+	};
+	function rightout(){
+		var a=document.getElementById("list");
+		a.removeChild(a.lastChild);
+	}	
+
+	</script>
+ </body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0065)http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m3 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>JavaScript跨域总结与解决办法 - Rain  Man - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/bundle-SimpleBlue.css">
+<link type="text/css" rel="stylesheet" href="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/37071.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/rainman/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/rainman/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/rainman/wlwmanifest.xml">
+<script src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'rainman', cb_enable_mathjax=false;</script>
+<script src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/rainman/">Rain Man</a></div>
+<div class="subtitle">怀仁怀朴，唯真唯实。
+
+
+<style type="text/css">
+@import url("http://files.cnblogs.com/rainman/rainman.css");
+</style></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/rainman/">首页</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/Rain%20%20Man">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/rainman/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/rainman/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-180&nbsp;
+文章-0&nbsp;
+评论-338&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html">JavaScript跨域总结与解决办法</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><ul class="catalogue"><li style="padding-left:0px"><span><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m0">什么是跨域</a></span></li><li style="padding-left:0px"><span><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m1">1、document.domain+iframe的设置</a></span></li><li style="padding-left:0px"><span><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m2">2、动态创建script</a></span></li><li style="padding-left:0px"><span><a href="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/JavaScript跨域总结与解决办法 - Rain Man - 博客园.html">3、利用iframe和location.hash</a></span></li><li style="padding-left:0px"><span><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m4">4、window.name实现的跨域数据传输</a></span></li><li style="padding-left:0px"><span><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m5">5、使用HTML5 postMessage</a></span></li><li style="padding-left:0px"><span><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#m6">6、利用flash</a></span></li></ul><div class="rainman-post">
+<p>本文来自网络（http://f2e.me/200904/cross-scripting/，该网址已不能访问），仅作个人读书笔记之用，并稍作修改和补充。</p>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m0"></a><h3>什么是跨域</h3>
+<p>JavaScript出于安全方面的考虑，不允许跨域调用其他页面的对象。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。这里把涉及到跨域的一些问题简单地整理一下：</p>
+<p>首先什么是跨域，简单地理解就是因为JavaScript同源策略的限制，a.com 域名下的js无法操作b.com或是c.a.com域名下的对象。更详细的说明可以看下表：</p>
+<table class="border">
+<tbody>
+<tr>
+<th>URL</th>
+        	<th>说明</th>
+        	<th>是否允许通信</th>
+        
+</tr>
+<tr>
+<td>http://www.a.com/a.js<br>
+http://www.a.com/b.js</td>
+<td>同一域名下</td>
+<td>允许</td>
+</tr>
+<tr>
+<td>http://www.a.com/lab/a.js<br>
+http://www.a.com/script/b.js</td>
+<td>同一域名下不同文件夹</td>
+<td>允许</td>
+</tr>
+<tr>
+<td>http://www.a.com:8000/a.js<br>
+http://www.a.com/b.js</td>
+<td>同一域名，不同端口</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>http://www.a.com/a.js<br>
+https://www.a.com/b.js</td>
+<td>同一域名，不同协议</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>http://www.a.com/a.js<br>
+http://70.32.92.74/b.js</td>
+<td>域名和域名对应ip</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>http://www.a.com/a.js<br>
+http://script.a.com/b.js</td>
+<td>主域相同，子域不同</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>http://www.a.com/a.js<br>
+http://a.com/b.js
+</td>
+<td>同一域名，不同二级域名（同上）</td>
+<td>不允许（cookie这种情况下也不允许访问）</td>
+</tr>
+<tr>
+<td>http://www.cnblogs.com/a.js<br>
+http://www.a.com/b.js</td>
+<td>不同域名</td>
+<td>不允许</td>
+</tr>
+</tbody>
+</table>
+<dl>
+	<dt>特别注意两点：</dt>
+    <dd>第一，如果是协议和端口造成的跨域问题“前台”是无能为力的，</dd>
+    <dd>第二：在跨域问题上，域仅仅是通过“URL的首部”来识别而不会去尝试判断相同的ip地址对应着两个域或两个域是否在同一个ip上。<br>“URL的首部”指window.location.protocol +window.location.host，也可以理解为“Domains, protocols and ports must match”。</dd>    
+</dl>
+<p>接下来简单地总结一下在“前台”一般处理跨域的办法，后台proxy这种方案牵涉到后台配置，这里就不阐述了，有兴趣的可以看看yahoo的这篇文章：《<a target="_blank" href="http://developer.yahoo.com/javascript/howto-proxy.html">JavaScript: Use a Web Proxy for Cross-Domain XMLHttpRequest Calls</a>》</p>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m1"></a><h3>1、document.domain+iframe的设置</h3>
+<p><span class="highlight">对于主域相同而子域不同的例子，可以通过设置document.domain的办法来解决</span>。具体的做法是可以在http://www.a.com/a.html和http://script.a.com/b.html两个文件中分别加上document.domain = ‘a.com’；然后通过a.html文件中创建一个iframe，去控制iframe的contentDocument，这样两个js文件之间就可以“交互”了。当然这种办法只能解决主域相同而二级域名不同的情况，如果你异想天开的把script.a.com的domian设为alibaba.com那显然是会报错地！代码如下：</p>
+<p>www.a.com上的a.html</p>
+<div class="rainman-code">
+<pre>document.domain = 'a.com';
+var ifr = document.createElement('iframe');
+ifr.src = 'http://script.a.com/b.html';
+ifr.style.display = 'none';
+document.body.appendChild(ifr);
+ifr.onload = function(){
+    var doc = ifr.contentDocument || ifr.contentWindow.document;
+    // 在这里操纵b.html
+    alert(doc.getElementsByTagName("h1")[0].childNodes[0].nodeValue);
+};</pre>
+</div>
+<p>script.a.com上的b.html</p>
+<div class="rainman-code">
+<pre>document.domain = 'a.com';</pre>
+</div>
+<p>这种方式适用于{www.kuqin.com, kuqin.com, script.kuqin.com, css.kuqin.com}中的任何页面相互通信。</p>
+<p>备注：某一页面的domain默认等于window.location.hostname。主域名是不带www的域名，例如a.com，主域名前面带前缀的通常都为二级域名或多级域名，例如www.a.com其实是二级域名。
+domain只能设置为主域名，不可以在b.a.com中将domain设置为c.a.com。</p>
+<dl>
+	<dt>问题：</dt>
+	<dd>1、安全性，当一个站点（b.a.com）被攻击后，另一个站点（c.a.com）会引起安全漏洞。</dd>
+	<dd>2、如果一个页面中引入多个iframe，要想能够操作所有iframe，必须都得设置相同domain。</dd>
+</dl>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m2"></a><h3>2、动态创建script</h3>
+<p><span class="highlight">虽然浏览器默认禁止了跨域访问，但并不禁止在页面中引用其他域的JS文件，并可以自由执行引入的JS文件中的function（包括操作cookie、Dom等等）</span>。根据这一点，可以方便地通过创建script节点的方法来实现完全跨域的通信。具体的做法可以参考YUI的<a target="_blank" href="http://developer.yahoo.com/yui/get/">Get Utility</a></p>
+<p>这里判断script节点加载完毕还是蛮有意思的：ie只能通过script的readystatechange属性，其它浏览器是script的load事件。以下是部分判断script加载完毕的方法。</p>
+<div class="rainman-code">
+<pre>js.onload = js.onreadystatechange = function() {
+    if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
+        // callback在此处执行
+        js.onload = js.onreadystatechange = null;
+    }
+};</pre>
+</div>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m3"></a><h3>3、利用iframe和location.hash</h3>
+<p>这个办法比较绕，但是可以解决完全跨域情况下的脚步置换问题。原理是利用location.hash来进行传值。在url： http://a.com#helloword中的‘#helloworld’就是location.hash，改变hash并不会导致页面刷新，所以可以利用hash值来进行数据传递，当然数据容量是有限的。假设域名a.com下的文件cs1.html要和cnblogs.com域名下的cs2.html传递信息，cs1.html首先创建自动创建一个隐藏的iframe，iframe的src指向cnblogs.com域名下的cs2.html页面，这时的hash值可以做参数传递用。cs2.html响应请求后再将通过修改cs1.html的hash值来传递数据（<span class="gray">由于两个页面不在同一个域下IE、Chrome不允许修改parent.location.hash的值，所以要借助于a.com域名下的一个代理iframe；Firefox可以修改</span>）。同时在cs1.html上加一个定时器，隔一段时间来判断location.hash的值有没有变化，一点有变化则获取获取hash值。代码如下：</p>
+<p>先是a.com下的文件cs1.html文件：</p>
+<div class="rainman-code">
+<pre>function startRequest(){
+    var ifr = document.createElement('iframe');
+    ifr.style.display = 'none';
+    ifr.src = 'http://www.cnblogs.com/lab/cscript/cs2.html#paramdo';
+    document.body.appendChild(ifr);
+}
+
+function checkHash() {
+    try {
+        var data = location.hash ? location.hash.substring(1) : '';
+        if (console.log) {
+            console.log('Now the data is '+data);
+        }
+    } catch(e) {};
+}
+setInterval(checkHash, 2000);</pre>
+</div>
+<p>cnblogs.com域名下的cs2.html:</p>
+<div class="rainman-code">
+<pre>//模拟一个简单的参数处理操作
+switch(location.hash){
+    case '#paramdo':
+        callBack();
+        break;
+    case '#paramset':
+        //do something……
+        break;
+}
+
+function callBack(){
+    try {
+        parent.location.hash = 'somedata';
+    } catch (e) {
+        // ie、chrome的安全机制无法修改parent.location.hash，
+        // 所以要利用一个中间的cnblogs域下的代理iframe
+        var ifrproxy = document.createElement('iframe');
+        ifrproxy.style.display = 'none';
+        ifrproxy.src = 'http://a.com/test/cscript/cs3.html#somedata';    <span class="green">// 注意该文件在"a.com"域下</span>
+        document.body.appendChild(ifrproxy);
+    }
+}</pre>
+</div>
+<p>a.com下的域名cs3.html</p>
+<div class="rainman-code">
+<pre>//因为parent.parent和自身属于同一个域，所以可以改变其location.hash的值
+parent.parent.location.hash = self.location.hash.substring(1);</pre>
+</div>
+<p>当然这样做也存在很多缺点，诸如数据直接暴露在了url中，数据容量和类型都有限等……</p>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m4"></a><h3>4、window.name实现的跨域数据传输</h3>
+<p>文章较长列在此处不便于阅读，详细请看&nbsp;<a target="_blank" href="http://www.cnblogs.com/rainman/archive/2011/02/21/1960044.html">window.name实现的跨域数据传输</a>。</p>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m5"></a><h3>5、使用HTML5 postMessage</h3>
+<p><a href="http://dev.w3.org/html5/spec/" target="_blank">HTML5</a>中最酷的新功能之一就是 <a href="http://www.whatwg.org/specs/web-apps/current-work/#crossDocumentMessages" target="_blank">跨文档消息传输Cross Document Messaging</a>。下一代浏览器都将支持这个功能：Chrome 2.0+、Internet Explorer 8.0+, Firefox 3.0+, Opera 9.6+, 和 Safari 4.0+ 。 Facebook已经使用了这个功能，用postMessage支持基于web的实时消息传递。 </p>
+<dl>
+	<dt>otherWindow.postMessage(message, targetOrigin);</dt>
+    <dd><span class="green">otherWindow: </span> 对接收信息页面的window的引用。可以是页面中iframe的contentWindow属性；<a href="https://developer.mozilla.org/en/DOM/window.open" target="_blank">window.open</a>的返回值；通过name或下标从<a href="https://developer.mozilla.org/en/DOM/window.frames" target="_blank">window.frames</a>取到的值。<br>
+    <span class="green">message: </span> 所要发送的数据，string类型。<br>
+    <span class="green">targetOrigin: </span> 用于限制otherWindow，“*”表示不作限制</dd>
+</dl>
+<p>a.com/index.html中的代码：</p>
+<div class="rainman-code">
+<pre>&lt;iframe id="ifr" src="b.com/index.html"&gt;&lt;/iframe&gt;
+&lt;script type="text/javascript"&gt;
+window.onload = function() {
+    var ifr = document.getElementById('ifr');
+    var targetOrigin = 'http://b.com';  <span class="green">// 若写成'http://b.com/c/proxy.html'效果一样</span>
+                                        <span class="green">// 若写成'http://c.com'就不会执行postMessage了</span>
+    ifr.contentWindow.postMessage('I was there!', targetOrigin);
+};
+&lt;/script&gt;</pre>
+</div>
+<p>b.com/index.html中的代码：</p>
+<div class="rainman-code">
+<pre>&lt;script type="text/javascript"&gt;
+    window.addEventListener('message', function(event){
+        // 通过origin属性判断消息来源地址
+        if (event.origin == 'http://a.com') {
+            alert(event.data);    // 弹出"I was there!"
+            alert(event.source);  // 对a.com、index.html中window对象的引用
+                                  // 但由于同源策略，这里event.source不可以访问window对象
+        }
+    }, false);
+&lt;/script&gt;</pre>
+</div>
+<p>参考文章：<a href="http://www.grati.org/?p=429" target="_blank">《精通HTML5编程》第五章——跨文档消息机制</a>、<a href="https://developer.mozilla.org/en/dom/window.postmessage" target="_blanks">https://developer.mozilla.org/en/dom/window.postmessage</a></p>
+<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" name="m6"></a><h3>6、利用flash</h3>
+<p>这是从YUI3的IO组件中看到的办法，具体可见<a target="_blank" href="http://developer.yahoo.com/yui/3/io/">http://developer.yahoo.com/yui/3/io/</a>。<br>可以看在Adobe Developer Connection看到更多的跨域代理文件规范：<a target="_blank" href="http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html">ross-Domain Policy File Specifications</a>、<a target="_blank" href="http://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html">HTTP Headers Blacklist</a>。</p>
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/rainman/category/170292.html">WEB前端</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/rainman/tag/JavaScript/">JavaScript</a>, <a href="http://www.cnblogs.com/rainman/tag/HTML5/">HTML5</a></div>
+<div id="blog_post_info"><div id="green_channel">
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(1959325,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/Rain%20%20Man" target="_blank">联系我</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/icon_weibo_24.png" alt=""></a>
+<a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rainman/" target="_blank"><img src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/u33509.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rainman/">Rain  Man</a><br>
+<a href="http://home.cnblogs.com/u/rainman/followees">关注 - 17</a><br>
+<a href="http://home.cnblogs.com/u/rainman/followers">粉丝 - 421</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(1959325,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">83</span>
+    </div>
+	<div class="buryit" onclick="votePost(1959325,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959054.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959054.html" title="发布于2011-02-20 15:12">JavaScript window.location对象</a><br><a href="http://www.cnblogs.com/rainman/archive/2011/02/21/1960044.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/rainman/archive/2011/02/21/1960044.html" title="发布于2011-02-21 19:06">window.name实现的跨域数据传输</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-02-20 22:45</span> <a href="http://www.cnblogs.com/rainman/">Rain  Man</a> 阅读(<span id="post_view_count">189118</span>) 评论(<span id="post_comment_count">28</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=1959325" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" onclick="AddToWz(1959325);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=37071,cb_entryId=1959325,cb_blogApp=currentBlogApp,cb_blogUserGuid='453a420b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2011/2/20 22:45:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2029981" class="layer">#1楼</a><a name="2029981" id="comment_anchor_2029981"></a>  <span class="comment_date">2011-02-20 23:31</span> <a id="a_comment_author_2029981" href="http://www.cnblogs.com/_franky/" target="_blank">Franky</a> <a href="http://msg.cnblogs.com/send/Franky" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2029981" class="blog_comment_body">window.name<br>postMessage + window.opener hack.<br><br>这三个解决方案没有提到。 另外flash代理方式 依稀记得 ie6下 曾经对flash10的某个更新 出了问题。导致跨域通信失效.也不知道解决了没有.<br></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2029981,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2029981,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2029981_avatar" style="display:none;">http://pic.cnblogs.com/face/u53436.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2030552" class="layer">#2楼</a><a name="2030552" id="comment_anchor_2030552"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2011-02-21 19:51</span> <a id="a_comment_author_2030552" href="http://www.cnblogs.com/rainman/" target="_blank">Rain  Man</a> <a href="http://msg.cnblogs.com/send/Rain%20%20Man" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2030552" class="blog_comment_body"><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2029981" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2029981);">@</a>
+Franky<br>已补充上了，但您说的“window.opener hack”方法还没听说，麻烦详细讲下。<br>Flash不是十分了解，之前和一Flash朋友共同开发时，遇到由于Flash的版本问题，跨域策略发生了变化。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2030552,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2030552,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2030552_avatar" style="display:none;">http://pic.cnblogs.com/face/u33509.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2030794" class="layer">#3楼</a><a name="2030794" id="comment_anchor_2030794"></a>  <span class="comment_date">2011-02-22 09:35</span> <a id="a_comment_author_2030794" href="http://www.cnblogs.com/_franky/" target="_blank">Franky</a> <a href="http://msg.cnblogs.com/send/Franky" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2030794" class="blog_comment_body">opener hack 是针对 ie6和ie7的.<br>ie8+就支持postMessage了.所以作为补充还是不错的选择.<br><br>即:<br>在父页面设置 子页面的窗口句柄.opener = function(){}; 或者 {};<br><br>子页面就可以用 opener.method();  或者 new opener()的方式跨域调用父页的方法了.同样的.子页面可以在需要的时候.通过此接口.把自身的对象或方法给父页.则父页同样也可以方便的直接调用子页的资源<br><br>这是google的工程师率先发现的ie6 7的漏洞. 介于ie6 7不打算修补这个漏洞的事实.所以可以作为跨域通信的解决方案之一. 但要妥善用之.否则有很大安全隐患.<br></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2030794,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2030794,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2030794_avatar" style="display:none;">http://pic.cnblogs.com/face/u53436.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2165608" class="layer">#4楼</a><a name="2165608" id="comment_anchor_2165608"></a>  <span class="comment_date">2011-08-01 10:02</span> <a id="a_comment_author_2165608" href="http://www.cnblogs.com/Darren_code/" target="_blank">聂微东</a> <a href="http://msg.cnblogs.com/send/%E8%81%82%E5%BE%AE%E4%B8%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2165608" class="blog_comment_body">刚好用到~学习了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2165608,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2165608,&#39;Bury&#39;,this)">反对(1)</a></div><span id="comment_2165608_avatar" style="display:none;">http://pic.cnblogs.com/face/u159097.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2194916" class="layer">#5楼</a><a name="2194916" id="comment_anchor_2194916"></a>  <span class="comment_date">2011-09-07 23:17</span> <a id="a_comment_author_2194916" href="http://www.cnblogs.com/wangjian/" target="_blank">普软网络</a> <a href="http://msg.cnblogs.com/send/%E6%99%AE%E8%BD%AF%E7%BD%91%E7%BB%9C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2194916" class="blog_comment_body">js跨域访问，IIS配置有什么特殊的地方吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2194916,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2194916,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2194916_avatar" style="display:none;">http://pic.cnblogs.com/face/u56926.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2194938" class="layer">#6楼</a><a name="2194938" id="comment_anchor_2194938"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2011-09-08 00:14</span> <a id="a_comment_author_2194938" href="http://www.cnblogs.com/rainman/" target="_blank">Rain  Man</a> <a href="http://msg.cnblogs.com/send/Rain%20%20Man" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2194938" class="blog_comment_body"><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2194916" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2194916);">@</a>
+程序员-王建<br>Apache里使用rewrite可以解决（<a href="http://www.ghugo.com/apache-reverse-proxy-configuration-problem-solving-ajax-cross-domain/" target="_blank">apache 配置反向代理解决javascript ajax跨域问题</a>），这样做会增加前后端的耦合性，大型网站一般不会轻易更改Apache的配置。IIS不太熟悉，不好讲。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2194938,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2194938,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2194938_avatar" style="display:none;">http://pic.cnblogs.com/face/u33509.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2262664" class="layer">#7楼</a><a name="2262664" id="comment_anchor_2262664"></a>  <span class="comment_date">2011-12-06 09:33</span> <a id="a_comment_author_2262664" href="http://www.cnblogs.com/sking7/" target="_blank">G.N&amp;K</a> <a href="http://msg.cnblogs.com/send/G.N%26amp%3BK" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2262664" class="blog_comment_body">window.name只在firefox测试成功了。。在ie和chrome不能成功。。。chrome直接就不能支持name属性</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2262664,&#39;Digg&#39;,this)">支持(2)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2262664,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2262664_avatar" style="display:none;">http://pic.cnblogs.com/face/u338329.jpg?id=05155632</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2459839" class="layer">#8楼</a><a name="2459839" id="comment_anchor_2459839"></a>  <span class="comment_date">2012-08-30 11:22</span> <a id="a_comment_author_2459839" href="http://www.cnblogs.com/smailxiaobai/" target="_blank">Rookier</a> <a href="http://msg.cnblogs.com/send/Rookier" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2459839" class="blog_comment_body">mk</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2459839,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2459839,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2459839_avatar" style="display:none;">http://pic.cnblogs.com/face/u291409.gif?id=26132330</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2468467" class="layer">#9楼</a><a name="2468467" id="comment_anchor_2468467"></a>  <span class="comment_date">2012-09-10 11:36</span> <a id="a_comment_author_2468467" href="http://www.cnblogs.com/relax/" target="_blank">relax</a> <a href="http://msg.cnblogs.com/send/relax" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2468467" class="blog_comment_body">好文章，对跨域问题研究得很全面</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2468467,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2468467,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2468467_avatar" style="display:none;">http://pic.cnblogs.com/face/u43957.jpg?id=17152222</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2622368" class="layer">#10楼</a><a name="2622368" id="comment_anchor_2622368"></a>  <span class="comment_date">2013-02-25 00:00</span> <a id="a_comment_author_2622368" href="http://home.cnblogs.com/u/498463/" target="_blank">xingyi7</a> <a href="http://msg.cnblogs.com/send/xingyi7" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2622368" class="blog_comment_body">@楼主<br>首先不得不说你的那篇关于跨域的文章很赞。<br>新手有问题想请教您：<br>我的电脑ip地址是10.10.1.60，按道理10.10.1.60与127.0.0.1与localhost是一样的啊，它们对跨域问题的形成有影响么？<br>目前我出的问题是这样的：<br>访问网址是<a href="http://127.0.0.1/webservice/" target="_blank">http://127.0.0.1/webservice/</a><br>Ps：<a href="http://127.0.0.xn--180-yy3eqdw58je5xsnh/" target="_blank">http://127.0.0.1的端口号是80</a><br>wsdl的位置在10.10.1.60:9000，在网页输入10.10.1.60:9000/webservice?wsdl能正确打开wsdl（忘了打开具体路径，但肯定能从网页打开wsdl）<br><br>URL = 10.10.1.60:9000<br>open(“POST”,URL,false);<br>sent(data);<br><br>IE和火狐3.5版本能运行，但是最新版本的火狐都不能运行，报的错误是：<br>解析xml错误 未找到元素 位置 moz-nullprincipal 行1，列1<br><br>这是跨域问题么？怎么在火狐上解决这个问题呢？新手菜鸟，研究了两三个星期都没解决，能帮帮忙么？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2622368,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2622368,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2649691" class="layer">#11楼</a><a name="2649691" id="comment_anchor_2649691"></a>  <span class="comment_date">2013-04-04 01:37</span> <a id="a_comment_author_2649691" href="http://www.cnblogs.com/davismy/" target="_blank">合仔茶</a> <a href="http://msg.cnblogs.com/send/%E5%90%88%E4%BB%94%E8%8C%B6" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2649691" class="blog_comment_body">我通过抓包知道了博客园博文评论的的请求地址,是<a href="http://www.cnblogs.com/mvc/blog/comments.aspx" target="_blank">http://www.cnblogs.com/mvc/blog/comments.aspx</a><br>那么要怎么样通过ajax把评论数据获取过来,请指教!</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2649691,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2649691,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2649691_avatar" style="display:none;">http://pic.cnblogs.com/face/189314/20130807003750.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2678468" class="layer">#12楼</a><a name="2678468" id="comment_anchor_2678468"></a>  <span class="comment_date">2013-05-12 00:38</span> <a id="a_comment_author_2678468" href="http://www.cnblogs.com/heyuquan/" target="_blank">滴答的雨</a> <a href="http://msg.cnblogs.com/send/%E6%BB%B4%E7%AD%94%E7%9A%84%E9%9B%A8" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2678468" class="blog_comment_body">非常赞的文章啊。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2678468,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2678468,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2678468_avatar" style="display:none;">http://pic.cnblogs.com/face/u106337.jpg?id=13140010</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2679951" class="layer">#13楼</a><a name="2679951" id="comment_anchor_2679951"></a>  <span class="comment_date">2013-05-14 10:04</span> <a id="a_comment_author_2679951" href="http://www.cnblogs.com/bearhb/" target="_blank">阿土仔</a> <a href="http://msg.cnblogs.com/send/%E9%98%BF%E5%9C%9F%E4%BB%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2679951" class="blog_comment_body">为什么没有出现服务端代理类方式？前面举的跨域大部分都是GET方式，如果跨域POST如何处理？比如JS跨域调用Web服务？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2679951,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2679951,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2723684" class="layer">#14楼</a><a name="2723684" id="comment_anchor_2723684"></a>  <span class="comment_date">2013-07-10 09:11</span> <a id="a_comment_author_2723684" href="http://home.cnblogs.com/u/421890/" target="_blank">凉只千纸鹤</a> <a href="http://msg.cnblogs.com/send/%E5%87%89%E5%8F%AA%E5%8D%83%E7%BA%B8%E9%B9%A4" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2723684" class="blog_comment_body">又学习了，真是学无止境~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2723684,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2723684,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2726640" class="layer">#15楼</a><a name="2726640" id="comment_anchor_2726640"></a>  <span class="comment_date">2013-07-13 22:54</span> <a id="a_comment_author_2726640" href="http://home.cnblogs.com/u/547734/" target="_blank">imxiaoc</a> <a href="http://msg.cnblogs.com/send/imxiaoc" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2726640" class="blog_comment_body">iframe还有一种用法，跟hash是类似的，但是需要重定向：<br><br> A域通过设置 iframe.src 的URL参数给B域传值 <br> B 域在处理完成后，产生一个重定向到A域下的回调页面，也通过URL参数传值，这个A的页面中通过js来与A域下的父页面交互。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2726640,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2726640,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2830872" class="layer">#16楼</a><a name="2830872" id="comment_anchor_2830872"></a>  <span class="comment_date">2013-12-05 11:41</span> <a id="a_comment_author_2830872" href="http://www.cnblogs.com/snowinmay/" target="_blank">snowinmay</a> <a href="http://msg.cnblogs.com/send/snowinmay" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2830872" class="blog_comment_body"><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2726640" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2726640);">@</a>
+imxiaoc<br>我们公司用的就是这个方法。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2830872,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2830872,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2830872_avatar" style="display:none;">http://pic.cnblogs.com/face/u382458.jpg?id=23112651</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2830873" class="layer">#17楼</a><a name="2830873" id="comment_anchor_2830873"></a>  <span class="comment_date">2013-12-05 11:42</span> <a id="a_comment_author_2830873" href="http://www.cnblogs.com/snowinmay/" target="_blank">snowinmay</a> <a href="http://msg.cnblogs.com/send/snowinmay" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2830873" class="blog_comment_body">第三种方法不是可以解决所有问题了吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2830873,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2830873,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2830873_avatar" style="display:none;">http://pic.cnblogs.com/face/u382458.jpg?id=23112651</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2872424" class="layer">#18楼</a><a name="2872424" id="comment_anchor_2872424"></a>  <span class="comment_date">2014-02-10 12:56</span> <a id="a_comment_author_2872424" href="http://www.cnblogs.com/sprying/" target="_blank">小方。</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E6%96%B9%E3%80%82" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2872424" class="blog_comment_body">不错，不过script的onload在IE9+就支持了。<br><br>请问页面首部的导航，类似<br><br><fieldset class="comment_quote"><legend>引用</legend>什么是跨域<br>1、document.domain+iframe的设置<br>2、动态创建script<br>3、利用iframe和location.hash<br>...</fieldset><br>怎么做到啊？一直看见别人在用，就是不会，求解释哈。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2872424,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2872424,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2872424_avatar" style="display:none;">http://pic.cnblogs.com/face/u348885.jpg?id=21084842</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2901361" class="layer">#19楼</a><a name="2901361" id="comment_anchor_2901361"></a>  <span class="comment_date">2014-03-24 01:00</span> <a id="a_comment_author_2901361" href="http://home.cnblogs.com/u/290471/" target="_blank">hushicai</a> <a href="http://msg.cnblogs.com/send/hushicai" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2901361" class="blog_comment_body"><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#2030794" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,2030794);">@</a>
+Franky<br>你说的这方法貌似对不同tab/window之间管用吧？<br>iframe与父窗口之间我记得应该是navigator的共享bug。。。给navigator挂方法直接互调。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2901361,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2901361,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3058993" class="layer">#20楼</a><a name="3058993" id="comment_anchor_3058993"></a>  <span class="comment_date">2014-11-06 21:32</span> <a id="a_comment_author_3058993" href="http://www.cnblogs.com/wumadi/" target="_blank">无码帝</a> <a href="http://msg.cnblogs.com/send/%E6%97%A0%E7%A0%81%E5%B8%9D" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3058993" class="blog_comment_body">mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3058993,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3058993,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3058993_avatar" style="display:none;">http://pic.cnblogs.com/face/497929/20130421185755.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3082986" class="layer">#21楼</a><a name="3082986" id="comment_anchor_3082986"></a>  <span class="comment_date">2014-12-10 16:39</span> <a id="a_comment_author_3082986" href="http://www.cnblogs.com/liuzhiyong2011/" target="_blank">刘志勇</a> <a href="http://msg.cnblogs.com/send/%E5%88%98%E5%BF%97%E5%8B%87" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3082986" class="blog_comment_body">这代码风格我很喜欢，不错。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3082986,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3082986,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3082986_avatar" style="display:none;">http://pic.cnblogs.com/face/u215739.jpg?id=31174224</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3106210" class="layer">#22楼</a><a name="3106210" id="comment_anchor_3106210"></a>  <span class="comment_date">2015-01-13 17:35</span> <a id="a_comment_author_3106210" href="http://www.cnblogs.com/dwade/" target="_blank">乐雨</a> <a href="http://msg.cnblogs.com/send/%E4%B9%90%E9%9B%A8" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3106210" class="blog_comment_body">window.location.hostname 是输出了域名，没有带协议，那么对于window.location.hostname相同，但是一个是http，另外一个是https，这个时候这两个是不同的域吧？那浏览器是如何区分的呢？因为window.location.hostname一样。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3106210,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3106210,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3106210_avatar" style="display:none;">http://pic.cnblogs.com/face/u337684.jpg?id=03211239</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3106555" class="layer">#23楼</a><a name="3106555" id="comment_anchor_3106555"></a>  <span class="comment_date">2015-01-14 11:13</span> <a id="a_comment_author_3106555" href="http://www.cnblogs.com/justang/" target="_blank">JusTang</a> <a href="http://msg.cnblogs.com/send/JusTang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3106555" class="blog_comment_body">表格清晰明了呀</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3106555,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3106555,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3124574" class="layer">#24楼</a><a name="3124574" id="comment_anchor_3124574"></a>  <span class="comment_date">2015-02-06 09:23</span> <a id="a_comment_author_3124574" href="http://home.cnblogs.com/u/412899/" target="_blank">coderlu</a> <a href="http://msg.cnblogs.com/send/coderlu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3124574" class="blog_comment_body">学习了，总结得很不错！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3124574,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3124574,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3158799" class="layer">#25楼</a><a name="3158799" id="comment_anchor_3158799"></a>  <span class="comment_date">2015-04-09 10:19</span> <a id="a_comment_author_3158799" href="http://www.cnblogs.com/zhangruiping/" target="_blank">冰糯鸢</a> <a href="http://msg.cnblogs.com/send/%E5%86%B0%E7%B3%AF%E9%B8%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3158799" class="blog_comment_body">额，先mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3158799,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3158799,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3158799_avatar" style="display:none;">http://pic.cnblogs.com/face/653073/20150123134256.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3160230" class="layer">#26楼</a><a name="3160230" id="comment_anchor_3160230"></a>  <span class="comment_date">2015-04-10 18:26</span> <a id="a_comment_author_3160230" href="http://home.cnblogs.com/u/598095/" target="_blank">草木不凋零</a> <a href="http://msg.cnblogs.com/send/%E8%8D%89%E6%9C%A8%E4%B8%8D%E5%87%8B%E9%9B%B6" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3160230" class="blog_comment_body">前来学习——<a href="http://www.wuover.com/" target="_blank">百家网络博客</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3160230,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3160230,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3182001" class="layer">#27楼</a><a name="3182001" id="comment_anchor_3182001"></a>  <span class="comment_date">2015-05-12 16:56</span> <a id="a_comment_author_3182001" href="http://www.cnblogs.com/yanchengqu/" target="_blank">掏心的驴</a> <a href="http://msg.cnblogs.com/send/%E6%8E%8F%E5%BF%83%E7%9A%84%E9%A9%B4" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3182001" class="blog_comment_body">我先收藏</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3182001,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3182001,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3182001_avatar" style="display:none;">http://pic.cnblogs.com/face/u340191.jpg?id=12174012</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#3207267" class="layer">#28楼</a><a name="3207267" id="comment_anchor_3207267"></a><span id="comment-maxId" style="display:none;">3207267</span><span id="comment-maxDate" style="display:none;">2015/6/12 20:31:56</span>  <span class="comment_date">2015-06-12 20:31</span> <a id="a_comment_author_3207267" href="http://home.cnblogs.com/u/213499/" target="_blank">dimingchan</a> <a href="http://msg.cnblogs.com/send/dimingchan" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3207267" class="blog_comment_body">不是很明白，慢慢学习，谢谢楼主分享！！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3207267,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3207267,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://www.rongcloud.cn/" target="_blank">【推荐】融云即时通讯云－豆果美食、Faceu等亿级APP都在用</a><br></div>
+<div id="opt_under_post"></div>
+<div id="ad_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/componentone.htm?utm_source=cnblogs&utm_medium=blogpage&utm_term=bottom&utm_content=C1&utm_campaign=community" target="_blank"><img width="300" height="250" src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/24442-20160630110653437-3203292.jpg" alt=""></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/549050/" target="_blank">放下你的无效学习方式</a><br> ·  <a href="http://news.cnblogs.com/n/549048/" target="_blank">火爆朋友圈的游戏“口袋妖怪”让任天堂股票大涨9%</a><br> ·  <a href="http://news.cnblogs.com/n/549047/" target="_blank">火爆的口袋妖怪是如何开发出来的？我们带你去了解下它的开发商</a><br> ·  <a href="http://news.cnblogs.com/n/549046/" target="_blank">别急着做App：你的初创公司的API是什么？</a><br> ·  <a href="http://news.cnblogs.com/n/549045/" target="_blank">苹果App Store的竞价广告要来了，你打算怎么办？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="ad_c2" class="c_ad_block"><a href="https://www.jiguang.cn/?from=cnblogs01" target="_blank"><img width="468" height="60" src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/24442-20160613130538213-1713265809.jpg" alt=""></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/549049/" target="_blank">写给初学前端工程师的一封信</a><br> ·  <a href="http://kb.cnblogs.com/page/544641/" target="_blank">抽象：程序员必备的能力</a><br> ·  <a href="http://kb.cnblogs.com/page/213197/" target="_blank">编程同写作，写代码只是在码字</a><br> ·  <a href="http://kb.cnblogs.com/page/207265/" target="_blank">遇见程序员男友</a><br> ·  <a href="http://kb.cnblogs.com/page/511529/" target="_blank">设计师的视觉设计五项修炼</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(183)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/rainman/category/492909.html">Access(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/rainman/category/641658.html">Apache</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/rainman/category/475304.html">ASP.NET(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/rainman/category/636353.html">IIS(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/rainman/category/641657.html">Linux(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/rainman/category/641656.html">PHP(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/rainman/category/540576.html">SQL Server(20)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/rainman/category/476313.html">SQL语句(19)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/rainman/category/170292.html">WEB前端(61)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/rainman/category/567297.html">WinFrom(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/rainman/category/540571.html">操作系统(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/rainman/category/275441.html">常用软件操作(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/rainman/category/185364.html">想想写写(19)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListImageCategory">
+<h3 class="catListTitle">相册<span style="font-size:11px;font-weight:normal">(35)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/rainman/gallery/139529.html" rel="nofollow">rainman(31)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/rainman/gallery/508414.html" rel="nofollow">暂存(4)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">Frend Links</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://www.brainjar.com/" rel="nofollow">BrainJar</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://dean.edwards.name/" rel="nofollow">Dean Edward</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_2" href="http://www.crockford.com/" rel="nofollow">Douglas Crockford</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_3" href="http://www.dozer.cc/" rel="nofollow">Dozer</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_4" href="http://idamag.com/blog/" rel="nofollow">iDamag</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_5" href="http://www.welefen.com/" rel="nofollow">Welefen</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_6" href="http://cnblogs.com/yupeng" rel="nofollow">yupeng</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_7" href="http://hi.baidu.com/cumthacker" rel="nofollow">阿King</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_8" href="http://www.hy-zr.com/" rel="nofollow" target="_blank">北京航宇中瑞</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_9" href="http://www.chouyu.com.cn/" rel="nofollow" target="_blank">臭鱼的交互设计</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_10" href="http://www.cnblogs.com/waxdoll" rel="nofollow">蜡人张</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_11" href="http://www.cnblogs.com/muguaworld" rel="nofollow">木瓜的世界</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_12" href="http://dancewithnet.com/" rel="nofollow">随网之舞</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_13" href="http://www.cnweblog.com/kid0030" rel="nofollow">我是坏女生</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">我的链接</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_3_Link_0" href="http://www.xianguo.com/subscribe.php?url=http://www.cnblogs.com/rainman/rss" rel="nofollow" target="_blank">订阅到鲜果</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_1" href="http://www.cnblogs.com/rainman/tag/" rel="nofollow">我的标签</a> </li>
+
+<li><a id="CatList_LinkList_3_Link_2" href="http://twitter.com/kangchangan" rel="nofollow">我在Twitter</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">在线工具</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_4_Link_0" href="http://wowubuntu.com/markdown/" rel="nofollow">Markdown中文语法</a> </li>
+
+<li><a id="CatList_LinkList_4_Link_1" href="http://dillinger.io/" rel="nofollow">在线Markdown</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	224767
+	</li>
+	<li class="liRank">
+		排名 -	680
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rainman/archive/2013/05/01/3053703.html#3459884">1. Re:SQL中Group By的使用</a></li>
+        <li class="recent_comment_body">真的写的很不错，我看了许多其他的，还是这个最能让人理解！</li>
+        <li class="recent_comment_author">--墨迹天下</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rainman/archive/2011/02/21/1960044.html#3458008">2. Re:window.name实现的跨域数据传输</a></li>
+        <li class="recent_comment_body">感谢楼主辛苦总结，节省了我很多时间。</li>
+        <li class="recent_comment_author">--Strfory</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rainman/archive/2013/05/03/3058451.html#3454354">3. Re:SQL中distinct的用法</a></li>
+        <li class="recent_comment_body">很有帮助咯 谢谢啦</li>
+        <li class="recent_comment_author">--Ada萌萌的师姐</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rainman/archive/2013/05/01/3053703.html#3454265">4. Re:SQL中Group By的使用</a></li>
+        <li class="recent_comment_body">@大饼69221我试过，操作结果就是楼主所示的结果。...</li>
+        <li class="recent_comment_author">--yscit</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/rainman/p/4177440.html#3449051">5. Re:在CentOS中安装NodeJS</a></li>
+        <li class="recent_comment_body">hello</li>
+        <li class="recent_comment_author">--另一花生</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/rainman/archive/2013/05/01/3053703.html">1. SQL中Group By的使用(335432)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2011/06/21/2085800.html">2. CSS3 圆角（border-radius）(257907)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2013/05/03/3058451.html">3. SQL中distinct的用法(255966)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html">4. JavaScript跨域总结与解决办法(189117)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2011/02/16/1956431.html">5. JS操作iframe(53823)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/rainman/archive/2013/05/01/3053703.html">1. SQL中Group By的使用(33)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2009/04/28/1445687.html">2. 深入理解JavaScript的变量作用域(30)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html">3. JavaScript跨域总结与解决办法(28)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2009/05/04/1448899.html">4. JavaScript中的匿名函数及函数的闭包(24)</a></li><li><a href="http://www.cnblogs.com/rainman/archive/2009/05/03/1448392.html">5. 深入理解JavaScript中的this关键字(22)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2016 Rain  Man
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">
+(function() {
+    var guid = 0,
+    getMaoDian = function(elem) {
+        var md = 'm' + (guid++),
+        html = '&nbsp;<a href="#" name="' + md + '"></a>';
+        $(html).insertBefore(elem);
+        return md;
+    },
+    encodeHTML = function(source) {
+        return String(source).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    },
+    addCatalogue = function(elem) {
+        var levelList = {
+            h3: 0
+        },
+        $nodes = $(elem).find('h3'),
+        html = [];
+
+        // Init HTML
+        html.push('<ul class="catalogue">');
+        $nodes.each(function() {
+            var level = levelList[this.nodeName.toLowerCase()];
+            maodian = getMaoDian(this),
+            text = encodeHTML($(this).text());
+            html.push('<li style="padding-left:' + (level * 40) + 'px"><span><a href="#' + maodian + '">' + text + '</a></span></li>');
+        });
+        html.push('</ul>');
+
+        // Insert Node
+        $(elem).prepend(html.join(''));
+    };
+    setTimeout(function(){
+        $('div.postCon, #cnblogs_post_body').each(function() {
+            addCatalogue(this);
+        });
+    }, 300);
+})();
+</script>
+
+<!--
+
+<script type="text/javascript" src="http://files.cnblogs.com/rainman/shCore.js"></script>
+<script type="text/javascript" src="http://files.cnblogs.com/rainman/shBrushJScript.js"></script>
+<link type="text/css" rel="stylesheet" href="http://files.cnblogs.com/rainman/shCoreDefault.css"/>
+
+<script type="text/javascript" src="http://files.cnblogs.com/rainman/gaoLiang.js"></script>
+-->
+
+
+
+<script type="text/javascript">
+$('pre').each(function(){
+    var childCode = $(this).find('code');
+    if(childCode.length>0) {
+        this.innerHTML = $(this).find('code').html();
+    }
+});
+SyntaxHighlighter.all('pre');
+
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F95eb98507622b340bc1da73ed59cfe34' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./JavaScript跨域总结与解决办法 - Rain Man - 博客园_files/h.js" type="text/javascript"></script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

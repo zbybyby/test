@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+	<div><p>123</p></div>
+	<p id="demo">Click the button to display the tag name of this element</p>
+
+	<script>
+		function test(){
+			console.log("123");
+			var c=document.createElement('p');
+			var a=document.getElementsByTagName("div").firstChild;
+			var b=document.getElementsByTagName("div").firstElementChild;
+			//document.getElementByTagName("div")[0].firstChild;
+			console.log(a);
+			console.log(c.tagName);
+			var x=document.getElementById("demo");
+			x.innerHTML=x.tagName;
+			//console.log(b.tagName);
+			
+		}
+		test();
+	</script>
+ </body>
+</html>

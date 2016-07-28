@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+ <head>
+ </head>
+ <body>
+  <script>
+	(function a(){
+		/*---------------------------------------- apply继承------------------------------------------
+		function Animal(){
+　　　　this.species = "dongwu";
+　　	}
+		
+		function Cat(name,color){
+　　　　this.name = name;
+　　　　this.color = color;
+　　	}
+		
+		var cat = new Cat();
+		Animal.apply(cat,[]);
+		console.log(cat.species);
+		*/
+
+		/*------------------------------------------原型链继承------------------------------------------------
+		function Animal(){
+　　　　this.species = "dongwu";
+　　	}
+		
+		function Cat(name,color){
+　　　　this.name = name;
+　　　　this.color = color;
+　　	}
+		
+		
+		Cat.prototype=new Animal();
+		console.log(Cat.prototype.constructor == Animal);//true
+		Cat.prototype.constructor=Cat;//因为Cat.prototype= new Animal()，constructor（原本指向构造函数）指向animal了，这显然会导致继承链的紊乱，必须手动纠正
+		console.log(Cat.prototype.constructor == Cat);//true
+		var cat1= new Cat('金丝猫','gold');
+		console.log(cat1.species);
+
+		*/
+		
+		/*---------------------------------拷贝继承--------------------------------
+		function Animal(){ }
+　　	Animal.prototype.species = "动物";
+		
+		function Cat(name,color){
+　　　　this.name = name;
+　　　　this.color = color;
+　　	}
+		
+		function extend2(Child, Parent) {
+　　　　var p = Parent.prototype;
+　　　　var c = Child.prototype;
+　　　　for (var i in p) {
+　　　　　　c[i] = p[i];
+　　　　　　}
+　　　　c.uber = p;
+　　	}
+
+		extend2(Cat, Animal);
+　　	var cat1 = new Cat("大毛","黄色");
+　　	console.log(cat1.species); // 动物
+		*/
+		/*
+		var Chinese = {
+　　　　nation:'中国'
+　　	};
+		
+		var Doctor={
+		career:'医生'
+		};
+		
+		function object(o){
+			function F(){}
+			F.prototype=o;
+			return new F();
+		}
+		
+		var Doctor = object(Chinese);
+		Doctor.career = '医生';
+		console.log(test1.nation);
+		
+
+		*/
+		var Chinese = {
+　　　　nation:'中国'
+　　	};
+		
+		var Doctor={
+		career:'医生'
+		};
+
+		function deepCopy(p, c) {
+　　　　var c = c || {};
+　　　　for (var i in p) {
+			//console.log('typeof p','[',i,']',typeof p[i]);
+　　　　　　if (typeof p[i] === 'object') {
+				//console.log('p','[',i,']',p[i]);
+				//console.log('p','[',i,']','.constructor:',p[i].constructor);
+　　　　　　　　c[i] = (p[i].constructor === Array) ? [] : {};
+				//console.log('c','[',i,']',c[i])
+　　　　　　　　deepCopy(p[i], c[i]);//递归调用 
+　　　　　　} else {
+				//console.log('c','[',i,']',p[i]);
+				//console.log('p','[',i,']',p[i]);
+　　　　　　　　　c[i] = p[i];//赋值
+　　　　　　}
+　　　　}
+　　　　return c;
+　　	}
+
+		Chinese.birthPlaces = ['北京','上海','香港'];
+		var Doctor = deepCopy(Chinese);
+		Doctor.birthPlaces.push('厦门');
+		console.log(Doctor.birthPlaces); //北京, 上海, 香港, 厦门
+　　	console.log(Chinese.birthPlaces); //北京, 上海, 香港
+	})();
+  </script>
+ </body>
+</html>

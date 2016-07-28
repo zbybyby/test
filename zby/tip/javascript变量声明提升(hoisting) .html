@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://openwares.net/js/javascript_declaration_hoisting.html -->
+<html lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>javascript变量声明提升(hoisting) | OpenWares | Open Source and Free Matters</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://openwares.net/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://openwares.net/wp-content/themes/twentythirteen/js/html5.js"></script>
+	<![endif]-->
+	<link rel="alternate" type="application/rss+xml" title="OpenWares | Open Source and Free Matters » Feed" href="http://openwares.net/feed">
+<link rel="alternate" type="application/rss+xml" title="OpenWares | Open Source and Free Matters » Comments Feed" href="http://openwares.net/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="OpenWares | Open Source and Free Matters » javascript变量声明提升(hoisting) Comments Feed" href="http://openwares.net/js/javascript_declaration_hoisting.html/feed">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/openwares.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.1"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./javascript变量声明提升(hoisting) _files/wp-emoji-release.min.js" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="twentythirteen-fonts-css" href="./javascript变量声明提升(hoisting) _files/css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./javascript变量声明提升(hoisting) _files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentythirteen-style-css" href="./javascript变量声明提升(hoisting) _files/style.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentythirteen-ie-css'  href='http://openwares.net/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
+<![endif]-->
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/wp-sns-share.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/jquery.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/jquery-migrate.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://openwares.net/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://openwares.net/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="javascript this关键字" href="http://openwares.net/js/javascript_this.html">
+<link rel="next" title="推荐HTML5在线教程" href="http://openwares.net/lang/dive_into_html5.html">
+<meta name="generator" content="WordPress 4.3.1">
+<link rel="canonical" href="./javascript变量声明提升(hoisting) _files/javascript变量声明提升(hoisting) .html">
+<link rel="shortlink" href="http://openwares.net/?p=3124">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css" id="twentythirteen-header-css">
+			.site-header {
+			background: url(http://openwares.net/wp-content/themes/twentythirteen/images/headers/circle.png) no-repeat scroll top;
+			background-size: 1600px auto;
+		}
+		@media (max-width: 767px) {
+			.site-header {
+				background-size: 768px auto;
+			}
+		}
+		@media (max-width: 359px) {
+			.site-header {
+				background-size: 360px auto;
+			}
+		}
+		</style>
+	<link rel="stylesheet" type="text/css" href="./javascript变量声明提升(hoisting) _files/shCore.css"><link rel="stylesheet" type="text/css" href="./javascript变量声明提升(hoisting) _files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+</head>
+
+<body class="single single-post postid-3124 single-format-standard">
+	<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+			<a class="home-link" href="http://openwares.net/" title="OpenWares | Open Source and Free Matters" rel="home">
+				<h1 class="site-title">OpenWares | Open Source and Free Matters</h1>
+				<h2 class="site-description">A site focus on open source and free matters,include GNU/Linux,FreeBSD,and so on.</h2>
+			</a>
+
+			<div id="navbar" class="navbar">
+				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+					<button class="menu-toggle">Menu</button>
+					<a class="screen-reader-text skip-link" href="http://openwares.net/js/javascript_declaration_hoisting.html#content" title="Skip to content">Skip to content</a>
+					<div class="menu-mymenu-container"><ul id="primary-menu" class="nav-menu"><li id="menu-item-4005" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4005"><a href="http://openwares.net/">Home</a></li>
+<li id="menu-item-4009" class="menu-item menu-item-type-taxonomy menu-item-object-post_format menu-item-4009"><a href="http://openwares.net/type/status">Status</a></li>
+<li id="menu-item-4006" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4006"><a href="http://openwares.net/kwinui">KWinUI</a></li>
+<li id="menu-item-4008" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4008"><a href="http://openwares.net/about">About</a></li>
+</ul></div>					<form role="search" method="get" class="search-form" action="http://openwares.net/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s" title="Search for:">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form>				</nav><!-- #site-navigation -->
+			</div><!-- #navbar -->
+		</header><!-- #masthead -->
+
+		<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+						
+				
+<article id="post-3124" class="post-3124 post type-post status-publish format-standard hentry category-js tag-javascript">
+	<header class="entry-header">
+		
+				<h1 class="entry-title">javascript变量声明提升(hoisting)</h1>
+		
+		<div class="entry-meta">
+			<span class="date"><a href="./javascript变量声明提升(hoisting) _files/javascript变量声明提升(hoisting) .html" title="Permalink to javascript变量声明提升(hoisting)" rel="bookmark"><time class="entry-date" datetime="2013-06-11T13:34:30+00:00">June 11, 2013</time></a></span><span class="categories-links"><a href="http://openwares.net/category/js" rel="category tag">javascript</a></span><span class="tags-links"><a href="http://openwares.net/tag/javascript" rel="tag">Javascript</a></span><span class="author vcard"><a class="url fn n" href="http://openwares.net/author/openwares" title="View all posts by openwares" rel="author">openwares</a></span>					</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<p>javascript的变量声明具有hoisting机制，JavaScript引擎在执行的时候，会把所有变量的声明都提升到<strong>当前作用域</strong>的最前面。<span id="more-3124"></span></p>
+<p>先看一段代码</p>
+<div><div id="highlighter_196944" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">v = </code><code class="jscript string">"hello"</code><code class="jscript plain">;</code></div><div class="line number2 index1 alt1"><code class="jscript plain">(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">console.log(v);</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">v = </code><code class="jscript string">"world"</code><code class="jscript plain">;</code></div><div class="line number5 index4 alt2"><code class="jscript plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>这段代码运行的结果是什么呢？<br>
+答案是：undefined<br>
+这段代码说明了两个问题，<br>
+第一，function作用域里的变量v遮盖了上层作用域变量v。代码做少些变动</p>
+<div><div id="highlighter_913969" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">v = </code><code class="jscript string">"hello"</code><code class="jscript plain">;</code></div><div class="line number2 index1 alt1"><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">true</code><code class="jscript plain">){</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">console.log(v);</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">v = </code><code class="jscript string">"world"</code><code class="jscript plain">;</code></div><div class="line number5 index4 alt2"><code class="jscript plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>输出结果为”hello”,说明<strong>javascript是没有块级作用域的</strong>。<strong>函数是JavaScript中唯一拥有自身作用域的结构。</strong></p>
+<p>第二，在function作用域内，变量v的声明被提升了。所以最初的代码相当于：</p>
+<div><div id="highlighter_675240" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">v = </code><code class="jscript string">"hello"</code><code class="jscript plain">;</code></div><div class="line number2 index1 alt1"><code class="jscript plain">(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">v; </code><code class="jscript comments">//declaration hoisting</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">console.log(v);</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">v = </code><code class="jscript string">"world"</code><code class="jscript plain">;</code></div><div class="line number6 index5 alt1"><code class="jscript plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p><strong>声明、定义与初始化</strong></p>
+<p>声明宣称一个名字的存在，定义则为这个名字分配存储空间，而初始化则是为名字分配的存储空间赋初值。<br>
+用C++来表述这三个概念</p>
+<div><div id="highlighter_683212" class="syntaxhighlighter  cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp keyword bold">extern</code> <code class="cpp color1 bold">int</code> <code class="cpp plain">i;</code><code class="cpp comments">//这是声明，表明名字i在某处已经存在了</code></div><div class="line number2 index1 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">i;</code><code class="cpp comments">//这是声明并定义名字i,为i分配存储空间</code></div><div class="line number3 index2 alt2"><code class="cpp plain">i = 0;</code><code class="cpp comments">//这是初始化名字i,为其赋初值为0</code></div></div></td></tr></tbody></table></div></div>
+<p>javascript中则是这样</p>
+<div><div id="highlighter_228065" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">v;</code><code class="jscript comments">//声明变量v</code></div><div class="line number2 index1 alt1"><code class="jscript plain">v = </code><code class="jscript string">"hello"</code><code class="jscript plain">;</code><code class="jscript comments">//(定义并)初始化变量v</code></div></div></td></tr></tbody></table></div></div>
+<p>因为javascript为动态语言，其变量并没有固定的类型，其存储空间大小会随初始化与赋值而变化，所以其变量的“定义”就不像传统的静态语言一样了，其定义显得无关紧要。</p>
+<p><strong>声明提升</strong></p>
+<p>当前作用域内的声明都会提升到作用域的最前面，包括变量和函数的声明</p>
+<div><div id="highlighter_71212" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">a = </code><code class="jscript string">"1"</code><code class="jscript plain">;</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">f = </code><code class="jscript keyword">function</code><code class="jscript plain">(){};</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">b = </code><code class="jscript string">"2"</code><code class="jscript plain">;</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">c = </code><code class="jscript string">"3"</code><code class="jscript plain">;</code></div><div class="line number6 index5 alt1"><code class="jscript plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>变量a,f,b,c的声明会被提升到函数作用域的最前面，类似如下：</p>
+<div><div id="highlighter_753845" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">a,f,b,c;</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">a = </code><code class="jscript string">"1"</code><code class="jscript plain">;</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">f = </code><code class="jscript keyword">function</code><code class="jscript plain">(){};</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">b = </code><code class="jscript string">"2"</code><code class="jscript plain">;</code></div><div class="line number6 index5 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">c = </code><code class="jscript string">"3"</code><code class="jscript plain">;</code></div><div class="line number7 index6 alt2"><code class="jscript plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>请注意函数表达式并没有被提升，这也是函数表达式与函数声明的区别。进一步看二者的区别：</p>
+<div><div id="highlighter_848813" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript comments">//var f1,function f2(){}; //hoisting,被隐式提升的声明</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">f1(); </code><code class="jscript comments">//ReferenceError: f1 is not defined</code></div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript plain">f2();</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">f1 = </code><code class="jscript keyword">function</code><code class="jscript plain">(){};</code></div><div class="line number8 index7 alt1"><code class="jscript spaces">&nbsp;&nbsp;</code><code class="jscript keyword">function</code> <code class="jscript plain">f2(){}</code></div><div class="line number9 index8 alt2"><code class="jscript plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>上面代码中函数声明f2被提升，所以在前面调用f2是没问题的。虽然变量f1也被提升，但f1提升后的值为undefined,其真正的初始值是在执行到函数表达式处被赋予的。所以只有声明是被提升的。</p>
+<p><strong>名字解析顺序</strong></p>
+<p>javascript中一个名字(name)以四种方式进入作用域(scope)，其优先级顺序如下：<br>
+1、语言内置：所有的作用域中都有 this 和 arguments 关键字<br>
+2、形式参数：函数的参数在函数作用域中都是有效的<br>
+3、函数声明：形如function foo() {}<br>
+4、变量声明：形如var bar;</p>
+<p>名字声明的优先级如上所示，也就是说如果一个变量的名字与函数的名字相同，那么函数的名字会覆盖变量的名字，无论其在代码中的顺序如何。但名字的初始化却是按其在代码中书写的顺序进行的，不受以上优先级的影响。看代码：</p>
+<div><div id="highlighter_83267" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">foo;</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log(</code><code class="jscript keyword">typeof</code> <code class="jscript plain">foo); </code><code class="jscript comments">//function</code></div><div class="line number4 index3 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number5 index4 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">function</code> <code class="jscript plain">foo(){}</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">foo = </code><code class="jscript string">"foo"</code><code class="jscript plain">;</code></div><div class="line number8 index7 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">console.log(</code><code class="jscript keyword">typeof</code> <code class="jscript plain">foo); </code><code class="jscript comments">//string</code></div><div class="line number9 index8 alt2"><code class="jscript plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>如果形式参数中有多个同名变量，那么最后一个同名参数会覆盖其他同名参数，即使最后一个同名参数并没有定义。</p>
+<p>以上的名字解析优先级存在例外，比如可以覆盖语言内置的名字arguments。</p>
+<p><strong>命名函数表达式</strong></p>
+<p>可以像函数声明一样为函数表达式指定一个名字，但这并不会使函数表达式成为函数声明。命名函数表达式的名字不会进入名字空间，也不会被提升。</p>
+<div><div id="highlighter_541359" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">f();</code><code class="jscript comments">//TypeError: f is not a function</code></div><div class="line number2 index1 alt1"><code class="jscript plain">foo();</code><code class="jscript comments">//ReferenceError: foo is not defined</code></div><div class="line number3 index2 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">f = </code><code class="jscript keyword">function</code> <code class="jscript plain">foo(){console.log(</code><code class="jscript keyword">typeof</code> <code class="jscript plain">foo);};</code></div><div class="line number4 index3 alt1"><code class="jscript plain">f();</code><code class="jscript comments">//function</code></div><div class="line number5 index4 alt2"><code class="jscript plain">foo();</code><code class="jscript comments">//ReferenceError: foo is not defined</code></div></div></td></tr></tbody></table></div></div>
+<p>命名函数表达式的名字只在该函数的作用域内部有效。<br>
+<strong>===<br>
+所谓爱国心，是指你既生为这个国家的国民，对于这个国家，当比对其他一切的国家信仰得高贵优越。 —— 萧伯纳
+</strong></p>
+
+
+<!-- wp-sns-share part begin -->
+<div class="WPSNS_main" style="margin:20px 0;">
+<input id="wp-sns-share-desc" type="hidden" value="javascript的变量声明具有hoisting机制，JavaScript引擎在执行的时候，会把所有变量的声明都提升到当前作用域的最...">
+<input id="wp-sns-share-blog" type="hidden" value="OpenWares | Open Source and Free Matters">
+<input id="wp-sns-share-from" type="hidden" value="single">
+<input id="wp-sns-share-tiny" type="hidden" value="">
+<div width="95%" style="border-top:1px dotted #D4D0C8;height:1px"></div>
+<div style="margin:15px 0;height:27px;">
+<ul class="WPSNS_ul" style="list-style:none;margin:0;padding:0;">
+<span style="margin:3px 10px 0 0;height:27px;display:block;float:left;font-size:16px;">分享到：</span>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到人人网" onclick="shareToSNS(&#39;renren&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -312px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到豆瓣" onclick="shareToSNS(&#39;douban&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -52px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到QQ空间" onclick="shareToSNS(&#39;qqzone&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -260px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到开心网" onclick="shareToSNS(&#39;kaixin&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -208px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到百度空间" onclick="shareToSNS(&#39;baidu&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 0px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到新浪微博" onclick="shareToSNS(&#39;sina&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -338px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到腾讯微博" onclick="shareToSNS(&#39;tqq&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -390px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到网易微博" onclick="shareToSNS(&#39;t163&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -364px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到搜狐微博" onclick="shareToSNS(&#39;tsohu&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -416px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到饭否" onclick="shareToSNS(&#39;fanfou&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -104px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+<li class="WPSNS_item" style="position:relative;float:left;display:inline;width:40px;margin:0;padding:0;">
+<a href="javascript:void(0)" title="分享到Google书签" onclick="shareToSNS(&#39;gmark&#39;,1)" style="z-index:2;width:16px;height:16px;margin:6px 0;padding:0;border:none;text-decoration:none;float:left;position:relative;background:url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -156px;"></a>
+<em style="width:26px;height:26px;top:2px;left:-5px;display:none;position:absolute;background:transparent url(http://openwares.net/wp-content/plugins/wp-sns-share/images/icons.png) no-repeat 0 -490px"></em>
+</li>
+
+</ul>
+</div>
+<div width="95%" style="border-top:1px dotted #D4D0C8;height:1px"></div>
+</div>
+<!-- wp-sns-share part end -->
+
+	</div><!-- .entry-content -->
+	
+	<footer class="entry-meta">
+		
+			</footer><!-- .entry-meta -->
+</article><!-- #post -->
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+
+			<a href="http://openwares.net/js/javascript_this.html" rel="prev"><span class="meta-nav">←</span> javascript this关键字</a>			<a href="http://openwares.net/lang/dive_into_html5.html" rel="next">推荐HTML5在线教程 <span class="meta-nav">→</span></a>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+					
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			5 thoughts on “<span>javascript变量声明提升(hoisting)</span>”		</h2>
+
+		<ol class="comment-list">
+					<li id="comment-4939" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://zhpblog.sinaapp.com/%e7%bc%96%e5%86%99%e6%9b%b4%e5%8a%a0%e7%a8%b3%e5%ae%9a%e3%80%81%e5%8f%af%e8%af%bb%e6%80%a7%e5%bc%ba%e7%9a%84javascript%e4%bb%a3%e7%a0%81/" rel="external nofollow" class="url">ZhpBlod - 编写更加稳定、可读性强的JavaScript代码</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-4941" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-4941" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://1.gravatar.com/avatar/?s=74&d=mm&r=g" srcset="http://1.gravatar.com/avatar/?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo avatar-default" height="74" width="74">						<b class="fn"><a href="http://t.qq.com/yjxyan3640" rel="external nofollow" class="url">yjx严</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://openwares.net/js/javascript_declaration_hoisting.html/comment-page-1#comment-4941">
+							<time datetime="2015-03-31T11:11:55+00:00">
+								March 31, 2015 at 11:11							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>命名函数表达式的优先级高于函数吧？比如这个例子：function a(){	alert(“The second one”);}var a=function(){	alert(“The first one”);}a();结果是“The first one”</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-4961" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.funn.me/?p=302" rel="external nofollow" class="url">关于javascript变量的声明提升(hoisting)的笔记 | 传传</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-4989" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-4989" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="http://2.gravatar.com/avatar/?s=74&d=mm&r=g" srcset="http://0.gravatar.com/avatar/?s=148&amp;d=mm&amp;r=g 2x" class="avatar avatar-74 photo avatar-default" height="74" width="74">						<b class="fn">杨紫曦</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://openwares.net/js/javascript_declaration_hoisting.html/comment-page-1#comment-4989">
+							<time datetime="2015-08-20T19:34:35+00:00">
+								August 20, 2015 at 19:34							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>函数声明优先级大于形参</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-11825" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.tangshuang.net/2384.html" rel="external nofollow" class="url">javascript变量作用域与声明提升_唐霜</a> 			</div>
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+		
+	
+							<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://openwares.net/js/javascript_declaration_hoisting.html#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://openwares.net/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" required="required"></textarea></p>						
+						<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="3124" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="38eb7a93b0"></p><p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1463991972227"></form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+		</div><!-- #main -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+				<div id="secondary" class="sidebar-container" role="complementary">
+		<div class="widget-area masonry" style="position: relative; height: 538px;">
+			<aside id="meta-4" class="widget widget_meta masonry-brick" style="position: absolute; left: 0px; top: 0px;"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="http://openwares.net/wp-login.php">Log in</a></li>
+			<li><a href="http://openwares.net/feed">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://openwares.net/comments/feed">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</aside><aside id="tag_cloud-5" class="widget widget_tag_cloud masonry-brick" style="position: absolute; left: 265px; top: 0px;"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href="http://openwares.net/tag/android" class="tag-link-35" title="6 topics" style="font-size: 12.010416666667pt;">Android</a>
+<a href="http://openwares.net/tag/bash" class="tag-link-43" title="11 topics" style="font-size: 13.6875pt;">Bash</a>
+<a href="http://openwares.net/tag/cplusplus" class="tag-link-38" title="6 topics" style="font-size: 12.010416666667pt;">C++</a>
+<a href="http://openwares.net/tag/cassandra" class="tag-link-68" title="14 topics" style="font-size: 14.416666666667pt;">cassandra</a>
+<a href="http://openwares.net/tag/cluster" class="tag-link-51" title="1 topic" style="font-size: 8pt;">Cluster</a>
+<a href="http://openwares.net/tag/css" class="tag-link-62" title="7 topics" style="font-size: 12.375pt;">CSS</a>
+<a href="http://openwares.net/tag/debian" class="tag-link-34" title="164 topics" style="font-size: 22pt;">Debian</a>
+<a href="http://openwares.net/tag/enter-your-zip-code-here" class="tag-link-71" title="1 topic" style="font-size: 8pt;">Enter your zip code here</a>
+<a href="http://openwares.net/tag/firefox" class="tag-link-75" title="13 topics" style="font-size: 14.197916666667pt;">Firefox</a>
+<a href="http://openwares.net/tag/freebsd" class="tag-link-76" title="1 topic" style="font-size: 8pt;">FreeBSD</a>
+<a href="http://openwares.net/tag/git" class="tag-link-46" title="23 topics" style="font-size: 15.875pt;">Git</a>
+<a href="http://openwares.net/tag/gradle" class="tag-link-72" title="3 topics" style="font-size: 10.1875pt;">gradle</a>
+<a href="http://openwares.net/tag/html" class="tag-link-61" title="10 topics" style="font-size: 13.395833333333pt;">HTML</a>
+<a href="http://openwares.net/tag/java_tag" class="tag-link-39" title="47 topics" style="font-size: 18.0625pt;">Java</a>
+<a href="http://openwares.net/tag/javascript" class="tag-link-60" title="36 topics" style="font-size: 17.260416666667pt;">Javascript</a>
+<a href="http://openwares.net/tag/kernel" class="tag-link-47" title="1 topic" style="font-size: 8pt;">Kernel</a>
+<a href="http://openwares.net/tag/kvm" class="tag-link-52" title="11 topics" style="font-size: 13.6875pt;">KVM</a>
+<a href="http://openwares.net/tag/kwinui" class="tag-link-74" title="10 topics" style="font-size: 13.395833333333pt;">KWinUI</a>
+<a href="http://openwares.net/tag/mac" class="tag-link-69" title="20 topics" style="font-size: 15.4375pt;">mac</a>
+<a href="http://openwares.net/tag/mplayer" class="tag-link-45" title="3 topics" style="font-size: 10.1875pt;">MPlayer</a>
+<a href="http://openwares.net/tag/nginx" class="tag-link-41" title="9 topics" style="font-size: 13.104166666667pt;">Nginx</a>
+<a href="http://openwares.net/tag/oracle" class="tag-link-37" title="60 topics" style="font-size: 18.864583333333pt;">Oracle</a>
+<a href="http://openwares.net/tag/perl" class="tag-link-44" title="2 topics" style="font-size: 9.3125pt;">Perl</a>
+<a href="http://openwares.net/tag/php" class="tag-link-78" title="2 topics" style="font-size: 9.3125pt;">PHP</a>
+<a href="http://openwares.net/tag/postgresql" class="tag-link-48" title="28 topics" style="font-size: 16.458333333333pt;">PostgresQL</a>
+<a href="http://openwares.net/tag/pyhton" class="tag-link-73" title="1 topic" style="font-size: 8pt;">pyhton</a>
+<a href="http://openwares.net/tag/py3" class="tag-link-67" title="15 topics" style="font-size: 14.5625pt;">python3</a>
+<a href="http://openwares.net/tag/twitter" class="tag-link-33" title="3 topics" style="font-size: 10.1875pt;">Twitter</a>
+<a href="http://openwares.net/tag/ubuntu" class="tag-link-36" title="21 topics" style="font-size: 15.583333333333pt;">Ubuntu</a>
+<a href="http://openwares.net/tag/uml" class="tag-link-66" title="1 topic" style="font-size: 8pt;">uml</a>
+<a href="http://openwares.net/tag/vim" class="tag-link-77" title="18 topics" style="font-size: 15.145833333333pt;">Vim</a>
+<a href="http://openwares.net/tag/vbox" class="tag-link-42" title="3 topics" style="font-size: 10.1875pt;">Virtualbox</a>
+<a href="http://openwares.net/tag/vps" class="tag-link-49" title="1 topic" style="font-size: 8pt;">VPS</a>
+<a href="http://openwares.net/tag/wp" class="tag-link-50" title="5 topics" style="font-size: 11.5pt;">Wordpress</a>
+<a href="http://openwares.net/tag/xterm" class="tag-link-40" title="2 topics" style="font-size: 9.3125pt;">Xterm</a>
+<a href="http://openwares.net/tag/zfs" class="tag-link-54" title="6 topics" style="font-size: 12.010416666667pt;">ZFS</a></div>
+</aside><aside id="archives-6" class="widget widget_archive masonry-brick" style="position: absolute; left: 530px; top: 0px;"><h3 class="widget-title">Archives</h3>		<label class="screen-reader-text" for="archives-dropdown-6">Archives</label>
+		<select id="archives-dropdown-6" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			
+			<option value="">Select Month</option>
+				<option value="http://openwares.net/2016/05"> May 2016 &nbsp;(6)</option>
+	<option value="http://openwares.net/2016/04"> April 2016 &nbsp;(7)</option>
+	<option value="http://openwares.net/2016/03"> March 2016 &nbsp;(1)</option>
+	<option value="http://openwares.net/2016/01"> January 2016 &nbsp;(3)</option>
+	<option value="http://openwares.net/2015/12"> December 2015 &nbsp;(16)</option>
+	<option value="http://openwares.net/2015/11"> November 2015 &nbsp;(27)</option>
+	<option value="http://openwares.net/2015/10"> October 2015 &nbsp;(19)</option>
+	<option value="http://openwares.net/2015/09"> September 2015 &nbsp;(12)</option>
+	<option value="http://openwares.net/2015/08"> August 2015 &nbsp;(8)</option>
+	<option value="http://openwares.net/2015/07"> July 2015 &nbsp;(15)</option>
+	<option value="http://openwares.net/2015/06"> June 2015 &nbsp;(9)</option>
+	<option value="http://openwares.net/2015/05"> May 2015 &nbsp;(16)</option>
+	<option value="http://openwares.net/2015/04"> April 2015 &nbsp;(11)</option>
+	<option value="http://openwares.net/2015/03"> March 2015 &nbsp;(16)</option>
+	<option value="http://openwares.net/2015/02"> February 2015 &nbsp;(2)</option>
+	<option value="http://openwares.net/2015/01"> January 2015 &nbsp;(15)</option>
+	<option value="http://openwares.net/2014/12"> December 2014 &nbsp;(12)</option>
+	<option value="http://openwares.net/2014/11"> November 2014 &nbsp;(5)</option>
+	<option value="http://openwares.net/2014/10"> October 2014 &nbsp;(18)</option>
+	<option value="http://openwares.net/2014/09"> September 2014 &nbsp;(13)</option>
+	<option value="http://openwares.net/2014/08"> August 2014 &nbsp;(15)</option>
+	<option value="http://openwares.net/2014/07"> July 2014 &nbsp;(16)</option>
+	<option value="http://openwares.net/2014/06"> June 2014 &nbsp;(6)</option>
+	<option value="http://openwares.net/2014/05"> May 2014 &nbsp;(17)</option>
+	<option value="http://openwares.net/2014/04"> April 2014 &nbsp;(11)</option>
+	<option value="http://openwares.net/2014/03"> March 2014 &nbsp;(23)</option>
+	<option value="http://openwares.net/2014/02"> February 2014 &nbsp;(8)</option>
+	<option value="http://openwares.net/2014/01"> January 2014 &nbsp;(33)</option>
+	<option value="http://openwares.net/2013/12"> December 2013 &nbsp;(30)</option>
+	<option value="http://openwares.net/2013/11"> November 2013 &nbsp;(61)</option>
+	<option value="http://openwares.net/2013/10"> October 2013 &nbsp;(28)</option>
+	<option value="http://openwares.net/2013/09"> September 2013 &nbsp;(8)</option>
+	<option value="http://openwares.net/2013/06"> June 2013 &nbsp;(10)</option>
+	<option value="http://openwares.net/2013/05"> May 2013 &nbsp;(11)</option>
+	<option value="http://openwares.net/2013/04"> April 2013 &nbsp;(1)</option>
+	<option value="http://openwares.net/2013/03"> March 2013 &nbsp;(2)</option>
+	<option value="http://openwares.net/2013/01"> January 2013 &nbsp;(16)</option>
+	<option value="http://openwares.net/2012/11"> November 2012 &nbsp;(1)</option>
+	<option value="http://openwares.net/2012/10"> October 2012 &nbsp;(13)</option>
+	<option value="http://openwares.net/2012/09"> September 2012 &nbsp;(4)</option>
+	<option value="http://openwares.net/2012/08"> August 2012 &nbsp;(2)</option>
+	<option value="http://openwares.net/2012/07"> July 2012 &nbsp;(1)</option>
+	<option value="http://openwares.net/2012/06"> June 2012 &nbsp;(1)</option>
+	<option value="http://openwares.net/2012/05"> May 2012 &nbsp;(8)</option>
+	<option value="http://openwares.net/2012/04"> April 2012 &nbsp;(12)</option>
+	<option value="http://openwares.net/2012/03"> March 2012 &nbsp;(9)</option>
+	<option value="http://openwares.net/2012/01"> January 2012 &nbsp;(7)</option>
+	<option value="http://openwares.net/2011/12"> December 2011 &nbsp;(5)</option>
+	<option value="http://openwares.net/2011/11"> November 2011 &nbsp;(9)</option>
+	<option value="http://openwares.net/2011/10"> October 2011 &nbsp;(4)</option>
+	<option value="http://openwares.net/2011/08"> August 2011 &nbsp;(1)</option>
+	<option value="http://openwares.net/2011/07"> July 2011 &nbsp;(6)</option>
+	<option value="http://openwares.net/2011/06"> June 2011 &nbsp;(8)</option>
+	<option value="http://openwares.net/2011/05"> May 2011 &nbsp;(10)</option>
+	<option value="http://openwares.net/2011/04"> April 2011 &nbsp;(10)</option>
+	<option value="http://openwares.net/2011/03"> March 2011 &nbsp;(14)</option>
+	<option value="http://openwares.net/2011/02"> February 2011 &nbsp;(5)</option>
+	<option value="http://openwares.net/2011/01"> January 2011 &nbsp;(1)</option>
+	<option value="http://openwares.net/2010/10"> October 2010 &nbsp;(8)</option>
+	<option value="http://openwares.net/2010/09"> September 2010 &nbsp;(6)</option>
+	<option value="http://openwares.net/2010/07"> July 2010 &nbsp;(2)</option>
+	<option value="http://openwares.net/2010/05"> May 2010 &nbsp;(4)</option>
+	<option value="http://openwares.net/2010/04"> April 2010 &nbsp;(3)</option>
+	<option value="http://openwares.net/2010/03"> March 2010 &nbsp;(1)</option>
+	<option value="http://openwares.net/2010/02"> February 2010 &nbsp;(2)</option>
+	<option value="http://openwares.net/2010/01"> January 2010 &nbsp;(7)</option>
+	<option value="http://openwares.net/2009/12"> December 2009 &nbsp;(7)</option>
+	<option value="http://openwares.net/2009/11"> November 2009 &nbsp;(7)</option>
+	<option value="http://openwares.net/2009/10"> October 2009 &nbsp;(4)</option>
+	<option value="http://openwares.net/2009/09"> September 2009 &nbsp;(3)</option>
+	<option value="http://openwares.net/2009/08"> August 2009 &nbsp;(4)</option>
+	<option value="http://openwares.net/2009/07"> July 2009 &nbsp;(11)</option>
+	<option value="http://openwares.net/2009/06"> June 2009 &nbsp;(16)</option>
+	<option value="http://openwares.net/2009/05"> May 2009 &nbsp;(3)</option>
+	<option value="http://openwares.net/2009/04"> April 2009 &nbsp;(2)</option>
+
+		</select>
+</aside>		<aside id="recent-posts-7" class="widget widget_recent_entries masonry-brick" style="position: absolute; left: 795px; top: 0px;">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://openwares.net/database/rman-06214_delte_obsolete_archivelog.html">rman-06214无法删除废弃的归档日志</a>
+						</li>
+					<li>
+				<a href="http://openwares.net/linux/nginx_setup_lets-encrypt_cert.html">Nginx部署Let’s Encrypt证书</a>
+						</li>
+					<li>
+				<a href="http://openwares.net/database/dataguard_not_update_v_archived_log_applied_column.html">Dataguard配置中primary不更新v$_archived_log的’APPLIED’列</a>
+						</li>
+					<li>
+				<a href="http://openwares.net/database/dataguard-archive-gap-handle.html">dataguard archive gap 日志间隙处理</a>
+						</li>
+					<li>
+				<a href="http://openwares.net/database/rman_readonly_tablespaces.html">只读表空间的备份和恢复</a>
+						</li>
+				</ul>
+		</aside><aside id="recent-comments-5" class="widget widget_recent_comments masonry-brick" style="position: absolute; left: 530px; top: 118px;"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">噜啦啦</span> on <a href="http://openwares.net/about/comment-page-1#comment-12209">About</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://openwares.net/database/sqlplus_auto_completion.html" rel="external nofollow" class="url">sqlplus 自动补全/完成 | OpenWares | Open Source and Free Matters</a></span> on <a href="http://openwares.net/linux/debian%e4%b8%8b%e4%bd%bfsqlplus%e5%85%b7%e6%9c%89%e5%91%bd%e4%bb%a4%e5%8e%86%e5%8f%b2%e5%9b%9e%e6%ba%af%e5%92%8c%e5%91%bd%e4%bb%a4%e8%a1%8c%e7%bc%96%e8%be%91%e5%8a%9f%e8%83%bd.html/comment-page-1#comment-12041">debian下使sqlplus具有命令历史回溯和命令行编辑功能</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zhangbin.junxilinux.com/?p=341" rel="external nofollow" class="url">使用apt-mirror搭建debian源镜像 | 张彬技术博客</a></span> on <a href="http://openwares.net/linux/setup_debian_archive_mirror.html/comment-page-1#comment-11833">搭建debian源镜像服务器</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://www.tangshuang.net/2384.html" rel="external nofollow" class="url">javascript变量作用域与声明提升_唐霜</a></span> on <a href="http://openwares.net/js/javascript_declaration_hoisting.html/comment-page-1#comment-11825">javascript变量声明提升(hoisting)</a></li><li class="recentcomments"><span class="comment-author-link">gshmu</span> on <a href="http://openwares.net/linux/python_queue.html/comment-page-1#comment-11691">python队列</a></li></ul></aside>		</div><!-- .widget-area -->
+	</div><!-- #secondary -->
+
+			<div class="site-info">
+								<a href="https://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+			</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+
+	<center><p>Copyleft © 2009-2016 <a href="http://openwares.net/"><strong>openwares.net</strong></a> 本站为原创网站,除非另有声明,本网站采用<a href="http://creativecommons.org/licenses/by/2.5/cn/">知识共享“署名2.5 中国大陆”许可协议</a>授权.</p></center><script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/form.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/shCore.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/shBrushJScript.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/shBrushCpp.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://openwares.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://openwares.net/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/masonry.min.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="./javascript变量声明提升(hoisting) _files/functions.js"></script>
+
+</body></html>

@@ -1,0 +1,8 @@
+.rainman-post table p {
+margin:0 8px;
+}
+.tbcenter td, .tbcenter th {text-align:center !important;}
+.dayTitle, .postCon,.c_b_p_desc { display:none;}
+.entrylistItemPostDesc,.postDesc {text-align:left;margin-bottom:10px;}
+.postTitle,.entrylistPosttitle { margin-bottom:5px;}
+.syntaxhighlighter { margin:10px !important;}
