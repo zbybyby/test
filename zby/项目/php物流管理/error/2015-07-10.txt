@@ -1,0 +1,25 @@
+错误SQL语句：
+update tb_shopping set `fahuo_tel`= where `fahuo_id`=
+客户IP:127.0.0.1
+时间 :2015-07-10 02:27:49
+
+错误SQL语句：
+UPDATE `db_logistics`.`tb_shopping` SET `car_log` = '速发货' WHERE `tb_shopping`.`fahuo_id` = '2007120309342415';
+客户IP:127.0.0.1
+时间 :2015-07-10 03:33:31
+
+错误SQL语句：
+UPDATE `db_logistics`.`tb_shopping` SET `car_log` = '	对对对		' WHERE `tb_shopping`.`fahuo_id` = '2007120309342415';
+客户IP:127.0.0.1
+时间 :2015-07-10 03:43:07
+
+错误SQL语句：
+UPDATE `db_logistics`.`tb_shopping` SET `car_log` = '			' WHERE `tb_shopping`.`fahuo_id` = '2007120309342415';
+客户IP:127.0.0.1
+时间 :2015-07-10 09:08:52
+
+错误SQL语句：
+UPDATE `db_logistics`.`tb_shopping` SET `car_log` = '123' WHERE `tb_shopping`.`fahuo_id` = '2007120309342415';
+客户IP:127.0.0.1
+时间 :2015-07-10 09:09:08
+

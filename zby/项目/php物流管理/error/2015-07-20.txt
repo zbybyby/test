@@ -1,0 +1,5 @@
+错误SQL语句：
+SELECT * FROM `tb_admin` WHERE `admin_user` LIKE 'ab'b'b'
+客户IP:127.0.0.1
+时间 :2015-07-20 09:18:38
+
