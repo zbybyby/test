@@ -6,6 +6,9 @@
     网易新闻播单后台整合多个业务方数据作为数据输入，提供一个可以添加修改播单/视频，对播单/视频进行推送，监控，上下线等操作的后台系统。技术栈为React+webpack。
 
 
+# Redux
+1.为什么设计dispatch 因为数据可能被任意修改导致不可预料的结果，debug很困难，也就是老生常谈的避免全局变量，所以要提高修改数据的门槛，所以约定只能执行我允许的某些修改，而且必须大张旗鼓的告诉我。
+
 # 图片懒加载
 function _isShow(el){//判断img是否出现在可视窗口
         let coords = el.getBoundingClientRect();
@@ -174,13 +177,17 @@ function Promise(fn) {
     setState =》shouldComponentUpdate=>componentWillUpdate=>render=>componentDidUpdate
     props => componentWillReceiveProps=>showComponentUpdate=>willUpdate=>render=>didUpdate
     
-    初始化挂载组件=》mountComponent=》初始化props，state，公共类(constructComponent)，挂载（willMount，合并state，根据组件Type调用不同函数生成ReactComponent，递归渲染子组件），didMount
+    初始化挂载组件=》mountComponent=》初始化props，state，公共类(constructComponent)，挂载（willMount，是否有didMount，有的话didMount入队，合并state，根据组件Type调用不同函数生成ReactComponent，递归渲染子组件，渲染完成后，再调用每个didMount
 
-    updateComponent=》willReceiveProps=》合并stateState导致的state=》shouldComponent判断是否需要渲染=》需要=》
+    updateComponent=》willReceiveProps=》合并stateState=》shouldComponent判断是否需要渲染=》需要=》
     willUpdate=》render（得到reactElement，判断是否做dom Diff，更新，不然就卸载再mountComponent得到HTML，插入dom）=》DidUpdate
 
+    willDidMount =》不会调用setState 会合并state
+
+    render过程 =》 createClass（得到ReactElement） =》是否有prevComponent=》UpdateComponent=》不然根据type创建不同ReactComponent，开启事务传入ReactComponent调用mountComponent返回html=》插入dom
+
 # react SetState
-    触发setState然后调用render，render之后会调用batchedUpdates()函数，开启一个事务，调用事务处理机制perform一个enqueueUpdate和component，第一次会触发isBatchingUpdate=true，以后的setState都会将新的state和component各子存到一个队列中，等待批量更新。事务的两个Wrapper，一个是设置isBatchUpdates标志位的（更新状态），避免多次render，另一个是更新组件的，调用updateComponent，同时将setState的回调函数存起来。updateComponent（依次调用willReceiveProps（setState进入的不调用），和shouldUpdate），在componentShouldUpdate前将多个更新合并，然后wiilUpdate，更新函数(比较算法是：如果prevElement类型为string或者number，那么nextElement类型为string或number时为true；如果prevElement和nextElement为object，并且key和type属性相同，则prevElement._owner == nextElement._owner相等时为true，否则为false。)，DidUpdate
+    render，render之后会调用batchedUpdates()函数，开启一个事务，然后走到生命周期函数，触发setState然后调用调用事务处理机制perform一个enqueueUpdate和component，第一次会触发isBatchingUpdate=true，以后的setState都会将新的state和component各子存到一个队列中，等待批量更新。事务的两个Wrapper，一个是设置isBatchUpdates标志位的（更新状态），避免多次render，另一个是更新组件的，他会把batchUpdate标志位置为false，调用updateComponent，同时将setState的回调函数存起来。updateComponent（依次调用willReceiveProps（setstate进入的不调用），和shouldUpdate），将多个更新合并，然后componentShouldUpdate，然后wiilUpdate，更新函数(比较算法是：如果prevElement类型为string或者number，那么nextElement类型为string或number时为true；如果prevElement和nextElement为object，并且key和type属性相同，则prevElement._owner == nextElement._owner相等时为true，否则为false。)，DidUpdate
 
 #webpack hash
 
@@ -191,3 +198,65 @@ function Promise(fn) {
 2. webpack-dev-server修改了entery在里面添加了webpack-dev-client，并且暂存了hash
 3. 如果有hot webpack-dev-server 发送json请求获得新的hash和对应chunk ID模块数字，然后根据id和最新的hash将文件作为script插入页面head头中，获得修改的模块代码
 4. 一次次向上冒泡，看看子模块父模块是否接受更新，如果接受，accept的话删除原来依赖，建立新的依赖
+
+# curry函数
+0.   add(){
+        //建立args,利用闭包特性，不断保存arguments
+        var args = [].slice.call(arguments);
+           //方法一，新建_add函数实现柯里化
+        var _add = function(){
+            if(arguments.length === 0){
+                //参数为空，对args执行加法
+                return args.reduce(function(a,b){return a+b});
+            }else {
+                //否则，保存参数到args，返回一个函数
+                [].push.apply(args,arguments);
+                return _add;
+            }
+        }
+        return _add;
+    }
+    1. 利用柯里化的思想，可以自己写一个bind函数
+    2. 参数复用
+    3. 延迟执行函数（节流函数----利用闭包存储了当前和上一次执行的时间戳）
+
+# 网络分层 七层
+0. 物理层 数据链路层 网络层 传输层 会话层 表示层 应用层
+
+
+##======================================================CSS===================================================
+
+# margin重叠
+0. 两个毗邻的普通流中块级元素会有垂直方向的 margin重叠
+1. 发生重叠的肯定是同一个BFC（块级格式上下文）内的块级元素，不是块级元素不会发生重叠
+    重叠可以分为以下几种情况：
+    1.当一个元素出现在另一个元素上面
+    2.当一个元素包含另一个元素，第一个子元素上边距和父元素上边距合并
+
+    合并的时候，margin为正值时取最大值，负时取绝对值的最大值，
+
+    如何避免marign重叠？将其中一个构建成BFC==》
+        1.float属性不为none
+        2.position为absolute或fixed
+        3.display为inline-block, table-cell, table-caption, flex, inline-flex
+        4.overflow不为visible( hidden,scroll,auto, )
+
+# 标准的CSS的盒子模型？低版本IE的盒子模型有什么不同
+0. IE的content部分把border和padding算了进去
+
+# css创建三角形原理
+0. 宽高设置为0 接近一个点 使得边框很粗，然后隐藏三条边，border颜色设置为transparent
+
+# box-sizing
+0. box-sizing:content-box;//默认的W3C盒模型元素效果
+1. box-sizing:border-box;//触发IE盒模型效果
+
+# rgba 和 opacity
+0. rgba只会作用于自身，子元素不会继承
+1. opacity会作用于自身和自身内所有内容
+
+# li直接有看不见的空白间隔
+0. 需要在ul设置 font-size=0，li上设置文字大小
+
+# 清除浮动
+0. 在伪元素上 clear：both
