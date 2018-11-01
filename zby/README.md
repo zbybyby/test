@@ -223,6 +223,121 @@ function Promise(fn) {
 # 网络分层 七层
 0. 物理层 数据链路层 网络层 传输层 会话层 表示层 应用层
 
+# 继承
+{
+    
+    //=================1.原型链继承
+    function SuperType(){
+        this.colors = ["red", "blue", "green"];
+    }
+    SuperType.prototype.Fun = function(){
+    
+    };
+    function SubType(){
+    }
+
+    //继承了SuperType
+    SubType.prototype = new SuperType();
+    var instance1 = new SubType();
+    instance1.colors.push("black");
+    console.log(instance1.colors); //"red,blue,green,black"
+    var instance2 = new SubType();
+    var instance3 = new SuperType();
+    console.log(instance2.colors);//"red,blue,green,black"
+    console.log(instance3.colors); //"red,blue,green"
+    //直接将父类的实例new Person('pursue')赋给了子类的原型，其实子类的实例man1,man2本身是一个
+    //完全空的对象，所有的属性和方法都得去原型链上去找，因而找到的属性方法都是同一个。 
+
+    //======================2.构造函数继承
+    function Person(name,age){
+        this.name = name
+        this.age = age
+    }
+
+    Person.prototype.say =function(){
+        console.log(this.name)
+    }
+    function Man(name,age){
+        Person.apply(this,arguments)
+    }
+    console.log(man1.name == man2.name)//False
+    man1.say()//say is not a funciton
+    //这种办法只能继承父类的实例属性，因而找不到say方法，为了继承父类所有的属性和方法，则就要修改原型链，从而引入了组合继承方式。
+
+    //=======================3.寄生组合式继承
+    function Person( uName ){
+        this.skills = [ 'php', 'javascript' ];
+        this.userName = uName;
+    }
+    Person.prototype.showUserName = function(){
+        console.log('ok!!!')
+        return this.userName;
+    }
+    function Teacher ( uName ){
+        Person.call( this, uName );
+    }
+
+    function object( o ){
+        var G = function(){};
+        G.prototype = o;
+        return new G();
+    }
+
+    function inheritPrototype( subObj, superObj ){
+        var proObj = object( superObj.prototype ); //复制父类superObj的原型对象
+        proObj.constructor = subObj; //constructor指向子类构造函数
+        subObj.prototype = proObj; //再把这个对象给子类的原型对象
+    }
+
+    inheritPrototype( Teacher, Person );
+
+    var oT1 = new Teacher( 'ghostwu' );
+    oT1.skills.push( 'linux' );
+    var oT2 = new Teacher( 'ghostwu' );
+    var oT3 = new Person( 'ghostwu' );
+
+    console.dir(G1,oT2)
+    G1.showUserName(),oT3.showUserName(),oT2.showUserName()
+    console.log( oT2.skills ); //php,javascript
+    console.log( oT2.showUserName() ); //ghostwu
+    // 组合继承调用了2次父类的构造函数，寄生组合式继承避免了这个问题
+
+}
+
+# call 实现
+Function.prototype.call2 = function(context){
+    var context = context || window //如果没有context则 this指向windows
+    context.fn = this
+    var args = []
+    for(let i = 1,len = arguments.length;i<len;i++){
+        args.push('arguments['+i+']');
+    }
+    var result = eval('context.fn('+args+')')//执行一段代码，并赋值给result
+    delete context.fn 
+    return result
+}
+
+# bind 实现
+Function.prototype.bind2 = function (context) {
+    //调用this的若不是函数 报错
+    if (typeof this !== "function") {
+      throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+    }
+
+    var self = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+    var fNOP = function () {};
+    // 当作为构造函数时，this 指向实例，self 指向绑定函数，因为下面一句 `fbound.prototype = this.prototype;`，已经修改了 fbound.prototype 为 绑定函数的 prototype，此时结果为 true，当结果为 true 的时候，this 指向实例,继承属性。
+    // 当作为普通函数时，this 指向 window，self 指向绑定函数，此时结果为 false，当结果为 false 的时候，this 指向绑定的 context。
+    var fbound = function () {
+        self.apply(this instanceof self ? this : context, args.concat(Array.prototype.slice.call(arguments)));
+    }
+    //浅拷贝原型
+    fNOP.prototype = this.prototype;
+    fbound.prototype = new fNOP();
+
+    return fbound;
+}
 
 ##======================================================CSS===================================================
 
