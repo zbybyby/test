@@ -181,6 +181,34 @@ function Promise(fn) {
     3.元素diff：插入，移动，删除三个操作，用key对一个列表的元素进行区分，确定是否move/unmount
 }
 
+# 观察者模式
+{
+    function Publisher(subscribers){
+        this.subscribers = subscribers || {'any': []};
+        Publisher.prototype.subscribe = function(fn, type){
+            var type = type || 'any';
+            if(typeof this.subscribers[type] === 'undefined'){
+                this.subscribers[type] = [];
+            }
+            this.subscribers[type].push(fn);
+        };
+        Publisher.prototype.unsubscribe = function(fn, type){
+            var type = type || 'any';
+            for(var i=0, len = this.subscribers[type].length;  i<len; i++){
+                if(this.subscribers[type][i] === fn){
+                    this.subscribers[type].splice(i,1);
+                }
+            }
+        };
+        Publisher.prototype.publish = function(publication, type){
+            var type = type || 'any';
+            for(var i=0, len = this.subscribers[type].length; i<len; i++){
+                this.subscribers[type][i](publication);
+            }
+        };
+    }
+}
+
 # React生命周期
     setState =》shouldComponentUpdate=>componentWillUpdate=>render=>componentDidUpdate
     props => componentWillReceiveProps=>showComponentUpdate=>willUpdate=>render=>didUpdate
