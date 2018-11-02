@@ -173,6 +173,14 @@ function Promise(fn) {
     原理：分析模块依赖关系，把散的模块合成一个模块，但是不能造成代码冗余，因此只有那些被引用了一次的模块才能被合并
     (webpack4 中只需设置 mode == production)
 
+# React DIFF
+{
+    1.对树的每一层进行遍历，如果组件不在了销毁，只比较同一层级的组件
+    2.同一组件则继续比较，可以通过shouldComponentUpdate更新，如果虚拟dom不一致，
+    则进行元素diff，如果不用类型组件则销毁重新挂载新组件
+    3.元素diff：插入，移动，删除三个操作，用key对一个列表的元素进行区分，确定是否move/unmount
+}
+
 # React生命周期
     setState =》shouldComponentUpdate=>componentWillUpdate=>render=>componentDidUpdate
     props => componentWillReceiveProps=>showComponentUpdate=>willUpdate=>render=>didUpdate
@@ -184,10 +192,16 @@ function Promise(fn) {
 
     willDidMount =》不会调用setState 会合并state
 
-    render过程 =》 createClass（得到ReactElement） =》是否有prevComponent=》UpdateComponent=》不然根据type创建不同ReactComponent，开启事务传入ReactComponent调用mountComponent返回html=》插入dom
+    {
+        render过程 =》 createClass（得到ReactElement） =》是否有prevComponent
+        =》UpdateComponent=》不然根据type创建不同ReactComponent，
+        开启事务传入ReactComponent调用mountComponent返回html=》插入dom
+    }
 
 # react SetState
-    render，render之后会调用batchedUpdates()函数，开启一个事务，然后走到生命周期函数，触发setState然后调用调用事务处理机制perform一个enqueueUpdate和component，第一次会触发isBatchingUpdate=true，以后的setState都会将新的state和component各子存到一个队列中，等待批量更新。事务的两个Wrapper，一个是设置isBatchUpdates标志位的（更新状态），避免多次render，另一个是更新组件的，他会把batchUpdate标志位置为false，调用updateComponent，同时将setState的回调函数存起来。updateComponent（依次调用willReceiveProps（setstate进入的不调用），和shouldUpdate），将多个更新合并，然后componentShouldUpdate，然后wiilUpdate，更新函数(比较算法是：如果prevElement类型为string或者number，那么nextElement类型为string或number时为true；如果prevElement和nextElement为object，并且key和type属性相同，则prevElement._owner == nextElement._owner相等时为true，否则为false。)，DidUpdate
+    {
+        render，render之后会调用batchedUpdates()函数，开启一个事务，然后走到生命周期函数，触发setState然后调用调用事务处理机制perform一个enqueueUpdate和component，第一次会触发isBatchingUpdate=true，以后的setState都会将新的state和component各子存到一个队列中，等待批量更新。事务的两个Wrapper，一个是设置isBatchUpdates标志位的（更新状态），避免多次render，另一个是更新组件的，他会把batchUpdate标志位置为false，调用updateComponent，同时将setState的回调函数存起来。updateComponent（依次调用willReceiveProps（setstate进入的不调用），和shouldUpdate），将多个更新合并，然后componentShouldUpdate，然后wiilUpdate，更新函数(比较算法是：如果prevElement类型为string或者number，那么nextElement类型为string或number时为true；如果prevElement和nextElement为object，并且key和type属性相同，则prevElement._owner == nextElement._owner相等时为true，否则为false。)，DidUpdate
+    }
 
 #webpack hash
 
@@ -200,21 +214,13 @@ function Promise(fn) {
 4. 一次次向上冒泡，看看子模块父模块是否接受更新，如果接受，accept的话删除原来依赖，建立新的依赖
 
 # curry函数
-0.   add(){
-        //建立args,利用闭包特性，不断保存arguments
-        var args = [].slice.call(arguments);
-           //方法一，新建_add函数实现柯里化
-        var _add = function(){
-            if(arguments.length === 0){
-                //参数为空，对args执行加法
-                return args.reduce(function(a,b){return a+b});
-            }else {
-                //否则，保存参数到args，返回一个函数
-                [].push.apply(args,arguments);
-                return _add;
-            }
-        }
-        return _add;
+0.   function sub_curry(fn 
+    /*, variable number of args */
+    ) {
+     var args = Array.prototype.slice.call(arguments, 1);
+     return function () {
+      return fn.apply(this, args.concat([].slice.call(arguments)));
+     };
     }
     1. 利用柯里化的思想，可以自己写一个bind函数
     2. 参数复用
@@ -305,38 +311,42 @@ function Promise(fn) {
 }
 
 # call 实现
-Function.prototype.call2 = function(context){
-    var context = context || window //如果没有context则 this指向windows
-    context.fn = this
-    var args = []
-    for(let i = 1,len = arguments.length;i<len;i++){
-        args.push('arguments['+i+']');
+{
+    Function.prototype.call2 = function(context){
+        var context = context || window //如果没有context则 this指向windows
+        context.fn = this
+        var args = []
+        for(let i = 1,len = arguments.length;i<len;i++){
+            args.push('arguments['+i+']');
+        }
+        var result = eval('context.fn('+args+')')//执行一段代码，并赋值给result
+        delete context.fn 
+        return result
     }
-    var result = eval('context.fn('+args+')')//执行一段代码，并赋值给result
-    delete context.fn 
-    return result
 }
 
 # bind 实现
-Function.prototype.bind2 = function (context) {
-    //调用this的若不是函数 报错
-    if (typeof this !== "function") {
-      throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
-    }
+{
+    Function.prototype.bind2 = function (context) {
+        //调用this的若不是函数 报错
+        if (typeof this !== "function") {
+        throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+        }
 
-    var self = this;
-    var args = Array.prototype.slice.call(arguments, 1);
-    var fNOP = function () {};
-    // 当作为构造函数时，this 指向实例，self 指向绑定函数，因为下面一句 `fbound.prototype = this.prototype;`，已经修改了 fbound.prototype 为 绑定函数的 prototype，此时结果为 true，当结果为 true 的时候，this 指向实例,继承属性。
-    // 当作为普通函数时，this 指向 window，self 指向绑定函数，此时结果为 false，当结果为 false 的时候，this 指向绑定的 context。
-    var fbound = function () {
-        self.apply(this instanceof self ? this : context, args.concat(Array.prototype.slice.call(arguments)));
-    }
-    //浅拷贝原型
-    fNOP.prototype = this.prototype;
-    fbound.prototype = new fNOP();
+        var self = this;
+        var args = Array.prototype.slice.call(arguments, 1);
+        var fNOP = function () {};
+        // 当作为构造函数时，this 指向实例，self 指向绑定函数，因为下面一句 `fbound.prototype = this.prototype;`，已经修改了 fbound.prototype 为 绑定函数的 prototype，此时结果为 true，当结果为 true 的时候，this 指向实例,继承属性。
+        // 当作为普通函数时，this 指向 window，self 指向绑定函数，此时结果为 false，当结果为 false 的时候，this 指向绑定的 context。
+        var fbound = function () {
+            self.apply(this instanceof self ? this : context, args.concat(Array.prototype.slice.call(arguments)));
+        }
+        //浅拷贝原型
+        fNOP.prototype = this.prototype;
+        fbound.prototype = new fNOP();
 
-    return fbound;
+        return fbound;
+    }
 }
 
 ##======================================================CSS===================================================
